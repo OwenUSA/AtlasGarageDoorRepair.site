@@ -125,14 +125,47 @@ const NUMERIC = [
   ['innerCount', (s) => s.innerGrid.length],
   ['cards', (s) => s.listCounts.cards], ['buttons', (s) => s.listCounts.buttons],
 ];
+// AMENDMENT A-8 — colour is excluded from measurement FROM THE START.
+// The palette is randomized at token-write time (A-7), so every ADAPTED section would
+// otherwise carry a permanent colour delta into STRUCT_THRESHOLD from its first
+// measurement and eat the 5% budget before geometry got a look in.
+//
+// STRIPPED: resolved color, background-color, border-color, gradient stops, shadow colour.
+// KEPT: every geometric and typographic field, and the non-colour parts of borders and
+// shadows — widths, offsets, blur, spread, radii.
+
+/** Reduce a box-shadow to its geometry, discarding every colour component. */
+const shadowGeometry = (v) => {
+  if (!v || v === 'none') return 'none';
+  const stripped = v
+    .replace(/rgba?\([^)]*\)/g, '')
+    .replace(/oklch\([^)]*\)/g, '')
+    .replace(/#[0-9a-f]{3,8}/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  // Tailwind composes shadow with empty ring/inset slots, so a computed box-shadow carries
+  // "0px 0px 0px 0px" entries that draw nothing. They are a framework artifact, not design.
+  const real = stripped
+    .split(',')
+    .map((x) => x.trim())
+    .filter((x) => x && !/^(0px\s+){3}0px$/.test(x) && !/^0px 0px 0px 0px/.test(x));
+  return real.length ? real.join(', ') : 'none';
+};
+
 const CATEGORICAL = [
-  ['color', (s) => s.appearance.color], ['bg', (s) => s.appearance.backgroundColor],
   ['fontFamily', (s) => (s.appearance.fontFamily || '').split(',')[0].trim()],
   ['display', (s) => s.appearance.display], ['position', (s) => s.appearance.position],
   ['textAlign', (s) => s.appearance.textAlign], ['radius', (s) => s.appearance.borderRadius],
-  ['shadow', (s) => (s.appearance.boxShadow || 'none').slice(0, 60)],
+  ['shadowGeom', (s) => shadowGeometry(s.appearance.boxShadow)],
   ['gridCols', (s) => s.appearance.gridTemplateColumns], ['gap', (s) => s.appearance.gap],
-  ['flexDir', (s) => s.appearance.flexDirection], ['border', (s) => s.appearance.borderColor],
+  ['flexDir', (s) => s.appearance.flexDirection],
+  ['textTransform', (s) => s.appearance.textTransform],
+  ['borderStyle', (s) => {
+    const w = (s.appearance.borderTopWidth || 0) + (s.appearance.borderBottomWidth || 0)
+      + (s.appearance.borderLeftWidth || 0) + (s.appearance.borderRightWidth || 0);
+    return w > 0 ? s.appearance.borderStyle : 'none';  // preflight sets solid at 0 width
+  }],
+  ['overflow', (s) => s.appearance.overflow],
 ];
 
 export function structuralDiff(refSec, ourSec) {
@@ -217,6 +250,10 @@ function pairSections(refMeta, ourMeta) {
   });
 }
 
+// AMENDMENT A-9 — token conformance has no breakpoint dimension. NOVEL and DELETED rows
+// are emitted ONCE, on the canonical pass, instead of three identical times.
+const CANONICAL_BP = 1440;
+
 async function diffOne(route, bp, classes, tokens) {
   const rd = capDir('ref', route, bp), od = capDir('ours', route, bp);
   const refMeta = await readJson(path.join(rd, 'meta.json'));
@@ -232,6 +269,9 @@ async function diffOne(route, bp, classes, tokens) {
   for (const p of pairs) {
     const id = p.ref.id;
     const { cls, canonical, via } = resolveClass(p.ref);
+    // A-9: collapse NOVEL and DELETED to a single pass.
+    if ((cls === 'NOVEL' || cls === 'DELETED') && bp !== CANONICAL_BP) continue;
+
     if (cls === 'UNMATCHED') {
       // A band that exists at this breakpoint but has no 1440 counterpart. Real
       // responsive divergence in the reference itself — reported, never measured.
@@ -246,6 +286,26 @@ async function diffOne(route, bp, classes, tokens) {
     }
     const row = { route, bp, section: canonical, class: cls, progressDelta: p.progressDelta, joinedVia: via };
 
+    // A-8: the 3 remaining FIDELITY sections are solid-colour bands. With colour excluded
+    // a recoloured band reads 100% divergent forever, so they are measured STRUCTURALLY
+    // instead of by pixel diff. A content-bearing FIDELITY section would still be
+    // pixel-diffed; there are none left after the Prompt 3 reclassification.
+    // Class-based, not content-based: after the Prompt 3 reclassification every remaining
+    // FIDELITY section IS a solid-colour band, and a content-based test mis-fires at the
+    // breakpoints where the headingless join lands on a neighbouring band.
+    const solidBand = cls === 'FIDELITY';
+    if (solidBand) {
+      const d = p.ours ? structuralDiff(p.ref, p.ours) : null;
+      Object.assign(row, {
+        metric: 'structural deviation % (solid band, colour excluded)',
+        value: d ? d.structPct : 100,
+        threshold: STRUCT_THRESHOLD,
+        status: d && d.structPct < STRUCT_THRESHOLD ? 'PASS' : 'FAIL',
+        detail: d ? { worst: d.worst } : { reason: 'no counterpart section' },
+      });
+      rows.push(row);
+      continue;
+    }
     if (cls === 'FIDELITY') {
       const refPng = path.join(rd, `sec-${String(p.ref.idx).padStart(2, '0')}.png`);
       const ourPng = p.ours ? path.join(od, `sec-${String(p.ours.idx).padStart(2, '0')}.png`) : null;

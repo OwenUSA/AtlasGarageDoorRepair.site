@@ -374,3 +374,33 @@ Token conformance has no breakpoint dimension. NOVEL and DELETED rows **collapse
 pass** in the harness and in every report. `BP_SET` does not change — all three widths stay
 for everything geometric, and 768 in particular stays because it is where the Divi
 `max-980` restack resolves.
+
+### A-10 — Prompt 10 folds into Prompt 11
+
+Asset-prompt writing is pure text and has no dependency on the acceptance sweep. It needs
+the applied palette hues, which now exist from Prompt 5. Write `docs/asset-prompts.md` and
+run the trimmed acceptance gates in the same turn.
+
+### Resulting turn structure
+
+```
+0  CLAUDE.md
+1  profile + harness
+2+3+4   assets, copy and divergence gates, behavior specs
+5+9     tokens, randomized palette, shared shell
+6+7     lead builds hero + map, then ONE 4-wide wave over home sections + four subpages
+10+11   asset prompts, then the trimmed acceptance sweep
+```
+
+### Not adopted, deliberately
+
+- **Measuring at two breakpoints instead of three.** Rejected: the tablet band is where the
+  restack resolves — Divi's primary breakpoint is `max-980` and home is 2.14× taller at 390
+  than at 1440 — and with `ITERATION_CAP` at 1 there is no second pass to catch what it
+  hides. It buys a third of measurement time by making the measurement blind exactly where
+  the clone is hard.
+- **Reclassifying borderline sections FIDELITY → ADAPTED to avoid pixel diffing.**
+  Rejected: `process.md` names it as the failure mode to watch for, and the Prompt 1
+  harness bug — where ordinal section IDs shifted between breakpoints and every section
+  silently defaulted to FIDELITY — proved the classification is load-bearing. It buys speed
+  by making the measurement lie.

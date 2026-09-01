@@ -7,7 +7,7 @@
 When a section's diff is blocked by a row here, report it as a **known floor** with the
 blocked area excluded from the measurement — never as a fixable divergence.
 
-Last updated: Prompt 3-4.
+Last updated: Prompt 5-9.
 
 ---
 
@@ -136,14 +136,96 @@ sitting in a FIDELITY row and refusing to close, the class is wrong — fix the 
 
 ---
 
-## 5. Palette — reserved for Prompt 9
+## 5. Palette — applied in Prompt 5 (amendment A-7)
 
-Once Prompt 9 applies the randomized palette, **colour divergence from the reference
-becomes intentional and is permanently excluded from every diff, threshold, and future
-iteration.** Geometry and typography must not move.
+**Colour divergence from the reference is intentional and is permanently excluded from
+every diff, every threshold, and every future iteration.** The palette was randomized at
+token-write time, so the site was built in its final colours from the first component
+onward — there was no recolor pass and therefore no geometry/typography regression to
+prove innocent.
 
-- winning seed: _pending Prompt 9_
-- all five candidate seeds: _pending Prompt 9_
+### Seeds — the record
+
+| | |
+|---|---|
+| master seed | `20260901` |
+| **winning seed** | **`500656`** |
+| all five candidate seeds | `723907`, `941750`, **`500656`**, `23871`, `136729` |
+| rolls needed | 5 (0 rejected) |
+| reproduce | `node scripts/palette.mjs --seed 500656 --emit` |
+
+| seed | scheme | primary hue | accent hue | neutral chroma | CTA contrast |
+|---|---|---|---|---|---|
+| 723907 | split-complementary | 304 | 94 | 0.054 | 5.69 |
+| 941750 | complementary | 219 | 39 | 0.041 | 6.12 |
+| **500656** | **analogous (+30deg)** | **332** | **2** | **0.033** | **6.34** |
+| 23871 | triadic | 277 | 37 | 0.035 | 6.13 |
+| 136729 | triadic | 130 | 250 | 0.035 | 5.69 |
+
+Auto-selected on highest call-now CTA contrast against its background (6.34:1), per
+OVERRIDE 1. Ties would have broken to the lowest seed.
+
+**Structure held, hue rotated.** Every L and C value from the Prompt 1 extracted ramp is
+preserved exactly; only H moved. Neutrals carry a 3.3% chroma tint of the primary hue
+rather than being pure grey. Semantic colours — form error, form success — are exempt from
+the rotation and keep conventional hues, asserted by hue arc in the gate, not merely by
+contrast.
+
+### What the gate actually verifies
+
+23 foreground/background pairs **in use**, not the ramp in theory. It also asserts the
+neutral ramp is still monotonic in L and that `primaryDeep`/`accentDeep` remain darker than
+their base — otherwise the "hold every L and C" claim would be unverified. Verified to
+reject: body text too light, CTA washed out, CTA desaturated below primary, invisible focus
+ring, error turned green, success turned red, ramp order broken, accentDeep inverted.
+
+### Three constraints that had to be re-specified to be meaningful
+
+The reference's own palette fails all three as first written, which is the tell that the
+test was wrong rather than the palette:
+
+| constraint | first reading | why it was wrong | what is gated now |
+|---|---|---|---|
+| UI borders 3:1 | `neutral400` on white | 2.27:1 — the reference's decorative hairline fails, and WCAG 1.4.11 does not cover pure decoration | a separate `--color-border-strong` for meaningful edges (inputs, controls), gated at 3:1; the hairline stays decorative and ungated |
+| focus ring 3:1 vs element *and* background | one flat ring against every surface | impossible for a single colour against both a white page and a saturated button — ring vs CTA came out 1:1 | a **two-layer ring**: surface-coloured inner halo plus dark outer ring, with each layer gated on the surface where it is the operative one |
+| CTA is highest-contrast on every page | CTA ratio vs every text pair | white-on-navy always beats a mid-tone button — true in the reference too — so this rejected every possible palette | CTA label passes AA on its fill, the fill separates from the page at 3:1, and the fill is more chromatic than the structural primary and than every other rotated token |
+
+---
+
+## 5b. Colour excluded from measurement (amendment A-8)
+
+Colour-valued fields are **stripped from the structural comparator**: resolved color,
+background-color, border-color, gradient stops, shadow colour. Kept: every geometric and
+typographic field, and the non-colour parts of borders and shadows — widths, offsets, blur,
+spread, radii. The comparator still weighs 27 fields; three colour fields were replaced by
+`textTransform`, `borderStyle` and `overflow`.
+
+**The 3 remaining FIDELITY sections are measured structurally, not by pixel diff.** All
+three (`/` `s08`, `/about` `s04`, `/about` `s09`) are solid-colour bands, so with colour
+excluded a recoloured band would read 100% divergent forever. The routing is class-based:
+every FIDELITY section goes structural. A content-bearing FIDELITY section would still be
+pixel-diffed, but the Prompt 3 reclassification left none.
+
+## 5c. NOVEL and DELETED measured once (amendment A-9)
+
+Token conformance has no breakpoint dimension, so NOVEL and DELETED rows are emitted once
+on the canonical 1440 pass instead of three identical times. `BP_SET` is unchanged — all
+three widths stay for everything geometric, and 768 in particular stays because it is where
+the Divi `max-980` restack resolves.
+
+## 5d. Two harness corrections made while measuring the shell
+
+Both were the instrument measuring framework artifacts rather than design:
+
+- **`box-shadow` empty ring slots.** Tailwind composes shadows with unset ring/inset slots,
+  so a computed value carries `0px 0px 0px 0px` entries that draw nothing. They are now
+  stripped before comparison.
+- **`border-style` at zero width.** Tailwind preflight sets `border-style: solid` on every
+  element. Compared naively it flagged every section forever. It is now only compared when
+  a border actually has width.
+- **Invisible elements in structural counts.** `listCounts` now counts only elements with a
+  non-zero box. A `display: none` control is DOM, not layout, and counting it made the
+  responsive shell diverge from a reference that hides the same control differently.
 
 ---
 
@@ -155,3 +237,38 @@ iteration.** Geometry and typography must not move.
 | Breakpoints 479, 600, 782, 800, 900, 960, 1350 | Exist in the reference CSS, deliberately not captured. `docs/profile.md` §3. |
 | 430 captured for geometry only | Real-device width, no threshold, not a diff target. |
 | No rAF motion traces | The reference has no scroll-linked motion. `docs/profile.md` §4. |
+
+---
+
+## 7. Shell floors — Prompt 5, one attempt each (ITERATION_CAP = 1)
+
+Both shell sections had their single fix attempt in Prompt 5. `s00-top-header` passes at
+1440 and misses marginally below it; `s01-main-header` misses at every width. Both are
+floored. **Do not dispatch either again.**
+
+### `s00-top-header` — 3.70% @1440 (PASS), 5.56% @390 and @768 (floored)
+
+| residual field | reference | ours | why |
+|---|---|---|---|
+| `position` | `fixed` @1440, `absolute` @390/768 | `sticky` @≥980, `static` below | **Deliberate.** `docs/behavior/02` specifies sticky over fixed so the header stays in flow and needs no compensating offset. One field of 27 = 3.70%. |
+| `innerCount` | 2 | 1 | The reference top bar carries a licence number plus a separator element. Ours carries one hours string, because a licence number is a credential D-14 bars us from inventing. |
+
+**Hypothesis:** this is at its floor. Both fields are decisions, not defects, and 3.70% of
+that is `position` alone. It would only close by adopting `position: fixed`, which
+`docs/behavior/02` rejects for good reason.
+
+### `s01-main-header` — 6.17% @1440, 13.21% @390, 14.44% @768 (floored)
+
+| residual field | reference | ours | why |
+|---|---|---|---|
+| `position` | `fixed` / `absolute` | `sticky` / `static` | as above — deliberate |
+| `innerRows` | 1 | 3 @1440, 3–5 below | **Placeholder-caused.** The reference logo is a single `<img>`; ours is a two-line Montserrat wordmark standing in for `TODO(fact): logo asset` (F-01). Two stacked spans put the logo's children on different rows. |
+| `innerCols` / `innerCount` | 2–3 | 4–6 | Same cause: the wordmark contributes extra boxes the reference's single image does not. |
+| `buttons` | 0 | 1 | **Deliberate.** Divi's mobile toggle is a `<span class="mobile_menu_bar">`. Ours is a real `<button>` with `aria-expanded` / `aria-controls`, required by `docs/behavior/01`. We are not shipping a div-as-button to close a metric. |
+
+**Hypothesis:** the dominant term is the logo placeholder, not the layout. When the real
+logo asset lands in Prompt 10 and replaces the two-line wordmark with a single image
+element, `innerRows`/`innerCols`/`innerCount` should collapse toward the reference and this
+section should land near the `position` + `buttons` floor of roughly 7.4% at 1440.
+**This is a placeholder-blocked floor (F-01), not a fixable divergence** — treat it as such
+and exclude the wordmark box from the measurement when the section is re-measured.

@@ -192,12 +192,19 @@ export const PROBE = () => {
       natW: im.naturalWidth, natH: im.naturalHeight,
       fit: cs(im).objectFit, loading: im.loading,
     })),
-    listCounts: {
-      cards: el.querySelectorAll('[class*=card],article,.elementor-widget-image-box,.elementor-widget-icon-box').length,
-      links: el.querySelectorAll('a').length,
-      listItems: el.querySelectorAll('li').length,
-      buttons: el.querySelectorAll('button,.elementor-button,[class*=btn]').length,
-    },
+    listCounts: (() => {
+      // Count only what is actually laid out. A display:none control is DOM, not layout,
+      // and counting it makes a responsive shell diverge from a reference that hides the
+      // same control a different way.
+      const vis = (sel) => Array.from(el.querySelectorAll(sel))
+        .filter((n) => { const r = n.getBoundingClientRect(); return r.width > 0 && r.height > 0; }).length;
+      return {
+        cards: vis('[class*=card],article,.elementor-widget-image-box,.elementor-widget-icon-box'),
+        links: vis('a'),
+        listItems: vis('li'),
+        buttons: vis('button,.elementor-button,[class*=btn]'),
+      };
+    })(),
   }));
 
   return {

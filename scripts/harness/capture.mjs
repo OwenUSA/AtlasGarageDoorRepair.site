@@ -194,4 +194,4 @@ async function main() {
   console.log(`CAPTURE DONE ${out.length} passes`);
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

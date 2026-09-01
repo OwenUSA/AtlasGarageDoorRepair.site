@@ -13,7 +13,7 @@ const s2 = b.sections.find((s) => s.id.includes('our-mission'));
 console.log('=== ADAPTED structural comparator — /about s05-our-mission, 1440 vs 768 ===');
 const d = structuralDiff(s1, s2);
 console.log('structural deviation =', d.structPct + '%   (threshold 5%)');
-console.log('fields compared      =', d.fields.length, '(15 numeric + 12 categorical)');
+console.log('fields compared      =', d.fields.length, '(numeric + categorical; colour fields stripped per A-8)');
 console.log('worst fields:');
 for (const w of d.worst) {
   console.log('   ' + w.name.padEnd(14),

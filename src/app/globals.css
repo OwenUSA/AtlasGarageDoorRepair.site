@@ -1,2 +1,196 @@
 @import "tailwindcss";
-/* Prompt 1: empty scaffold only. The real token set lands in Prompt 5 (@theme). */
+
+/* ============================================================================
+   Design tokens — Atlas Garage Door Repair
+   ----------------------------------------------------------------------------
+   Geometry, type and spacing are EXTRACTED from the reference (Prompt 1
+   appearance capture, docs/profile.md §7). Color is NOT: the ramp is
+   hue-randomized at token-write time per amendment A-7.
+
+   Palette: scripts/palette.mjs --seed 500656
+   Reproduce exactly:  node scripts/palette.mjs --seed 500656 --emit
+
+   This block is the reference set for NOVEL-class token conformance.
+   No component may introduce a value that does not resolve to a token here.
+   ============================================================================ */
+
+@theme {
+  /* ---- palette — seed 500656, analogous (+30deg), primary hue 332, neutral tint 0.033 */
+  --color-primary: oklch(30.50% 0.0752 331.40);
+  --color-primary-deep: oklch(24.14% 0.0540 331.65);
+  --color-accent: oklch(51.19% 0.1883 2.06);
+  --color-accent-deep: oklch(33.59% 0.1326 2.39);
+  --color-surface: oklch(100.00% 0.0000 89.88);
+  --color-neutral-200: oklch(93.16% 0.0320 332.15);
+  --color-neutral-400: oklch(74.44% 0.0330 330.81);
+  --color-neutral-600: oklch(50.95% 0.0343 331.38);
+  --color-neutral-900: oklch(21.72% 0.0337 331.46);
+  --color-border: oklch(74.44% 0.0330 330.81);
+  --color-border-strong: oklch(50.95% 0.0343 331.38);
+  --color-focus: oklch(31.97% 0.1270 1.73);
+  /* semantic — EXEMPT from hue rotation, conventional hues held */
+  --color-error: oklch(50.13% 0.1783 28.70);
+  --color-success: oklch(51.18% 0.1274 149.71);
+  --color-warning: oklch(50.78% 0.1080 73.30);
+
+  /* ---- type: Montserrat, OFL, via next/font. No substitution floor (Prompt 2). */
+  --font-sans: var(--font-montserrat), Helvetica, Arial, sans-serif;
+
+  /* type scale — measured heading sizes at 1440 plus the 17px body */
+  --text-2xs: 0.75rem;    /* 12 */
+  --text-xs: 0.875rem;    /* 14 */
+  --text-sm: 0.9375rem;   /* 15 */
+  --text-base: 1.0625rem; /* 17 — reference body size */
+  --text-md: 1.125rem;    /* 18 */
+  --text-lg: 1.375rem;    /* 22 */
+  --text-xl: 1.4375rem;   /* 23 */
+  --text-2xl: 1.625rem;   /* 26 */
+  --text-3xl: 1.6875rem;  /* 27 */
+  --text-4xl: 1.75rem;    /* 28 */
+  --text-5xl: 1.9375rem;  /* 31 */
+  --text-6xl: 2.125rem;   /* 34 */
+  --text-7xl: 2.3125rem;  /* 37 */
+  --text-8xl: 2.375rem;   /* 38 */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* letter-spacing — measured: 0 everywhere except one 18px h1 at 1px */
+  --tracking-none: 0;
+  --tracking-wide: 0.0625rem; /* 1px */
+
+  /* line-height — the reference's distinctive trait: 1em on every heading */
+  --leading-heading: 1;
+  --leading-body: 1.6;
+
+  /* ---- spacing rhythm — measured section padding at 1440.
+     NAMED, not numeric: Tailwind's numeric scale stays at its 0.25rem base for generic
+     layout, and these carry the reference's own rhythm as semantic steps. */
+  --spacing-hair: 0.375rem;    /* 6 */
+  --spacing-tight: 0.5rem;     /* 8 */
+  --spacing-snug: 0.6875rem;   /* 11 */
+  --spacing-gutter: 1.0625rem; /* 17 */
+  --spacing-loose: 1.25rem;    /* 20 */
+  --spacing-wide: 2.0625rem;   /* 33 */
+  --spacing-band: 3.375rem;    /* 54 — the dominant band padding, 22 occurrences */
+  --spacing-band-lg: 5rem;     /* 80 */
+  --spacing-rule: 6.75rem;     /* 108 — the navy divider band height */
+
+  /* ---- radii — measured: 0px on every section. This design is flat. */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+
+  /* ---- shadows — measured: a single hairline */
+  --shadow-hairline: 0 1px 0 0 oklch(0% 0 0 / 0.1);
+  --shadow-raised: 0 2px 8px 0 oklch(0% 0 0 / 0.12);
+
+  /* ---- containers — measured: 1080 content inside a 1440 viewport */
+  --container-content: 67.5rem;  /* 1080 */
+  --container-wide: 84.75rem;    /* 1356 */
+
+  /* ---- chrome heights, load-bearing for scroll-margin (docs/behavior/02).
+     In the --spacing-* namespace so h-topbar / h-header / pb-callbar generate. */
+  --spacing-topbar: 1.875rem;    /* 30 */
+  --spacing-header: 8.0625rem;   /* 129 at >=980 */
+  --spacing-header-sm: 5rem;     /* 80 below 980 */
+  --spacing-callbar: 3.5rem;     /* 56 (docs/behavior/03) */
+
+  /* ---- breakpoints — BP_SET plus the Divi restack boundary */
+  --breakpoint-sm: 390px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 980px;
+  --breakpoint-xl: 1440px;
+
+  /* ---- motion — interaction-triggered only. No scroll motion (docs/behavior/08). */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.12s;
+  --duration-quick: 0.18s;
+  --duration-base: 0.24s;
+  --duration-panel: 0.32s;
+}
+
+/* ============================================================================
+   Base
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-neutral-600);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The reference sets line-height: 1em on every heading. It is the single most
+   recognisable typographic trait of the design and it is reproduced exactly. */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-none);
+}
+
+p, ul, ol { margin: 0; }
+img, svg, video, iframe { display: block; max-width: 100%; }
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ---- focus: two-layer ring, gated in scripts/palette.mjs -------------------
+   A surface-coloured inner halo plus a dark outer ring. On a dark band the halo
+   separates; on a light band the ring does. One flat ring cannot hold 3:1
+   against both a white page and a saturated button. */
+:focus { outline: none; }
+:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-surface),
+    0 0 0 4px var(--color-focus);
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link — first focusable element, required by docs/behavior/02 */
+.skip-link {
+  position: absolute;
+  left: var(--spacing-tight);
+  top: calc(-1 * var(--spacing-header));
+  z-index: 100;
+  padding: var(--spacing-snug) var(--spacing-gutter);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  font-weight: var(--font-weight-semibold);
+  transition: top var(--duration-fast) ease-out;
+}
+.skip-link:focus-visible { top: var(--spacing-tight); }
+
+/* ---- reduced motion: every animation degrades (D-19) --------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
