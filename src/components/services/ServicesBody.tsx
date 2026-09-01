@@ -19,14 +19,14 @@ const SLUGS = ['will-not-close', 'sounds-wrong', 'opener', 'damaged', 'commercia
 
 export function ServicesBody() {
   return (
-    <section data-section="s04-call-918-630-7788-405-760-9814" className="relative block w-full overflow-hidden bg-neutral-200">
+    <section data-section="s04-call-918-630-7788-405-760-9814" className="relative block w-full overflow-hidden bg-neutral-200 pt-band pb-0">
       <img
         src="/placeholders/services-body-bg.svg"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="relative mx-auto flex max-w-content flex-col gap-wide px-4 py-band md:px-gutter">
+      <div className="relative mx-auto flex max-w-content flex-col gap-wide px-4 md:px-gutter">
         <div className="flex flex-col items-center gap-tight text-center">
           <a
             href={telHref}

@@ -14,8 +14,8 @@ const s = copy.routes['/contact'].sections.find((x) => x.id === 's03')!;
 
 export function ContactSection() {
   return (
-    <section data-section="s03" className="relative block w-full bg-surface">
-      <div className="mx-auto max-w-content px-4 py-band md:px-gutter">
+    <section data-section="s03" className="relative block w-full bg-surface pt-band pb-0">
+      <div className="mx-auto max-w-content px-4 md:px-gutter">
         <div className="grid gap-band-lg md:grid-cols-[1fr_360px]">
           <div className="flex flex-col gap-loose">
             <h1 className="text-6xl font-semibold leading-heading text-primary">{s.heading}</h1>

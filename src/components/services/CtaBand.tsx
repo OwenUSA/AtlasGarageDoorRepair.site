@@ -7,8 +7,8 @@ const s = copy.routes['/services'].sections.find((x) => x.id === 's07')!;
 
 export function CtaBand() {
   return (
-    <section data-section="s07" className="block w-full bg-neutral-400 text-neutral-900">
-      <div className="mx-auto flex min-h-[302px] max-w-content flex-col items-center justify-center gap-wide px-4 py-band text-center md:px-gutter">
+    <section data-section="s07" className="block w-full bg-neutral-400 text-neutral-900 pt-snug pb-gutter">
+      <div className="mx-auto flex min-h-[302px] max-w-content flex-col items-center justify-center gap-wide px-4 text-center md:px-gutter">
         <h2 className="max-w-[28ch] text-4xl font-semibold leading-heading text-primary">{s.heading}</h2>
         <p className="max-w-[60ch] text-base leading-body">{s.body?.[0]}</p>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">

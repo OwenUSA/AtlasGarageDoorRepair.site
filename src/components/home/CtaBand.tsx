@@ -10,9 +10,9 @@ export function CtaBand() {
   return (
     <section
       data-section="s10-your-roof-our-reputation"
-      className="relative block w-full bg-linear-to-b from-accent-deep to-accent text-surface"
+      className="relative block min-h-[476px] w-full bg-linear-to-b from-accent-deep to-accent text-surface pt-band pb-wide"
     >
-      <div className="mx-auto flex min-h-[476px] max-w-content flex-col items-center justify-center gap-wide px-4 py-band text-center md:px-gutter">
+      <div className="mx-auto flex max-w-content flex-col items-center justify-center gap-wide px-4 text-center md:px-gutter">
         <h2 className="max-w-[28ch] text-5xl font-semibold leading-heading text-surface">
           {s.heading}
         </h2>

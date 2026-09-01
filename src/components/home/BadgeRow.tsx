@@ -9,8 +9,8 @@ const s = copy.routes['/'].sections.find((x) => x.id === 's06')!;
 
 export function BadgeRow() {
   return (
-    <section data-section="s06" className="relative block w-full bg-surface">
-      <div className="mx-auto flex min-h-[377px] max-w-content flex-col justify-center gap-wide px-4 py-band md:px-gutter">
+    <section data-section="s06" className="relative block min-h-[377px] w-full bg-surface pt-band pb-hair">
+      <div className="mx-auto flex max-w-content flex-col justify-center gap-wide px-4 md:px-gutter">
         <div className="flex flex-col gap-tight text-center">
           <h2 className="text-2xl font-semibold leading-heading text-primary">{s.heading}</h2>
           {s.body?.map((line) => (

@@ -11,9 +11,9 @@ export function StatStrip() {
   return (
     <section
       data-section="s12-the-proof-is-in-the-numbers-vh1-g"
-      className="relative block w-full bg-linear-to-b from-accent to-accent-deep text-surface"
+      className="relative block min-h-[439px] w-full bg-linear-to-b from-accent to-accent-deep text-surface pt-loose pb-band"
     >
-      <div className="mx-auto flex min-h-[439px] max-w-content flex-col items-center justify-center gap-wide px-4 py-band md:px-gutter">
+      <div className="mx-auto flex max-w-content flex-col items-center justify-center gap-wide px-4 md:px-gutter">
         <h2 className="max-w-[40ch] text-center text-3xl font-semibold leading-heading text-surface">
           {s.heading}
         </h2>

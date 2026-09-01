@@ -12,9 +12,9 @@ export function Process() {
   return (
     <section
       data-section="s09-we-make-it-easy-to-get-the-job-don"
-      className="relative block min-h-[527px] w-full bg-surface"
+      className="relative block min-h-[527px] w-full bg-surface pb-loose"
     >
-      <div className="mx-auto flex max-w-content flex-col gap-wide px-4 py-band md:px-gutter">
+      <div className="mx-auto flex max-w-content flex-col gap-wide px-4 md:px-gutter">
         <div className="flex flex-col gap-tight text-center">
           <h2 className="text-4xl font-semibold leading-heading text-primary">{s.heading}</h2>
           <p className="mx-auto max-w-[52ch] text-base leading-body">{s.subheading}</p>

@@ -6,8 +6,8 @@ const s = copy.routes['/services'].sections.find((x) => x.id === 's03-roofing-se
 
 export function PageTitle() {
   return (
-    <section data-section="s03-roofing-services" className="block w-full bg-surface">
-      <div className="mx-auto flex min-h-[251px] max-w-content flex-col justify-center gap-tight px-4 py-band md:px-gutter">
+    <section data-section="s03-roofing-services" className="block w-full bg-surface pt-hair pb-tight">
+      <div className="mx-auto flex min-h-[251px] max-w-content flex-col justify-center gap-tight px-4 md:px-gutter">
         <h1 className="text-6xl font-semibold leading-heading text-primary md:text-7xl">
           {s.heading}
         </h1>

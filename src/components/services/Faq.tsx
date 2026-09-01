@@ -16,7 +16,7 @@ const s = copy.routes['/services'].sections.find((x) => x.id === 's06-faq-s')!;
 
 export function Faq() {
   return (
-    <section data-section="s06-faq-s" className="block min-h-[782px] w-full bg-primary-deep text-surface">
+    <section data-section="s06-faq-s" className="block min-h-[782px] w-full bg-primary-deep text-surface pt-band pb-0">
       <style>{`
         .svc-faq { interpolate-size: allow-keywords; }
         .svc-faq summary { list-style: none; cursor: pointer; }
@@ -50,7 +50,7 @@ export function Faq() {
           .svc-faq details[open]::details-content { transition: none; }
         }
       `}</style>
-      <div className="mx-auto grid max-w-content gap-wide px-4 py-band md:grid-cols-2 md:px-gutter md:items-start">
+      <div className="mx-auto grid max-w-content gap-wide px-4 md:grid-cols-2 md:px-gutter md:items-start">
         <div className="order-2 md:order-1">
           <h2 className="mb-loose text-4xl font-semibold leading-heading text-surface">{s.heading}</h2>
           <div className="svc-faq flex flex-col">

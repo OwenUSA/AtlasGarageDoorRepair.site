@@ -9,9 +9,9 @@ export function Testimonials() {
   return (
     <section
       data-section="s11-hundreds-of-oklahoman-s-rate-vh1-5"
-      className="relative block min-h-[1458px] w-full bg-surface"
+      className="relative block min-h-[1458px] w-full bg-surface py-band"
     >
-      <div className="mx-auto flex max-w-content flex-col gap-wide px-4 py-band md:px-gutter">
+      <div className="mx-auto flex max-w-content flex-col gap-wide px-4 md:px-gutter">
         <div className="flex flex-col gap-tight text-center">
           <h2 className="text-4xl font-semibold leading-heading text-primary">{s.heading}</h2>
           <p className="mx-auto max-w-[52ch] text-sm leading-body">{s.subheading}</p>

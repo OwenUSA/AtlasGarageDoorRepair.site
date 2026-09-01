@@ -10,9 +10,9 @@ export function Intro() {
   return (
     <section
       data-section="s04-top-rated-roofing-contractor-in-tu"
-      className="relative block w-full bg-linear-to-b from-primary to-primary-deep text-surface"
+      className="relative block min-h-[454px] w-full bg-linear-to-b from-primary to-primary-deep text-surface py-band"
     >
-      <div className="mx-auto flex min-h-[454px] max-w-content flex-col justify-center gap-wide px-4 py-band md:flex-row md:items-center md:justify-between md:px-gutter">
+      <div className="mx-auto flex max-w-content flex-col justify-center gap-wide px-4 md:flex-row md:items-center md:justify-between md:px-gutter">
         <h2 className="max-w-[24ch] text-4xl font-semibold leading-heading text-surface md:text-5xl">
           {s.heading}
         </h2>
