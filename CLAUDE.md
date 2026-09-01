@@ -321,3 +321,56 @@ These were theoretical at 2-wide and are real at 4-wide:
   the lead or it does not happen.
 - **Prompt 6:** the lead still builds the hero and the map section personally.
 - **Prompt 7:** all four routes dispatch as a **single batch** of 4.
+
+### A-7 — Prompt 9 folds into Prompt 5
+
+OVERRIDE 1 already made palette selection autonomous, so a contact sheet would render for an
+audience of nobody. **The palette is randomized at token-write time, in Prompt 5.** The site
+is built in its final palette from the first component onward.
+
+**Gone:** the recolor pass, the candidate crop renders, the contact sheet, and the
+geometry/typography regression table — there is no recolor for a regression table to prove
+innocent.
+
+**Surviving from Prompt 9, unchanged:**
+
+- Convert the extracted ramp to OKLCH, hold every L and C exactly, re-derive from a new
+  random primary hue.
+- Accent by randomly selecting one scheme — complementary, split-complementary, analogous,
+  triadic — and rotating from the primary.
+- Neutrals keep a **3–6% chroma tint** of the primary hue. Pure grey reads cheap.
+- `scripts/palette.mjs --seed <n>` reproduces a palette exactly.
+- **Five candidates are still generated and still gated programmatically.** Discard and
+  re-roll any that fails a hard constraint, then auto-select the survivor whose call-now CTA
+  has the highest contrast against its background; ties break to the lowest seed.
+- **Hard constraints, verified programmatically:** every foreground/background pair *actually
+  used* passes WCAG AA (text 4.5:1, large text and UI borders 3:1) — pairs in use, not the
+  ramp in theory; the call-now CTA stays the highest-contrast, highest-chroma element on
+  every page; **semantic colors (form error, form success, focus ring) are EXEMPT from
+  rotation** and keep conventional hues; focus rings keep 3:1 against both the element and
+  its background.
+- Record the winning seed **and all five candidate seeds** in `docs/known-divergence.md`.
+
+### A-8 — color is excluded from measurement FROM THE START
+
+The structural comparator scored resolved colors as part of its 27 fields. With the recolor
+now at token-write time, every ADAPTED section would carry a permanent color delta into
+`STRUCT_THRESHOLD` from its first measurement and eat the 5% budget before geometry got a
+look in.
+
+- **Strip color-valued fields from the structural comparator**: resolved color,
+  background-color, border-color, gradient stops, shadow color.
+- **Keep every geometric and typographic field**, and keep the non-color parts of borders
+  and shadows — widths, offsets, blur, spread, radii.
+- The 3 remaining FIDELITY sections are solid-color bands, so a recolored band reads 100%
+  divergent forever. They are **excluded from pixel diff and measured structurally instead**.
+
+**Color divergence from the reference is intentional and permanently excluded from every
+diff, every threshold, and every future iteration.** Recorded in `docs/known-divergence.md`.
+
+### A-9 — NOVEL and DELETED rows are measured once, not per breakpoint
+
+Token conformance has no breakpoint dimension. NOVEL and DELETED rows **collapse to a single
+pass** in the harness and in every report. `BP_SET` does not change — all three widths stay
+for everything geometric, and 768 in particular stays because it is where the Divi
+`max-980` restack resolves.
