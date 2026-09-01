@@ -404,3 +404,26 @@ run the trimmed acceptance gates in the same turn.
   harness bug — where ordinal section IDs shifted between breakpoints and every section
   silently defaulted to FIDELITY — proved the classification is load-bearing. It buys speed
   by making the measurement lie.
+
+### A-11 — one-time cap lift, section padding ONLY
+
+The Prompt 6+7 builder brief instructed every agent that bands are full-width blocks with
+zero padding. **That was wrong: the reference varies padding per band.** The resulting
+uniform `0/0` is a **build defect introduced by the brief, not a divergence floor**, and it
+is mechanical rather than judgment work.
+
+Each section gets **ONE additional attempt, spent on vertical padding and nothing else.**
+
+**`ITERATION_CAP` returns to 1 the moment this pass ends. No other residual is reopened.**
+
+| | |
+|---|---|
+| **IN SCOPE** | section vertical padding — `padTop` / `padBottom` — and only where the reference capture gives a per-section value to match |
+| **OUT OF SCOPE** | horizontal padding (unless the reference explicitly differs), `innerCount` / `innerRows` / `innerCols`, `position`, `lineHeight`, `box.h`, copy, tokens, and every frozen shell file. A-6 still holds. |
+
+- **No blanket patch.** A uniform `54/54` fixes 3 bands and breaks the 5 that are correctly
+  `0/0`. Values come per-section from the reference appearance capture in `.harness/`, read
+  individually.
+- **No new tokens.** If a band's padding does not land on one of Prompt 5's 9 named spacing
+  steps, use the nearest existing step and record the delta in the report rather than
+  minting a `--spacing-*`.

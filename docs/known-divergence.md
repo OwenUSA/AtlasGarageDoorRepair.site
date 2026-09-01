@@ -408,3 +408,25 @@ in §6, not a build defect.
   rendered by the frozen shell. Every agent correctly identified this and skipped it rather
   than duplicating the footer. Those rows measure the shell footer, which is lead-owned and
   carries the same class of residual as `s01-main-header` in §7.
+
+---
+
+## 10. Every divergence number before `437d57e` is superseded
+
+**A future reader must not compare against any pre-wave table.** Three instrument defects,
+all found during the Prompt 6+7 wave and fixed in that commit, mean the numbers recorded
+before it were measuring the wrong things:
+
+1. **BODY joined the CHROME set** (`[class*=callbar]` matched `<body class="… pb-callbar …">`)
+   and the containment dedup then deleted the **header, top bar and footer** from every
+   `ours` capture on every route. Section counts ran 2–3 short and positional pairing
+   cascaded every downstream section onto the wrong counterpart.
+2. **`pairSections()` joined by scroll position**, so the four bands Prompt 3 *required* to
+   move (services, stat strip, CTA, testimonials) reported a **false 100%** — the
+   instrument punished the build for obeying the brief.
+3. **`tokenViolations()` compared `oklch` percentage against unit-interval, and `rem`
+   against `px`**, so NOVEL token conformance could never pass at all.
+
+The first table measured with all three fixed is the one in `437d57e`. Anything earlier —
+including the Prompt 1 instrument-proof table and the Prompt 5 shell table — is a record of
+the instrument's state at that time, not of the build's fidelity.
