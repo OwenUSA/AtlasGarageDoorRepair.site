@@ -32,7 +32,7 @@ equivalent: pure chrome and pure geometry bands.
 
 | route | reference section | id | class | reason |
 |---|---|---|---|---|
-| / | top bar, navy 30px | s00-top-header | FIDELITY | Pure chrome band. Same purpose, same geometry, a short contact strip on both sides. No information change. |
+| / | top bar, navy 30px | s00-top-header | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** The reference top bar reads `OK Lic # 80006064` — a state licence number. We hold no licence we may name (D-14), so the band carries our hours instead. That is an information change, not a wording change, so a pixel diff would be measuring a decision. |
 | / | header / nav, fixed 129px | s01-main-header | ADAPTED | Nav item count changes 18 -> 5 (D-01) and the whole Locations tree is scrubbed (D-02). Item count is information, so pixel diff is meaningless. |
 | / | red announcement strip, 50px | s02-vh1-is-proud-to-support-employ-v | ADAPTED | Reference claims veteran support/employment. We cannot claim it (D-14/D-17). Band retained at identical geometry, carrying TAGLINE instead. |
 | / | hero, bg image, 741px | s03-we-get-the-job-done | ADAPTED | Own copy, own proposition (workmanship, not speed), placeholder hero image (D-09). Static background image, not a carousel or video. |
@@ -64,9 +64,9 @@ equivalent: pure chrome and pure geometry bands.
 
 | route | reference section | id | class | reason |
 |---|---|---|---|---|
-| /about | top bar, navy 30px | s00-top-header | FIDELITY | Same chrome band as `/`. |
+| /about | top bar, navy 30px | s00-top-header | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** The reference top bar reads `OK Lic # 80006064` — a state licence number. We hold no licence we may name (D-14), so the band carries our hours instead. That is an information change, not a wording change, so a pixel diff would be measuring a decision. |
 | /about | header / nav | s01-main-header | ADAPTED | Same nav reduction as `/`. |
-| /about | hero image strip, 100px | s02 | FIDELITY | Pure image band, no text. Geometry and object-fit are the whole spec. |
+| /about | hero image strip, 100px | s02 | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** Pure image band, but the image subject is deliberately swapped — theirs is a roofing photo, ours is a placeholder standing in for a garage-door image (D-09). Image subject is an ADAPTED trigger by definition, and the slot is placeholder-blocked until Prompt 10 regardless. |
 | /about | page title band, red 129px | s03-about-vh1-roofing | ADAPTED | Our page title, our business name. |
 | /about | navy rule band, 54px | s04 | FIDELITY | Zero content, solid colour, fixed height. |
 | /about | Our Mission, 932px, 4 list items | s05-our-mission | ADAPTED | Own copy at matched length. No founding year, no history (D-17). |
@@ -83,9 +83,9 @@ equivalent: pure chrome and pure geometry bands.
 
 | route | reference section | id | class | reason |
 |---|---|---|---|---|
-| /services | top bar, navy 30px | s00-top-header | FIDELITY | Same chrome band. |
+| /services | top bar, navy 30px | s00-top-header | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** The reference top bar reads `OK Lic # 80006064` — a state licence number. We hold no licence we may name (D-14), so the band carries our hours instead. That is an information change, not a wording change, so a pixel diff would be measuring a decision. |
 | /services | header / nav | s01-main-header | ADAPTED | Same nav reduction. |
-| /services | hero image strip, 100px | s02 | FIDELITY | Pure image band. |
+| /services | hero image strip, 100px | s02 | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** Pure image band, but the image subject is deliberately swapped — theirs is a roofing photo, ours is a placeholder standing in for a garage-door image (D-09). Image subject is an ADAPTED trigger by definition, and the slot is placeholder-blocked until Prompt 10 regardless. |
 | /services | page title, 251px | s03-roofing-services | ADAPTED | Our title and intro. |
 | /services | phone CTA + services body, 783px | s04-call-918-630-7788-405-760-9814 | ADAPTED | Their two phone numbers become our single PHONE as a `tel:` link. Body carries our eight services, grouped by symptom. No prices (D-12). |
 | /services | WE GET THE JOB DONE band, 173px | s05-we-get-the-job-done | ADAPTED | Own copy, workmanship line. |
@@ -105,7 +105,7 @@ equivalent: pure chrome and pure geometry bands.
 
 | route | reference section | id | class | reason |
 |---|---|---|---|---|
-| /contact | top bar, navy 30px | s00-top-header | FIDELITY | Same chrome band. |
+| /contact | top bar, navy 30px | s00-top-header | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** The reference top bar reads `OK Lic # 80006064` — a state licence number. We hold no licence we may name (D-14), so the band carries our hours instead. That is an information change, not a wording change, so a pixel diff would be measuring a decision. |
 | /contact | header / nav | s01-main-header | ADAPTED | Same nav reduction. |
 | /contact | red announcement strip, 50px | s02-vh1-is-proud-to-support-employ-v | ADAPTED | As the `/` strip; unverifiable claim replaced. |
 | /contact | form + info block, 1739px | s03 | ADAPTED | **D-03/D-05.** Reference runs Gravity Forms with `<input type="email">`, a consent checkbox and reCAPTCHA. Ours: name, phone, service select, preferred callback window, message. No email field, no captcha, no backend. Field count and box geometry matched so the layout is still tested honestly. |
@@ -123,7 +123,7 @@ equivalent: pure chrome and pure geometry bands.
 
 | route | reference section | id | class | reason |
 |---|---|---|---|---|
-| /privacy | top bar, navy 30px | s00-top-header | FIDELITY | Same chrome band. |
+| /privacy | top bar, navy 30px | s00-top-header | ADAPTED | **Reclassified in Prompt 3 (was FIDELITY).** The reference top bar reads `OK Lic # 80006064` — a state licence number. We hold no licence we may name (D-14), so the band carries our hours instead. That is an information change, not a wording change, so a pixel diff would be measuring a decision. |
 | /privacy | header / nav | s01-main-header | ADAPTED | Same nav reduction. |
 | /privacy | page title, 112px | s02-privacy-policy-and-terms-and-condi | ADAPTED | Our title. |
 | /privacy | policy body, 1338px, 7 list items | s03 | NOVEL | **D-16.** Written from scratch to describe what this site actually does: a phone-callback form, no email collection, no analytics, no trackers, no cookies beyond the framework's. No GDPR/CCPA claims. No counterpart content exists, so there is no diff — measured by token conformance on the long-form type scale, which must come from the extracted scale, not defaults. |
@@ -165,13 +165,41 @@ Also out of scope per D-01, never captured: `/financing/`, `/faqs/`, `/gallery/`
 | Change the headline proposition category | Reference leads on speed and volume ("We Get The Job Done", "the proof is in the numbers"). We lead on **workmanship — the repair holds up**, held across all five routes. |
 | Regroup the services | Reference groups by roofing system/material. We group by **symptom** — the door will not close, it is loud, the spring snapped. |
 
+
+---
+
+## Prompt 3 reclassification log
+
+Done now, not during convergence. A FIDELITY section carrying deliberately different
+information burns its whole `ITERATION_CAP` for a reason that was a decision, not a defect
+— and under the amended cap that is the section's only attempt.
+
+| section | was | now | why the information changed |
+|---|---|---|---|
+| `s00-top-header` (all 5 routes) | FIDELITY | **ADAPTED** | The reference band reads `OK Lic # 80006064`. A state licence number is exactly the kind of credential D-14 bars us from inventing, so ours carries `Open daily 7am–7pm` instead. Different information, same 30px band. |
+| `/about` `s02` image strip | FIDELITY | **ADAPTED** | Image subject deliberately swapped (D-09) and placeholder-blocked until Prompt 10. |
+| `/services` `s02` image strip | FIDELITY | **ADAPTED** | Same. |
+
+**Still FIDELITY — 3 sections.** All three are solid colour bands with zero content on
+either side, where a pixel diff is exactly the right instrument:
+
+| section | height | content |
+|---|---|---|
+| `/` `s08` | 108px | none |
+| `/about` `s04` | 54px | none |
+| `/about` `s09` | 54px | none |
+
+Every other section on the site is now ADAPTED, NOVEL or DELETED. That is the honest
+outcome of a clone-and-adapt where the copy, the proposition, the service grouping, the
+nav, the credentials and the imagery are all deliberately ours.
+
 ---
 
 ## Tally
 
 | class | sections |
 |---|---|
-| FIDELITY | 10 |
-| ADAPTED | 34 |
+| FIDELITY | 3 |
+| ADAPTED | 41 |
 | NOVEL | 6 |
 | DELETED | 4 in-page + 8 site-wide scrub items |

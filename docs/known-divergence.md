@@ -7,7 +7,7 @@
 When a section's diff is blocked by a row here, report it as a **known floor** with the
 blocked area excluded from the measurement — never as a fixable divergence.
 
-Last updated: Prompt 2.
+Last updated: Prompt 3-4.
 
 ---
 
@@ -131,6 +131,8 @@ sitting in a FIDELITY row and refusing to close, the class is wrong — fix the 
 | Mobile drawer toggles `display: none → block`; no body scroll lock | `translate3d` panel + backdrop, real scroll lock via `position: fixed; top: -Ypx` | A `display` toggle kills its own exit transition — the failure mode named in the Prompt 4 worked example. Cloning it would ship a worse drawer. |
 | Header `fixed` at 1440, `absolute` at 390 — not sticky on mobile | same, plus the sticky call bar below 768 | matches the reference where it matters; D-04 adds the call bar |
 | No `prefers-reduced-motion` handling | honored on every animation | D-19 |
+| FAQ is flat stacked text; **0 accordions site-wide** | `/services` FAQ becomes a native `<details>` accordion | The home FAQ is deleted and relocated to `/services` (Prompt 3), so that page now carries the FAQ on top of eight services in five groups. At 390 the flat version is a very long scroll to the CTA. Deliberate. See `docs/behavior/05-faq-accordion.md`. **Consequence: `/services` `s06-faq-s` is ADAPTED and must not be pixel-diffed against the reference's flat block.** |
+| Top bar reads `OK Lic # 80006064` | ours reads `Open daily 7am–7pm` | A state licence number is a credential D-14 bars us from inventing. Forced `s00-top-header` FIDELITY -> ADAPTED on all five routes in Prompt 3. |
 
 ---
 
