@@ -15,7 +15,13 @@ export const PROBE = () => {
     'main > section, body > main > section',           // hand-rolled (ours)
     'body > section, [data-section]',
   ];
-  const CHROME = 'header, #main-header, .et-l--header, #top-header, footer, #main-footer, .et-l--footer, [class*=call-bar], [class*=callbar]';
+  // Chrome that sits OUTSIDE the main content flow and must still be measured as sections.
+  // NOTE: this deliberately does NOT use substring class matching. `[class*=callbar]` used
+  // to be here and matched <body class="... pb-callbar ...">, which pulled BODY into the
+  // chrome set; the containment dedup below then dropped HEADER and FOOTER because BODY
+  // contains them, and dropped BODY because it contains every main > section. Net effect:
+  // the header and footer silently vanished from every "ours" capture.
+  const CHROME = 'header, #main-header, .et-l--header, #top-header, footer, #main-footer, .et-l--footer';
 
   let nodes = [];
   let segMode = 'fallback';
@@ -25,8 +31,14 @@ export const PROBE = () => {
     const outer = hit.filter((n) => !hit.some((m) => m !== n && m.contains(n)));
     if (outer.length >= 2) { nodes = outer; segMode = sel; break; }
   }
-  // Header / footer / sticky call bar are sections in their own right.
-  const chrome = Array.from(document.querySelectorAll(CHROME))
+  // Header / footer / sticky call bar are sections in their own right. Any element
+  // carrying an explicit data-section outside <main> counts too — that is how our own
+  // shell declares its bands. BODY and HTML are never sections.
+  const main = document.querySelector('main');
+  const declaredOutside = Array.from(document.querySelectorAll('[data-section]'))
+    .filter((n) => !main || !main.contains(n));
+  const chrome = [...new Set([...Array.from(document.querySelectorAll(CHROME)), ...declaredOutside])]
+    .filter((n) => n !== document.body && n !== document.documentElement)
     .filter((n) => { const r = n.getBoundingClientRect(); return r.height > 8; });
   const outerChrome = chrome.filter((n) => !chrome.some((m) => m !== n && m.contains(n)));
   for (const c of outerChrome) if (!nodes.some((n) => n === c || n.contains(c) || c.contains(n))) nodes.push(c);

@@ -91,3 +91,26 @@ not have.** Tiles keep their dimensions and carry `TODO(fact):` chips.
 | **total open** | **24** |
 
 Count is reported at Prompt 11, never silently resolved.
+
+---
+
+## Prompt 6/7 wave — status
+
+No new `TODO(fact)` entries were opened. All five builder agents confirmed they invented
+nothing and rendered the existing markers literally. The 24 open facts are unchanged.
+
+Where each now renders:
+
+| # | rendered at |
+|---|---|
+| F-01 / F-02 | header + footer wordmark (shell) |
+| F-03 – F-09 | `/` `s06` badge row — four `TODO(fact)` chips via the `FactChip` primitive |
+| F-10 | `/about` `s08` partner-logo row |
+| F-11 – F-13 | `/` `s12` stat strip — three tiles, `TODO(fact)` in place of every number |
+| F-14 | `/` `s11` testimonials — seven literal `[TESTIMONIAL PLACEHOLDER n …]` blocks |
+| F-15 – F-18 | `/about` `s05` mission and `s07` team |
+| F-19 – F-23 | not rendered anywhere; still barred from the `/services` FAQ by the brief |
+| F-24 | `/` `s11`, as above |
+
+Verified absent from the build: `AggregateRating`, `Review`, any invented name, quote,
+rating, year, headcount, licence number, price or response-time claim.

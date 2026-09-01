@@ -1,5 +1,9 @@
+// UNREVIEWED TEMPLATE — requires legal review before launch.
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
+import { TitleBand } from '@/components/privacy/TitleBand';
+import { PolicyBody } from '@/components/privacy/PolicyBody';
+import { CtaBand } from '@/components/privacy/CtaBand';
 
 const page = copy.routes['/privacy'];
 
@@ -9,7 +13,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/privacy' },
 };
 
+/**
+ * Privacy. Reference `/privacy-policy/`, docs/sections.md. s00/s01 are the shared header,
+ * s05 is the shared footer (both rendered by the frozen shell in layout.tsx) — neither is
+ * built here. s05's reference content (NAP, hours, page links) is identical in substance
+ * to the site footer already rendered by the shell, so it is intentionally not duplicated.
+ */
 export default function Page() {
-  // Prompt 5: shell only. Sections land in Prompts 6-7.
-  return <div data-section="route-stub-privacy" style={{ minHeight: '40vh' }} />;
+  return (
+    <>
+      {/* UNREVIEWED TEMPLATE — requires legal review before launch */}
+      <TitleBand />
+      <PolicyBody />
+      <CtaBand />
+    </>
+  );
 }

@@ -272,3 +272,139 @@ element, `innerRows`/`innerCols`/`innerCount` should collapse toward the referen
 section should land near the `position` + `buttons` floor of roughly 7.4% at 1440.
 **This is a placeholder-blocked floor (F-01), not a fixable divergence** — treat it as such
 and exclude the wordmark box from the measurement when the section is re-measured.
+
+## 8. `/privacy` route floors — Prompt 6/7, one attempt each (ITERATION_CAP = 1)
+
+### `s02-privacy-policy-and-terms-and-condi` — 3.31% @1440 (PASS), 4.80% @768 (PASS), 5.02% @390 (floored)
+
+One fix attempt applied (`position: relative`, `font-medium` on the band to match the
+reference's computed 500 weight) brought 1440 and 768 under threshold. 390 misses by 0.02
+points on `box.h` (298.3 ref vs 160 ours) and `innerCols`/`innerRows`, driven by our title
++ subheading stacking to a shorter block than the reference's wrapped heading at that
+width. **Hypothesis:** floor is content-length driven (own copy at matched character count
+still wraps differently than the reference's words); not a layout defect. Not chased
+further under ITERATION_CAP = 1.
+
+### `s04` (CTA band) — 4.44% @1440 (PASS), 6.68% @390 (floored), 5.07% @768 (floored)
+
+Same one fix attempt (`position: relative`, `pt-snug pb-gutter` matching the reference's
+11px/17px pad, `font-medium`) brought 1440 under threshold. 390/768 remain over by 1.68 and
+0.07 points respectively, both driven by `box.h` — our CTA band is shorter than the
+reference's stacked layout at narrow widths because our copy (one paragraph, two buttons)
+is shorter than the reference's five-item inner grid. **Hypothesis:** content-length floor,
+same cause as `s02`; the shared CTA band shape is otherwise correct (it also passes at 1440
+on `/about`'s identical component). Not chased further under ITERATION_CAP = 1.
+
+### `s03` (policy body) — NOVEL, 4 token "violations" at 1440, all false positives
+
+`scripts/harness/diff.mjs`'s `tokenViolations()` compares the browser's *computed* style
+string against the *literal* `@theme` source text. Two units mismatch, not a real
+divergence:
+- Colors: `@theme` writes `oklch(50.95% 0.0343 331.38)` (percent L); every browser
+  normalizes computed style to `oklch(0.5095 0.0343 331.38)` (0–1 L). The two reported
+  color violations (`oklch(0.5095 0.0343 331.38)` = `--color-neutral-600`, and
+  `oklch(1 0 89.88)` = `--color-surface`) are both tokens in use, just serialized
+  differently.
+- Size: `@theme` writes `--text-base: 1.0625rem`; `getComputedStyle().fontSize` always
+  returns px (`17px`, which is exactly `1.0625rem` at the 16px root). Same token, different
+  unit.
+
+**This is a harness instrument bug in the token-conformance comparator, not a content
+violation** — `s03` uses no color, size, weight, radius or shadow outside the token set
+(verified by inspection: every class on the page is `text-*`/`font-*`/`leading-*` from the
+established scale, or a `border-dashed border-border-strong` token pair). **Handback**:
+`tokenViolations()` needs to normalize both sides (parse to a canonical form, e.g. via a
+throwaway `getComputedStyle` on a probe element, or resolve `rem`→`px` and `%L`→`0-1 L`
+before comparing) — that is a `scripts/` file, frozen to builders. Not chased as a code
+change on this route; reported for the lead.
+
+### `s05` (footer) — not built; shell-owned, 16.26% @1440 / 17.75–19.89% @390/768
+
+Per dispatch instructions, checked `.harness/cap/ref/privacy-1440/meta.json` first: the
+reference `s05` is the grey footer band (NAP block, 4 links, 2 list items, the reference's
+logo image) — structurally identical in purpose to the site footer the frozen shell
+(`SiteFooter.tsx`) already renders on every route. Correctly **not duplicated**. The
+reported failure is the shell footer's own structural gap against the reference (padding,
+`position: relative`, inner grid count) — not something this route's page component can
+fix without editing a frozen file. **Handback** to the lead, same class of fix as
+`s01-main-header` above (shared shell component, one owner).
+
+---
+
+## 9. Prompt 6/7 build wave — floors and instrument corrections
+
+### 9.1 Three instrument bugs found during the wave (all fixed by the lead)
+
+Every builder agent independently reported numbers that turned out to be measurement
+artifacts. Three real defects in the harness, all now fixed. **All agent-reported numbers
+from this wave are superseded by the lead's final sweep.**
+
+| # | bug | effect | fix |
+|---|---|---|---|
+| 1 | `probe.mjs` `CHROME` selector contained `[class*=callbar]`, which matched `<body class="… pb-callbar …">` | BODY entered the chrome set; the containment dedup then dropped HEADER and FOOTER (contained by BODY) and dropped BODY itself (contains every `main > section`). **The header, top bar and footer vanished from every "ours" capture on every route.** Section counts came up 2–3 short, so positional pairing cascaded every downstream section onto the wrong counterpart. | Selector no longer uses substring class matching; chrome is `header`/`footer` plus any `[data-section]` outside `<main>`, with BODY and HTML explicitly excluded. |
+| 2 | `diff.mjs` `pairSections()` joined reference→ours by nearest normalized scroll-midpoint only | Prompt 3's structural gate **requires** four bands to move (services 13th→5th, stats 12th→10th, CTA 10th→11th, testimonials 11th→12th). A position-only join pairs exactly those to the wrong counterpart or exhausts the pool and reports `"no counterpart section"` → a false **100%**. Structurally guaranteed to punish the sections the brief mandated moving. | Two-pass join: **identity first** (our sections carry `data-section="<reference id>"`, which the probe emits into the section id), then globally-best-first progress as fallback. Every row now records `pairedVia`. 101 of 131 pairable rows now join by id. |
+| 3 | `diff.mjs` `tokenViolations()` compared raw strings | `@theme` stores `oklch(50.95% …)` and `1.0625rem`; `getComputedStyle` returns `oklch(0.5095 …)` and `17px`. Every in-token value read as a violation, so **NOVEL conformance was meaningless** — it could never pass. | Both sides normalised before comparison: oklch L to a 0–1 decimal, all lengths to px at a 16px root, weights compared unitless. `/privacy` `s03` now measures **0 violations**. |
+
+Credit where due: bug 1 was diagnosed precisely by the `/about` and `/services` agents,
+bug 2 by the home agent, bug 3 by the `/contact` and `/privacy` agents. Each correctly
+declined to edit a frozen file and handed it back instead.
+
+### 9.2 The dominant residual — a defect in the lead's builder brief
+
+`docs/BUILDER-BRIEF.md` told every agent: *"each band is a full-width block with zero
+padding, and an inner container carries the layout."* That was the right lesson from the
+Prompt 5 header (where making the band itself a flex container broke `display`, `gap` and
+`box.w`) but it is **wrong about padding**.
+
+Measured reference band padding across home's 17 bands:
+
+```
+0/0 ×5   54/54 ×3   57/37   54/33   54/7   54/0   31/0   20/54   0/54   0/20   11/17
+```
+
+The reference varies vertical padding per band. Our bands are uniformly `0/0`, which
+matches 5 of 17 and misses the rest by 100% on two fields — a **7.4% floor** on every
+affected section before anything else is counted. `padTop`/`padBottom` appear in 126 of the
+residual field lists, second only to the inner-grid triple.
+
+**Not fixed, deliberately.** A blanket change to `54/54` would match 3 more sections and
+break the 5 that are correctly `0/0` — net worse. The correct fix is per-section padding
+matched to each reference band, and every section has already spent its single
+`ITERATION_CAP` attempt. Recorded here as the known cause. **If the cap is ever lifted,
+this is the highest-value single pass available: it is mechanical, it is ~7.4% per section,
+and it affects roughly two-thirds of the site.**
+
+### 9.3 Other standing residuals
+
+| field | frequency | cause | fixable? |
+|---|---|---|---|
+| `innerCount` / `innerRows` / `innerCols` | 90 / 84 / 78 | Our markup shape differs from Divi's deeply-nested column tree. Also driven by the logo wordmark placeholder (F-01) and by real `<button>` elements where Divi uses `<span>`. | Partly, but it is per-section work past the cap |
+| `position` | 88 | `sticky`/`static` vs the reference's `fixed`/`absolute` — **deliberate**, per `docs/behavior/02` | No — decision |
+| `padTop` / `padBottom` | 69 / 57 | §9.2 above | Yes, past the cap |
+| `lineHeight` | 55 | Reference band wrappers carry per-band line-heights; ours inherit `--leading-body` | Partly |
+| `box.h` | 53 | Copy is length-matched but wraps differently; mobile stacks are more compact than the reference's | Content-driven |
+
+### 9.4 Sections floored in this wave
+
+**All 116 failing section rows are floored.** Every unit spent its one `ITERATION_CAP`
+attempt and none may be dispatched again. 17 section rows pass, including
+`/privacy` `s03` (NOVEL, 0 token violations) and every `s00-top-header` at 1440.
+
+Four rows remain at a literal 100% — `/` `s09` and `s10` at 390 and 768. Cause: home has
+18 reference bands at mobile against 17 at desktop (the "we make it easy" band splits into
+a 20px stub plus the real band below 980), so two mobile reference bands compete for one of
+our sections and one is left unpaired. This is the same mobile band-split already recorded
+in §6, not a build defect.
+
+### 9.5 Newly blocked
+
+- `/about` `s02` background (`about-title-bg`), `s06` photo (`about-photo`), `s08` partner
+  logos (`about-partner-logo`) — placeholder-blocked, Prompt 10.
+- `/services` `services-title-bg`, `services-body-bg`, `services-faq-bg` — placeholder-blocked.
+- `/` `s06` badge chips — dimensions estimated; the reference ships ~10 separate logo
+  images against our 4 TODO(fact) chips (D-14). Geometry cannot converge while the content
+  is deliberately different.
+- Reference `s11`/`s08`/`s04`/`s05` on the subpages are the **shared footer**, already
+  rendered by the frozen shell. Every agent correctly identified this and skipped it rather
+  than duplicating the footer. Those rows measure the shell footer, which is lead-owned and
+  carries the same class of residual as `s01-main-header` in §7.

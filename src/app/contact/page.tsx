@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
+import { AnnouncementStrip } from '@/components/contact/AnnouncementStrip';
+import { ContactSection } from '@/components/contact/ContactSection';
+import { ContactMapSection } from '@/components/contact/ContactMapSection';
 
 const page = copy.routes['/contact'];
 
@@ -9,7 +12,18 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
 };
 
+/**
+ * /contact. s00-top-header and s01-main-header come from the frozen shell (SiteHeader).
+ * s04 (footer band, 305px grey, matches the reference's box exactly — see
+ * .harness/cap/ref/contact-1440/meta.json) is already rendered by the frozen shell
+ * (SiteFooter in layout.tsx) — not duplicated here.
+ */
 export default function Page() {
-  // Prompt 5: shell only. Sections land in Prompts 6-7.
-  return <div data-section="route-stub-contact" style={{ minHeight: '40vh' }} />;
+  return (
+    <>
+      <AnnouncementStrip />
+      <ContactSection />
+      <ContactMapSection />
+    </>
+  );
 }

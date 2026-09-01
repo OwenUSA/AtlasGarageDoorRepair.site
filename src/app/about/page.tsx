@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
+import { HeroStrip } from '@/components/about/HeroStrip';
+import { TitleBand } from '@/components/about/TitleBand';
+import { RuleBand } from '@/components/about/RuleBand';
+import { OurMission } from '@/components/about/OurMission';
+import { ReliablePros } from '@/components/about/ReliablePros';
+import { OurTeam } from '@/components/about/OurTeam';
+import { OurServices } from '@/components/about/OurServices';
+import { CtaBand } from '@/components/about/CtaBand';
 
 const page = copy.routes['/about'];
 
@@ -9,7 +17,23 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 };
 
+/**
+ * About. Reference `/about-vh1/`, docs/sections.md. s00/s01 are the shared header, s11 is
+ * the shared footer (both rendered by the frozen shell in layout.tsx) — neither is built
+ * here.
+ */
 export default function Page() {
-  // Prompt 5: shell only. Sections land in Prompts 6-7.
-  return <div data-section="route-stub-about" style={{ minHeight: '40vh' }} />;
+  return (
+    <>
+      <HeroStrip />
+      <TitleBand />
+      <RuleBand id="s04" />
+      <OurMission />
+      <ReliablePros />
+      <OurTeam />
+      <OurServices />
+      <RuleBand id="s09" />
+      <CtaBand />
+    </>
+  );
 }

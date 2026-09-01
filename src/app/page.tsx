@@ -1,5 +1,17 @@
 import type { Metadata } from 'next';
 import { copy } from '../../content/copy';
+import { AnnouncementStrip } from '@/components/home/AnnouncementStrip';
+import { Hero } from '@/components/home/Hero';
+import { Services } from '@/components/home/Services';
+import { Intro } from '@/components/home/Intro';
+import { BadgeRow } from '@/components/home/BadgeRow';
+import { RuleBand } from '@/components/home/RuleBand';
+import { Process } from '@/components/home/Process';
+import { StatStrip } from '@/components/home/StatStrip';
+import { CtaBand } from '@/components/home/CtaBand';
+import { Testimonials } from '@/components/home/Testimonials';
+import { MapSection } from '@/components/home/MapSection';
+import { NapHours } from '@/components/home/NapHours';
 
 const page = copy.routes['/'];
 
@@ -9,7 +21,28 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
+/**
+ * Home. Section order per docs/content-divergence.md — four bands move relative to the
+ * reference: services 13th -> 5th, stats 12th -> 10th, CTA 10th -> 11th, testimonials
+ * 11th -> 12th. Reference s05 (grant promo) and s07 (brand strip) are dropped; s14
+ * (service-area map) is deleted under D-02 and replaced by <MapSection>; s15 (FAQ) is
+ * relocated to /services.
+ */
 export default function Page() {
-  // Prompt 5: shell only. Sections land in Prompts 6-7.
-  return <div data-section="route-stub-home" style={{ minHeight: '40vh' }} />;
+  return (
+    <>
+      <AnnouncementStrip />
+      <Hero />
+      <Services />
+      <Intro />
+      <BadgeRow />
+      <RuleBand />
+      <Process />
+      <StatStrip />
+      <CtaBand />
+      <Testimonials />
+      <MapSection />
+      <NapHours />
+    </>
+  );
 }

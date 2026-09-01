@@ -186,6 +186,35 @@ export function structuralDiff(refSec, ourSec) {
 }
 
 // ---------- NOVEL: token conformance. Every value must resolve to a Prompt 5 token. ----------
+// ---- token value normalisation ------------------------------------------------------
+// getComputedStyle and the @theme block do not speak the same dialect:
+//   theme:    oklch(50.95% 0.0343 331.38)   --text-base: 1.0625rem
+//   computed: oklch(0.5095 0.0343 331.38)   font-size: 17px
+// Comparing the raw strings makes every in-token value read as a violation, which made
+// NOVEL conformance meaningless. Normalise both sides to one canonical form first.
+const ROOT_PX = 16;
+
+function normLength(v) {
+  const s = String(v).trim();
+  const m = s.match(/^(-?[\d.]+)(rem|em|px)?$/i);
+  if (!m) return s.toLowerCase();
+  const n = parseFloat(m[1]);
+  const unit = (m[2] || 'px').toLowerCase();
+  const px = unit === 'px' ? n : n * ROOT_PX;
+  return `${Math.round(px * 100) / 100}px`;
+}
+
+function normColor(v) {
+  let s = String(v).trim().toLowerCase();
+  // oklch(L C H) — L may be a percentage or a 0-1 decimal
+  s = s.replace(/oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)/g, (_, L, pct, C, H) => {
+    const l = pct === '%' ? parseFloat(L) / 100 : parseFloat(L);
+    return `oklch(${l.toFixed(4)} ${parseFloat(C).toFixed(4)} ${parseFloat(H).toFixed(2)}`;
+  });
+  // collapse whitespace and drop a trailing alpha of 1
+  return s.replace(/\s*\/\s*1\)/, ')').replace(/\s+/g, ' ').trim();
+}
+
 export async function loadTokens() {
   // Prompt 5 writes the @theme block; until then the token set is empty and NOVEL
   // sections report "no-token-set" rather than a false pass.
@@ -201,12 +230,12 @@ export async function loadTokens() {
     found = true;
     for (const m of theme[1].matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/gi)) {
       const [, k, v0] = m; const v = v0.trim();
-      if (/^color-/.test(k)) vals.color.add(v.toLowerCase());
-      else if (/^text-/.test(k)) vals.size.add(v);
+      if (/^color-/.test(k)) vals.color.add(normColor(v));
+      else if (/^text-/.test(k)) vals.size.add(normLength(v));
       else if (/^font-weight-/.test(k)) vals.weight.add(v);
-      else if (/^radius-/.test(k)) vals.radius.add(v);
-      else if (/^shadow-/.test(k)) vals.shadow.add(v);
-      else if (/^spacing-/.test(k)) vals.space.add(v);
+      else if (/^radius-/.test(k)) vals.radius.add(normLength(v));
+      else if (/^shadow-/.test(k)) vals.shadow.add(normColor(v));
+      else if (/^spacing-/.test(k)) vals.space.add(normLength(v));
     }
   }
   return { found, vals };
@@ -218,8 +247,13 @@ export function tokenViolations(sec, tokens) {
   const a = sec.appearance;
   const chk = (kind, value) => {
     if (!value || value === 'none' || value === 'rgba(0, 0, 0, 0)' || value === 'normal' || value === '0px') return;
+    if (value === 'transparent' || /^rgba\(0, 0, 0, 0\)$/.test(String(value))) return;
     const set = tokens.vals[kind];
-    if (set.size && !set.has(String(value).toLowerCase())) items.push({ kind, value: String(value).slice(0, 60) });
+    if (!set.size) return;
+    const norm = (kind === 'color' || kind === 'shadow') ? normColor(value)
+      : kind === 'weight' ? String(value).trim()   // unitless; never run through normLength
+      : normLength(value);
+    if (!set.has(norm)) items.push({ kind, value: String(value).slice(0, 60), normalised: norm });
   };
   chk('color', a.color); chk('color', a.backgroundColor); chk('color', a.borderColor);
   chk('size', a.fontSize != null ? a.fontSize + 'px' : null);
@@ -238,15 +272,51 @@ function pairSections(refMeta, ourMeta) {
   }));
   const R = norm(refMeta), O = norm(ourMeta);
   const used = new Set();
-  return R.map((r) => {
-    let best = null, bestD = Infinity;
+  const pairs = new Map();
+
+  // PASS 1 — join on DECLARED IDENTITY, not position.
+  //
+  // Our sections carry data-section="<reference id>", and the probe emits them as
+  // "s<NN>-<reference id>-<heading slug>". Prompt 3's structural gate REQUIRES four bands
+  // to move (services 13th -> 5th, stats 12th -> 10th, CTA 10th -> 11th, testimonials
+  // 11th -> 12th), so a position-only join pairs exactly those sections to the wrong
+  // counterpart, or exhausts the pool and reports "no counterpart section" -> a false
+  // 100%. The reordering is a requirement of the build, so the instrument has to survive
+  // it: identity wins, position is only the fallback.
+  const declared = (o) => String(o.id).replace(/^s\d+-/, '');
+  for (const r of R) {
+    const hit = O.find((o) => !used.has(o.idx) && declared(o).startsWith(r.id));
+    if (hit) {
+      used.add(hit.idx);
+      pairs.set(r.idx, { ours: hit, delta: Math.abs(hit.mid - r.mid), via: 'id' });
+    }
+  }
+
+  // PASS 2 — anything still unpaired falls back to page progress, assigned globally
+  // best-first so one weak early match cannot consume a slot a stronger later one needs.
+  const cand = [];
+  for (const r of R) {
+    if (pairs.has(r.idx)) continue;
     for (const o of O) {
       if (used.has(o.idx)) continue;
-      const d = Math.abs(o.mid - r.mid);
-      if (d < bestD) { bestD = d; best = o; }
+      cand.push({ rIdx: r.idx, o, d: Math.abs(o.mid - r.mid) });
     }
-    if (best) used.add(best.idx);
-    return { ref: r, ours: best, progressDelta: best ? pct(bestD) : null };
+  }
+  cand.sort((a, b) => a.d - b.d);
+  for (const c of cand) {
+    if (pairs.has(c.rIdx) || used.has(c.o.idx)) continue;
+    used.add(c.o.idx);
+    pairs.set(c.rIdx, { ours: c.o, delta: c.d, via: 'progress' });
+  }
+
+  return R.map((r) => {
+    const p = pairs.get(r.idx);
+    return {
+      ref: r,
+      ours: p ? p.ours : null,
+      progressDelta: p ? pct(p.delta) : null,
+      pairedVia: p ? p.via : 'unpaired',
+    };
   });
 }
 
@@ -284,7 +354,7 @@ async function diffOne(route, bp, classes, tokens) {
       rows.push({ route, bp, section: canonical, class: 'DELETED', metric: 'n/a', value: null, threshold: null, status: 'REMOVED', joinedVia: via });
       continue;
     }
-    const row = { route, bp, section: canonical, class: cls, progressDelta: p.progressDelta, joinedVia: via };
+    const row = { route, bp, section: canonical, class: cls, progressDelta: p.progressDelta, joinedVia: via, pairedVia: p.pairedVia };
 
     // A-8: the 3 remaining FIDELITY sections are solid-colour bands. With colour excluded
     // a recoloured band reads 100% divergent forever, so they are measured STRUCTURALLY
@@ -411,4 +481,4 @@ async function main() {
   console.log(`\nDIFF DONE ${all.length} rows -> docs/divergence.md`);
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

@@ -133,6 +133,9 @@ body {
   color: var(--color-neutral-600);
   font-family: var(--font-sans);
   font-size: var(--text-base);
+  /* The reference computes font-weight 500 on all 17 of its bands, not 400. This is a
+     real typographic trait of the design, not a metric adjustment. */
+  font-weight: var(--font-weight-medium);
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
 }
