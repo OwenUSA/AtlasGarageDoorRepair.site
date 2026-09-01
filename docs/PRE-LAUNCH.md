@@ -1,0 +1,106 @@
+# docs/PRE-LAUNCH.md — blockers before this site faces the public
+
+**This site is not launch-ready and must not be deployed as-is.** Everything below is a
+hard blocker. The build is a faithful local clone-and-adapt exercise; several of its
+"facts" are deliberate fiction and several of its capabilities are stubs.
+
+Status at end of chain: `pnpm build` clean, 5 routes static, 0 console errors, all
+acceptance gates run except the two dropped in A-4 (see §7).
+
+---
+
+## 1. Every business fact is fictional — replace all of it
+
+These were invented deliberately, per CONSTANTS in `CLAUDE.md`, so the build could be
+exercised without touching a real business. **Every one is wrong on purpose.**
+
+| # | fact | current fictional value | why it is fiction |
+|---|---|---|---|
+| PL-01 | **Phone** | `(405) 555-0163` | 555-01XX is the reserved range — it **cannot ring anyone**. Rendered as `tel:+14055550163` in the header, drawer, call bar, hero, every CTA band, the footer, the contact card and JSON-LD. |
+| PL-02 | **Street address** | `2317 Harrow Bend, Edmond, OK 73013` | **The street does not exist.** It must never be passed to a geocoder (D-07), which is why both maps embed by coordinates only. |
+| PL-03 | **Business name** | `Atlas Garage Door Repair` | Invented. Appears in the logo wordmark, the `<title>` on all five routes, every meta description, JSON-LD `name`, the footer, and every `aria-label` on a call link. |
+| PL-04 | **Map coordinates** | `35.6528,-97.4781` | Real Edmond coordinates, but they point at a real place that is not this business. Both maps and both "Get directions" links use them. |
+| PL-05 | **Hours** | `7 days, 7:00 AM – 7:00 PM` | Plausible but unverified. Rendered in the top bar, footer, NAP card, contact page and `openingHoursSpecification`. |
+| PL-06 | **Service area** | `Serving Edmond and the north Oklahoma City metro.` | Unverified. The only surviving locations sentence (D-02). |
+| PL-07 | **Canonical URL** | `http://localhost:3101` | Local-only build (D-18). Every canonical tag, the sitemap, `robots.txt` and JSON-LD `url` point at localhost. |
+
+All of PL-01 to PL-07 live in **one file** — `src/lib/business.ts`. Changing them there
+updates every render site.
+
+## 2. Images — every photographic slot is a placeholder
+
+29 REPLACE slots ship as flat-colour SVG placeholders. Nothing from the reference site was
+ever downloaded. Generation prompts are written and ready in **`docs/asset-prompts.md`**.
+
+| # | blocker |
+|---|---|
+| PL-08 | **Logo (F-01, F-02).** No logo exists. A two-line Montserrat wordmark stands in, and it is the dominant cause of the header's floored structural residual on all five routes. |
+| PL-09 | **All photographic slots** — home hero, two intro photos, two video posters, five process tiles plus the mobile composite, `/about` title strip and crew photo, `/services` title strip, body background and FAQ background. |
+| PL-10 | **No video ships.** The reference plays three `.mp4` files; ours are poster stills only. If video is wanted it is new work, not a drop-in. |
+
+## 3. All 24 `TODO(fact)` must be resolved — F-01 to F-24
+
+Counted, never removed. Full detail in `docs/facts-needed.md`. Grouped:
+
+| # | blocker |
+|---|---|
+| PL-11 | **Credentials and licensing (F-03–F-09).** Licence number, bonding, insurance, BBB, safety and trade certifications, manufacturer partnerships, review-platform presence. The reference's own top bar carries `OK Lic # 80006064`; we render hours instead because inventing a licence number is not acceptable. **13 asset slots are deliberately never generated for this reason** — resolve them as facts, or remove the badge row. |
+| PL-12 | **Every number on the stat strip (F-11–F-13).** Doors serviced, years in business, technicians. All three tiles render the literal string `TODO(fact)`. |
+| PL-13 | **Company history and team (F-15–F-18).** Founding year, founder, origin story, technician names, roles, headshots, training. |
+| PL-14 | **Service terms (F-19–F-23).** Warranty, response-time commitment, service radius, after-hours availability, payment and financing. **Note: hours are a single 07:00–19:00 block, seven days — do not invent 24/7 emergency cover.** |
+| PL-15 | **Partner and affiliation logos (F-10).** |
+
+## 4. Testimonials — fabricated review markup is a legal problem
+
+| # | blocker |
+|---|---|
+| PL-16 | The testimonials section renders **seven literal `[TESTIMONIAL PLACEHOLDER n — …]` blocks** at realistic length. Fill them with **real, permissioned, attributed quotes, or delete the section.** There is deliberately **no `AggregateRating` and no `Review` JSON-LD anywhere** in the build (D-13). If real reviews are added, that markup must be added carefully and truthfully, and only then. |
+
+## 5. Privacy policy is an unreviewed template
+
+| # | blocker |
+|---|---|
+| PL-17 | `/privacy` ships with a visible **`UNREVIEWED TEMPLATE — requires legal review before launch`** marker. It is written to describe what the site actually does: phone-callback form, no email collection, no analytics, no tracking cookies, a lazily-mounted Google map. **It claims no GDPR or CCPA compliance and must not be edited to claim any without counsel.** If the site's behaviour changes — analytics added, form wired up — this page must change with it *before* launch. |
+
+## 6. The contact form does not submit
+
+| # | blocker |
+|---|---|
+| PL-18 | `src/components/contact/ContactForm.tsx` is marked **`// STUB: no submission target`** on its first line. It validates client-side, `console.warn`s a stub notice and shows a "we'll call you back" state. **Nothing is transmitted or stored anywhere.** Until a real target exists, the confirmation state is a promise the site cannot keep. Wire it up, or remove the form and leave the phone number. Any backend added here is new attack surface that has never been reviewed — there is currently no server code at all. |
+
+## 7. Two acceptance gates were dropped and never run (A-4)
+
+Recorded verbatim, as required:
+
+| # | blocker |
+|---|---|
+| PL-19 | **performance never measured** — Lighthouse was dropped from the acceptance sweep. No Core Web Vitals and no performance, accessibility, best-practices or SEO score exists for any route. The map iframes in particular are a known, unmeasured cost. |
+| PL-20 | **keyboard access is spec-verified only, never hand-tested** — the manual keyboard pass was dropped. Every requirement in `docs/behavior/01`–`08` was verified to be *present in the source* (skip link, `aria-expanded`/`aria-controls`, Escape handling, focus trap, focus return, body scroll lock, native `<details>`, `aria-live`/`aria-invalid`/`aria-describedby`, map bypass, `aria-current`, `:focus-visible`) — but **no human has driven this site with a keyboard, and no screen reader has been run against it.** |
+
+## 8. Other launch prerequisites
+
+| # | blocker |
+|---|---|
+| PL-21 | **JSON-LD re-verified against the real facts.** `LocalBusiness` is currently built entirely from the fictional constants. It deliberately contains no `email`, no `aggregateRating`, no `review`, no `priceRange` and no `areaServed` city array — keep it that way unless each addition is true. |
+| PL-22 | **Hosting, domain and HTTPS.** D-18: local only. No environment config, no deploy target, no `.env`, no third-party keys, no auth. |
+| PL-23 | **Analytics and consent.** None ships (D-15). If any is added, the privacy policy (PL-17) becomes wrong the same day. |
+| PL-24 | **Prune the duplicated NAP literals from `content/copy.ts`** so `lib/business.ts` is the single source of truth in fact as well as in practice. Rendered values already come from `business.ts`; the copy file carries stale copies in its `items[]` labels. |
+
+---
+
+## Summary
+
+| category | blockers |
+|---|---|
+| fictional business facts | PL-01 – PL-07 |
+| images and logo | PL-08 – PL-10 |
+| unresolved facts (24) | PL-11 – PL-15 |
+| testimonials | PL-16 |
+| legal review | PL-17 |
+| non-functional form | PL-18 |
+| never-measured gates | PL-19 – PL-20 |
+| infrastructure and hygiene | PL-21 – PL-24 |
+| **total** | **24 blockers** |
+
+Nothing here is optional. The phone number cannot ring, the address does not exist, the
+form does not submit, and the privacy policy has not been read by a lawyer.

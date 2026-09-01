@@ -326,7 +326,7 @@ export function emitTheme(cand) {
 }
 
 // ---------------------------------------------------------------- CLI
-const isMain = import.meta.url === (await import('node:url')).pathToFileURL(process.argv[1]).href;
+const isMain = !!process.argv[1] && import.meta.url === (await import("node:url")).pathToFileURL(process.argv[1]).href;
 if (isMain) {
   const argv = process.argv.slice(2);
   const seedArg = argv.includes('--seed') ? Number(argv[argv.indexOf('--seed') + 1]) : null;

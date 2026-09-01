@@ -518,3 +518,101 @@ Nothing remaining is padding. The dominant fields across all 106 failing rows:
 The `(page)` height-delta rows (30–41%) are the aggregate of `box.h` above and are expected:
 our pages are shorter than the reference's because four bands were dropped or relocated by
 the Prompt 3 structural gate.
+
+---
+
+# 12. FINAL — every permanent floor and its cause
+
+This section is the authoritative list at the end of the chain. Read it before touching
+any number in `docs/divergence.md`.
+
+## 12.1 Colour is permanently excluded from measurement (A-8)
+
+**Colour divergence from the reference is intentional and is permanently excluded from
+every diff, every threshold, and every future iteration.** The palette was randomized at
+token-write time from seed `500656` (analogous, primary hue 332), so the site was built in
+its final colours from the first component onward. Colour-valued fields — resolved colour,
+background-colour, border-colour, gradient stops, shadow colour — are stripped from the
+structural comparator. Do not open a colour delta as a defect; there is nothing to converge.
+
+## 12.2 There is NO font-substitution floor
+
+Prompt 1 flagged "GD Sherpa" as a self-hosted licensed display face, which under D-11 would
+have meant a substitution and a permanent text-metric floor. **Prompt 2 disproved it**: GD
+Sherpa has no `@font-face`, no font file, and styles exactly one selector —
+`#wpadminbar > .godaddy-styles` — the GoDaddy hosting admin bar, which never renders on the
+public page. The reference's only design face is **Montserrat**, which is SIL OFL and comes
+in unchanged via `next/font/google`.
+
+**Consequence, and it matters: a heading that will not converge is a real bug, not an
+excused one.** Nobody may point at a font swap to explain a type residual. There isn't one.
+The only typographic floor is icon-glyph substitution (Divi's ETmodules/FontAwesome →
+`lucide-react`), which is bounded to icon bounding boxes.
+
+## 12.3 The `position` residual is deliberate
+
+88 residual rows carry a `position` delta: ours is `sticky`/`static` where the reference is
+`fixed`/`absolute`. This is specified in `docs/behavior/02-sticky-header-transition.md`.
+Sticky keeps the header in flow so nothing needs a compensating offset, which removes an
+entire class of bug the reference actually has. It is one field of 27, worth ~3.7% on every
+chrome section, and it will never close. **Do not "fix" it.**
+
+## 12.4 Placeholder-blocked slots — resolve only on asset drop-in
+
+29 REPLACE slots ship as neutral SVG placeholders at the correct dimensions and sampled
+dominant colour. They resolve when the operator hands back the generated files
+(OVERRIDE 3), using the prompts in `docs/asset-prompts.md`.
+
+The single highest-value one is **`logo-primary` (F-01)**. The two-line Montserrat wordmark
+standing in for it puts the logo's children on three rows where the reference has one, and
+that is the dominant term in `s01-main-header`'s floored residual on all five routes. When
+the real logo lands as one image element, `innerRows`/`innerCols`/`innerCount` should
+collapse toward the reference.
+
+**13 slots are deliberately never generated**: `home-cert-badge`, the eleven
+`home-badge-*` chips, and `about-partner-logo`. Generating them would fabricate
+certifications and partnerships (D-14, F-03–F-10). They stay as `TODO(fact):` chips at the
+correct dimensions and are resolved as facts, not images.
+
+## 12.5 Four instrument defects were found and fixed during this build
+
+**Every divergence number recorded before `437d57e` is superseded.** A future reader must
+not compare against any earlier table — the Prompt 1 instrument-proof table and the Prompt 5
+shell table are records of the instrument's state at that time, not of the build's fidelity.
+
+| # | defect | effect | fixed in |
+|---|---|---|---|
+| 1 | `probe.mjs` `CHROME` used `[class*=callbar]`, which matched `<body class="… pb-callbar …">` | BODY joined the chrome set; containment dedup then deleted the **header, top bar and footer** from every `ours` capture on every route | `437d57e` |
+| 2 | `pairSections()` joined by nearest scroll-midpoint | the four bands Prompt 3 *required* to move reported a false **100%** — the instrument punished the build for obeying the brief | `437d57e` |
+| 3 | `tokenViolations()` compared `oklch` percentage against unit-interval, and `rem` against `px` | **NOVEL token conformance could never pass**, at all | `437d57e` |
+| 4 | identity pairing used the **raw per-breakpoint** reference id | reference ids are positional and home splits a band below 980, so at mobile our services block was compared against the reference's CTA band — producing a phantom regression and four more false 100%s | `657e321` |
+
+Every one of them made the build look worse than it was. Defects 2 and 4 were surfaced by
+builder agents who correctly refused to edit a frozen file and handed back instead.
+
+## 12.6 What actually remains
+
+129 measurable section rows: **23 PASS, 106 FAIL, worst 25.18%.** No row is at 100%.
+Dominant residual fields, none of them in scope for any remaining pass:
+
+| field | count | cause |
+|---|---|---|
+| `innerCount` / `innerRows` / `innerCols` | 94 / 82 / 81 | our markup shape vs Divi's deeply nested column tree; plus the logo wordmark placeholder (12.4) and real `<button>` elements where Divi ships `<span>` |
+| `position` | 88 | deliberate — 12.3 |
+| `lineHeight` | 71 | reference band wrappers carry per-band line-heights |
+| `box.h` | 69 | copy is length-matched but wraps differently; mobile stacks are more compact |
+| `padTop` | 40 | mostly the +4px token approximation from A-11 (reference uses 50px at mobile; nearest step is `band`=54) |
+
+The `(page)` height-delta rows (30–41%) are the aggregate of `box.h`: our pages are shorter
+because four bands were dropped or relocated by the Prompt 3 structural gate. That is the
+gate working, not a defect.
+
+## 12.7 Standing behaviour divergences
+
+| reference | ours | why |
+|---|---|---|
+| drawer toggles `display:none → block`, no scroll lock | `translate3d` panel + backdrop, `position:fixed` scroll lock | a `display` toggle kills its own exit transition — `docs/behavior/01` |
+| FAQ is flat text; **0 accordions site-wide** | native `<details>` accordion on `/services` | the home FAQ relocated onto an already-long page — `docs/behavior/05`. `s06-faq-s` must never be pixel-diffed |
+| mobile toggle is a `<span>` | real `<button>` with `aria-expanded`/`aria-controls` | we do not ship a div-as-button to close a metric |
+| top bar reads `OK Lic # 80006064` | `Open daily 7am–7pm` | a licence number is a credential D-14 bars inventing |
+| no `prefers-reduced-motion` handling | honoured globally and per component | D-19 |
