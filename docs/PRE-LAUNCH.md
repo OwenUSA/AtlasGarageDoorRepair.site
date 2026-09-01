@@ -104,3 +104,16 @@ Recorded verbatim, as required:
 
 Nothing here is optional. The phone number cannot ring, the address does not exist, the
 form does not submit, and the privacy policy has not been read by a lawyer.
+
+## BLOCKER — the primary call CTA is invisible on all five routes
+
+Re-measured against the shared harness: 214 of 1155 contrast pairs FAIL and render-truth
+reports 129 findings. The call CTA label is painted in exactly its own background colour
+(1:1), so the conversion path for the entire site cannot be read. `THE REPAIR HOLDS` on
+/services, the hero H1 and the whole /services FAQ are in the same state.
+
+The acceptance sweep that shipped this reported "23/23 pairs pass AA". See
+docs/known-divergence.md section 13 for why it could not have caught it.
+
+This must be fixed before the site faces the public. It is a build task, not a
+measurement one.

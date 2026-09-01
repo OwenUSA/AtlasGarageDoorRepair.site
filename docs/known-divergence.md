@@ -616,3 +616,58 @@ gate working, not a defect.
 | mobile toggle is a `<span>` | real `<button>` with `aria-expanded`/`aria-controls` | we do not ship a div-as-button to close a metric |
 | top bar reads `OK Lic # 80006064` | `Open daily 7am–7pm` | a licence number is a credential D-14 bars inventing |
 | no `prefers-reduced-motion` handling | honoured globally and per component | D-19 |
+
+---
+
+## 13. CORRECTION — this site's acceptance sweep was measuring almost nothing
+
+Added after the shared harness (`../_shared/harness`) was built and five instrument defects
+were found. **Every number in `07d0eef` predates all of them.** Re-measured against the
+current instrument, on the same committed build, this site reads:
+
+| gate | reported at `07d0eef` | actual |
+|---|---|---|
+| WCAG AA, pairs in use | **"23/23 pass"** | **214 FAIL of 1155 scored**, 12 UNMEASURABLE |
+| render-truth | not run — the gate did not exist | **129 findings** (90 text-legibility, 39 tap-target) |
+
+For comparison, on the same instrument Forge reads 1504 scored / 0 FAIL / 0 findings and
+Ridge 1031 / 0 / 0. This is not a threshold quibble; it is a different order of result.
+
+### Why the original sweep could not have caught it
+
+Six independent reasons, each sufficient on its own:
+
+1. **The AA audit modelled gradient bands as flat tokens.** Backgrounds were resolved via
+   `getComputedStyle(el).backgroundColor`, which is `rgba(0,0,0,0)` on a gradient, so the
+   walker climbed to the first solid ancestor — the white page surface — and scored
+   dark-on-dark text as though it sat on white. Five of the reference's bands are
+   gradients, covering the hero, both CTA bands and the stat strip.
+2. **`PAIRS_IN_USE` was a hand-written list of 23 token pairs**, not a measurement of what
+   the page renders. It could only ever prove the palette *can* work, never that the build
+   *uses* it correctly.
+3. **`normColor()` never expanded hex**, so a token file writing `#63e489` never matched
+   the browser's `rgb(99, 228, 137)`. No colour token could match, `TOKEN_THRESHOLD = 0`
+   was unreachable, and the check looked strict while measuring nothing.
+4. **`docs/sections.md` parsed to 5 rows of ~88** under the shared parser's column order.
+   Unparsed sections default to FIDELITY.
+5. **There was no pixel-level gate at all.** Nothing verified that text a stylesheet
+   declares is text a reader can see.
+6. **`cta-primacy` did not exist**, so nothing checked that the conversion path led the page.
+
+### What is actually wrong with the site
+
+The call CTA is painted in **exactly its own background colour — 1:1 — on all five
+routes**. `sep 0` at the pixel level: the box is one flat tone with no text in it. Also
+`THE REPAIR HOLDS` on `/services` at `sep 0`, the hero H1 at 1.09, and the entire
+`/services` FAQ at 1.21.
+
+### Standing rule this establishes
+
+**A gate that has never failed has not been shown to work.** Every one of the five defects
+above reported success. The three sites built after them were caught by the same gates
+within minutes of their shells landing — Forge at 1.16:1, Ridge on a secondary action
+out-contrasting its primary. The gates are only credible because they have failed real
+builds and been checked against a site known to be broken.
+
+Atlas has NOT been repaired against these findings. Doing so is a build task, not a
+measurement one, and it is listed in `docs/PRE-LAUNCH.md` as a blocker.
