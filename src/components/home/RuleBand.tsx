@@ -5,7 +5,7 @@ export function RuleBand() {
   return (
     <section
       data-section="s08"
-      className="relative block h-rule w-full bg-primary-deep"
+      className="relative block w-full bg-primary-deep py-band"
       aria-hidden="true"
     />
   );

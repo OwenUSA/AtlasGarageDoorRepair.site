@@ -430,3 +430,91 @@ before it were measuring the wrong things:
 The first table measured with all three fixed is the one in `437d57e`. Anything earlier —
 including the Prompt 1 instrument-proof table and the Prompt 5 shell table — is a record of
 the instrument's state at that time, not of the build's fidelity.
+
+---
+
+## 11. A-11 targeted padding pass — result
+
+Scope was section **vertical padding only**. Nothing else was touched: horizontal padding,
+`innerCount`/`innerRows`/`innerCols`, `position`, `lineHeight`, `box.h`, copy, tokens and
+every frozen shell file were left exactly as they were. **`ITERATION_CAP` is back to 1**;
+A-11 was a one-time, defect-scoped exception and is now spent.
+
+### Outcome
+
+| | before | after |
+|---|---|---|
+| measurable section rows | 131 | 129 (2 reclassified UNPAIRED) |
+| **PASS** | **17** | **23** |
+| rows that cleared their threshold | — | **8** |
+| rows improved | — | 59 |
+| worst section row | 100% (×4) | **25.18%** |
+| PASS → FAIL regressions | — | **0** |
+
+**No section was reverted.** The two rows that first appeared to regress (home `s13` at 390
+and 768) turned out to be a pairing defect, not a build regression — see 11.2. Once fixed,
+`s13` improved at every breakpoint.
+
+Padding is now materially correct: `padTop` fell from 69 residual appearances to 40, and
+`padBottom` dropped out of the top seven fields entirely. 48 of 129 section rows still show
+a non-zero padding field, almost all of them the 4px token approximation below.
+
+### 11.1 Nearest-step approximations (no new tokens were minted)
+
+The reference uses 50px vertical padding at 768/390 where it uses 54px at 1440. There is no
+50px step in Prompt 5's 9-step scale, so `band` (54) was used and the **+4px delta** is
+recorded rather than minting a `--spacing-*`:
+
+| route | sections | delta |
+|---|---|---|
+| `/` | `s08` RuleBand | +4px top/bottom @768, @390 |
+| `/about` | `s04`+`s09` RuleBand, `s05` OurMission, `s06` ReliablePros, `s07` OurTeam | +4px @768, @390 |
+| `/services` | `s04` ServicesBody, `s06` FAQ | +4px @768, @390 |
+
+One further approximation: `/about` `s06` uses `xl:pt-loose` at 1440, a **−2px** delta.
+Everything else landed exactly on an existing step with delta 0.
+
+### 11.2 A fourth instrument defect, found by this pass
+
+`pairSections()` matched our sections to reference sections using the **raw per-breakpoint
+reference id**. Reference ids are positional, and home splits one band below 980 — so every
+id after the split shifts. The band literally named `s13-…` at 390 is **not** the services
+band (that is `s14-…` there). Our components declare the 1440 id, so at mobile the services
+block was being compared against the reference's CTA band.
+
+That produced two false effects: apparent regressions on `s13`, and four literal 100% rows
+on `s09`/`s10`. Both vanished once pairing was switched to the **canonical** id, which
+`buildClassResolver` already computes:
+
+| row | before fix | after fix |
+|---|---|---|
+| `/` `s09` @390 / @768 | 100 / 100 | 10.74 / 12.06 |
+| `/` `s10` @390 / @768 | 100 / 100 | **4.83 PASS** / 5.96 |
+| `/` `s13` @390 / @768 | 12.72 / 13.51 | 7.65 / 7.33 |
+
+**This is the fourth defect this build has found in its own instrument**, after the three
+in §10. Every one of them made the build look worse than it was.
+
+### 11.3 Unpaired rows are no longer scored as 100%
+
+At 390/768 home carries 18 reference bands against our 15 sections, so two reference rows
+can resolve to the same canonical id and compete for one of ours. The loser has nothing to
+compare against. That is now reported as `UNPAIRED` with a null value rather than a 100%
+FAIL — there is no measurement, so claiming a number was false precision. 4 rows are
+affected (1 ADAPTED, 1 FIDELITY, 2 DELETED).
+
+### 11.4 What still fails, and why
+
+Nothing remaining is padding. The dominant fields across all 106 failing rows:
+
+| field | count | in scope for A-11? |
+|---|---|---|
+| `innerCount` / `innerRows` / `innerCols` | 94 / 82 / 81 | **No** — markup shape vs Divi's nested column tree, plus the logo wordmark placeholder (F-01) |
+| `position` | 88 | **No** — `sticky`/`static` vs `fixed`/`absolute`, deliberate per `docs/behavior/02` |
+| `lineHeight` | 71 | **No** — reference band wrappers carry per-band line-heights |
+| `box.h` | 69 | **No** — copy is length-matched but wraps differently; mobile stacks are more compact |
+| `padTop` | 40 | mostly the +4px token approximation in 11.1 |
+
+The `(page)` height-delta rows (30–41%) are the aggregate of `box.h` above and are expected:
+our pages are shorter than the reference's because four bands were dropped or relocated by
+the Prompt 3 structural gate.

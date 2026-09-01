@@ -266,7 +266,7 @@ export function tokenViolations(sec, tokens) {
 // ---------- pairing: section-relative, never absolute scrollY ----------
 // Two pages of different height align by ordinal band position, normalized to
 // section-relative progress. We pair on nearest normalized midpoint.
-function pairSections(refMeta, ourMeta) {
+function pairSections(refMeta, ourMeta, canonicalOf) {
   const norm = (m) => m.sections.map((s) => ({
     ...s, mid: (s.box.docTop + s.box.h / 2) / Math.max(m.page.scrollHeight, 1),
   }));
@@ -284,8 +284,14 @@ function pairSections(refMeta, ourMeta) {
   // 100%. The reordering is a requirement of the build, so the instrument has to survive
   // it: identity wins, position is only the fallback.
   const declared = (o) => String(o.id).replace(/^s\d+-/, '');
+  // Match on the CANONICAL (1440) reference id, not the raw per-breakpoint one. Reference
+  // section ids are positional, so at 390/768 the band literally named "s13-..." is a
+  // different band than at 1440 (home splits one band below 980, shifting every id after
+  // it). Our components declare the 1440 id, so pairing on the raw id silently compared
+  // our services block against the reference's CTA band at mobile.
   for (const r of R) {
-    const hit = O.find((o) => !used.has(o.idx) && declared(o).startsWith(r.id));
+    const target = canonicalOf ? canonicalOf(r) : r.id;
+    const hit = O.find((o) => !used.has(o.idx) && declared(o).startsWith(target));
     if (hit) {
       used.add(hit.idx);
       pairs.set(r.idx, { ours: hit, delta: Math.abs(hit.mid - r.mid), via: 'id' });
@@ -332,8 +338,8 @@ async function diffOne(route, bp, classes, tokens) {
   if (!refMeta || !ourMeta) return { route, bp, error: 'missing capture (run capture.mjs first)', rows: [] };
 
   const outDir = await ensure(path.join(HARNESS, 'diff', `${slug(route)}-${bp}`));
-  const pairs = pairSections(refMeta, ourMeta);
   const resolveClass = buildClassResolver(classes, route, refMeta, refMeta1440);
+  const pairs = pairSections(refMeta, ourMeta, (r) => resolveClass(r).canonical);
   const rows = [];
 
   for (const p of pairs) {
@@ -348,6 +354,17 @@ async function diffOne(route, bp, classes, tokens) {
       rows.push({ route, bp, section: canonical, class: 'UNMATCHED', metric: 'no 1440 counterpart',
         value: null, threshold: null, status: 'REPORTED', joinedVia: via,
         detail: { h: p.ref.box.h, heading: p.ref.headingText || null, textChars: p.ref.textChars } });
+      continue;
+    }
+    // A reference band with no counterpart in our build. At 390/768 home carries 18
+    // reference bands against our 15 sections (one reference band splits below 980), so
+    // two reference rows can resolve to the same canonical id and compete for one of our
+    // sections. The loser has nothing to be compared against. Reporting that as "100%
+    // divergent" is false precision — there is no measurement, so say so.
+    if (!p.ours) {
+      rows.push({ route, bp, section: canonical, class: cls, metric: 'no counterpart in build',
+        value: null, threshold: null, status: 'UNPAIRED', joinedVia: via, pairedVia: p.pairedVia,
+        detail: { refHeight: p.ref.box.h, refHeading: p.ref.headingText || null } });
       continue;
     }
     if (cls === 'DELETED') {

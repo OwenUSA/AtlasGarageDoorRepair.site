@@ -11,9 +11,9 @@ export function TitleBand() {
   return (
     <section
       data-section="s03-about-vh1-roofing"
-      className="block w-full bg-linear-to-b from-accent-deep to-accent text-surface"
+      className="block w-full bg-linear-to-b from-accent-deep to-accent text-surface pt-hair pb-tight"
     >
-      <div className="mx-auto flex min-h-[189px] max-w-content flex-col justify-center gap-tight px-4 py-wide md:min-h-[129px] md:flex-row md:items-center md:justify-between md:px-gutter">
+      <div className="mx-auto flex min-h-[189px] max-w-content flex-col justify-center gap-tight px-4 md:min-h-[129px] md:flex-row md:items-center md:justify-between md:px-gutter">
         <h1 className="max-w-[28ch] text-4xl font-semibold leading-heading text-surface md:text-5xl">
           {s.heading}
         </h1>

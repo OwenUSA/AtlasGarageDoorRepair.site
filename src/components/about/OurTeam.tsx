@@ -11,9 +11,9 @@ export function OurTeam() {
   return (
     <section
       data-section="s07-our-team"
-      className="block w-full bg-linear-to-b from-accent-deep to-accent text-surface"
+      className="block w-full bg-linear-to-b from-accent-deep to-accent text-surface pt-band pb-band"
     >
-      <div className="mx-auto flex min-h-[448px] max-w-content flex-col justify-center gap-loose px-4 py-band md:px-gutter">
+      <div className="mx-auto flex min-h-[448px] max-w-content flex-col justify-center gap-loose px-4 md:px-gutter">
         <h2 className="text-4xl font-semibold leading-heading text-surface">{s.heading}</h2>
         <div className="grid grid-cols-1 gap-loose text-base leading-body text-surface md:grid-cols-3">
           {s.body?.map((para) => <p key={para}>{para}</p>)}

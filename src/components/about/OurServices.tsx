@@ -11,8 +11,8 @@ const s = copy.routes['/about'].sections.find((x) => x.id === 's08-our-services'
 
 export function OurServices() {
   return (
-    <section data-section="s08-our-services" className="block w-full bg-surface">
-      <div className="mx-auto flex min-h-[1085px] max-w-content flex-col gap-wide px-4 py-band md:px-gutter">
+    <section data-section="s08-our-services" className="block w-full bg-surface pt-snug pb-gutter xl:pt-band xl:pb-band">
+      <div className="mx-auto flex min-h-[1085px] max-w-content flex-col gap-wide px-4 md:px-gutter">
         <div className="flex flex-col gap-tight">
           <h2 className="text-4xl font-semibold leading-heading text-primary">{s.heading}</h2>
           <p className="max-w-[70ch] text-base leading-body">{s.subheading}</p>

@@ -6,7 +6,7 @@ export function RuleBand({ id }: { id: 's04' | 's09' }) {
   return (
     <section
       data-section={id}
-      className="block h-band w-full bg-primary-deep"
+      className="block w-full bg-primary-deep pt-band pb-0"
       aria-hidden="true"
     />
   );
