@@ -1,0 +1,35 @@
+{
+  "name": "atlasgaragedoorrepair",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": "22.20.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3101",
+    "build": "next build",
+    "start": "next start -p 3101",
+    "profile": "node scripts/harness/profile-reference.mjs",
+    "capture": "node scripts/harness/capture.mjs",
+    "diff": "node scripts/harness/diff.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.25",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.62.1",
+    "postcss": "^8.5.26",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}
