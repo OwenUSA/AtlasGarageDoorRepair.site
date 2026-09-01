@@ -33,8 +33,8 @@ MAP_COORDS         = 35.6528,-97.4781
 HOURS              = 7 days, 7:00 AM – 7:00 PM
 SERVICE_AREA       = Serving Edmond and the north Oklahoma City metro.
 
-MAX_AGENTS         = 2             hard concurrency cap
-ITERATION_CAP      = 3             attempts per section, then it is floored and reported
+MAX_AGENTS         = 4             hard concurrency cap (amended, was 2)
+ITERATION_CAP      = 1             ONE fix attempt per section, then floored and logged (amended, was 3)
 BP_SET             = 390, 768, 1440   exactly three
 ```
 
@@ -167,8 +167,8 @@ work yourself in the main thread. When in doubt, serial.
   unexplained after one code-level attempt, one image at a time, cropped to the section.
 - Three breakpoints, `BP_SET`, fixed. Do not add a fourth because the reference CSS has
   one; note it in `docs/profile.md` instead.
-- `ITERATION_CAP` attempts per section. On the third failure, stop, write the residual and
-  your best hypothesis to `docs/known-divergence.md`, and move on. Never a fourth.
+- `ITERATION_CAP` attempts per section — now **one**. On the first miss, stop, write the
+  residual and your best hypothesis to `docs/known-divergence.md`, and move on. Never a second.
 - Subagents return the report table and nothing else. No transcripts, no file contents,
   no narration of what they tried.
 - Re-diff only the sections you touched. Full sweeps happen at the end of a prompt, once.
@@ -262,3 +262,62 @@ system and will fight the palette you extracted in Prompt 5), **react-hook-form 
 (five fields, no backend), **libphonenumber** (one country), **any image CDN or hosted
 diff service**. `framer-motion` only if Prompt 1's profile finds real choreography — it
 should say so explicitly.
+
+---
+
+## CHAIN AMENDMENTS — issued after Prompt 2, before Prompt 3
+
+The chain was compressed mid-run. **These override both `process.md` and anything earlier
+in this file.** They are written here so they survive a context reset.
+
+### A-1 — `MAX_AGENTS` 2 → 4
+
+The hard cap moved; it is still hard. **Never exceed 4 concurrent agents, never ask to.**
+
+### A-2 — `ITERATION_CAP` 3 → 1
+
+A section gets **one** fix attempt. On the first miss it is floored: write the residual and
+your best hypothesis to `docs/known-divergence.md` and move on. **Never a second attempt.**
+Measure once, log it, move on.
+
+### A-3 — Prompt 8 is DROPPED as a separate turn
+
+There is no convergence loop. Its behavior folds into Prompts 6 and 7: **each section is
+diffed as it is built, gets one fix attempt, then is floored and logged.** The only full
+sweep in the whole run is the one in Prompt 11.
+
+### A-4 — Prompt 11 is TRIMMED
+
+**Dropped entirely — do not run, do not substitute anything for them:**
+
+- Gate 12, Lighthouse on all five routes.
+- The manual keyboard-only pass in gate 8.
+
+Both become pre-public blockers in `docs/PRE-LAUNCH.md`, worded as:
+
+- *"performance never measured"*
+- *"keyboard access is spec-verified only, never hand-tested"*
+
+**Every other gate stands**, explicitly including: `pnpm build` clean, the email sweep, the
+locations sweep, NAP consistency, hours, both maps, the internal link crawl, the
+programmatic contrast audit, reduced-motion, palette conformance and the winning seed,
+the `scripts/similarity.mjs` re-run, metadata/robots/sitemap, and the `TODO(fact)` count.
+
+### A-5 — Subagent model policy
+
+**Dispatch every section-builder and route-builder subagent on Sonnet.** The lead stays on
+Opus and keeps all reasoning-heavy work and every shared-file edit in the main thread.
+Four concurrent Opus agents is what re-trips the session rate limit.
+
+### A-6 — Parallelism guardrails at 4-wide
+
+These were theoretical at 2-wide and are real at 4-wide:
+
+- **The shell is frozen after Prompt 5.** No section agent touches `globals.css`,
+  `layout.tsx`, tokens, header, footer, nav, the NAP block, or `<BusinessMap>`. An agent
+  that needs a shared change **stops and hands it back**; the lead makes the edit once in
+  the main thread, then re-dispatches.
+- **No section agent introduces a token that is not in Prompt 5's set.** It comes back to
+  the lead or it does not happen.
+- **Prompt 6:** the lead still builds the hero and the map section personally.
+- **Prompt 7:** all four routes dispatch as a **single batch** of 4.
