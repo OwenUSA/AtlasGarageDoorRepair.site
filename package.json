@@ -32,5 +32,14 @@
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "playwright"
+    ]
   }
 }
