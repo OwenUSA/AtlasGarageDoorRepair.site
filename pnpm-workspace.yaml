@@ -1,0 +1,11 @@
+# pnpm 11 no longer reads the "pnpm" field in package.json; build-script approval
+# lives here. sharp and @tailwindcss/oxide fetch/compile the native binaries that
+# Next image optimisation and the Tailwind engine need at build time.
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+  - sharp
+
+# playwright downloads browser bundles the deployed site never uses. Listing it
+# here acknowledges the skip, which pnpm 11 needs or it fails the install.
+ignoredBuiltDependencies:
+  - playwright
