@@ -427,3 +427,146 @@ Each section gets **ONE additional attempt, spent on vertical padding and nothin
 - **No new tokens.** If a band's padding does not land on one of Prompt 5's 9 named spacing
   steps, use the nearest existing step and record the delta in the report rather than
   minting a `--spacing-*`.
+
+### Numbering note
+
+This site's **A-11** is the one-time padding cap-lift and predates the fleet-wide
+amendments. The shared-harness amendments therefore land here as **A-12 to A-16**,
+one higher than their numbers on the sibling sites. The content is identical; only
+the label differs, because renumbering A-11 would silently invalidate every existing
+reference to it in this repo's commit messages and docs.
+
+### A-12 — the harness is SHARED; this site consumes it, it does not own one
+
+Five sites independently wrote five harnesses against the same spec. Measured line overlap
+was **3–8%, and every shared line was boilerplate** (`import { chromium }`, viewport
+literals) — zero shared domain logic. The instrument is measurement plumbing: it is
+identical for every site and invisible in the product, so rebuilding it per site bought
+nothing and cost roughly 500k tokens across the programme.
+
+**Governing rule: share the instrument, never the output.** Tokens, palette seed, copy,
+section order and layout are still derived per-site from this site's own reference URL, so
+the sites stay genuinely different. Only the measuring apparatus is common.
+
+The package lives at `../_shared/harness`, configured by `./harness.config.mjs` at this
+site's root. Run every gate with the SITE ROOT as cwd:
+
+```bash
+MSYS_NO_PATHCONV=1 node ../_shared/harness/src/diff.mjs        [--route /about] [--bp 1440]
+MSYS_NO_PATHCONV=1 node ../_shared/harness/src/contrast.mjs    [--route /about] [--bp 1440]
+MSYS_NO_PATHCONV=1 node ../_shared/harness/src/rendertruth.mjs [--route /about] [--bp 390]
+```
+
+`MSYS_NO_PATHCONV=1` is required in Git Bash: a bare `/` route argument is otherwise
+rewritten into a Windows path. Two further traps, both of which have already bitten:
+
+- **Never background the dev server with `&` in the same command chain as a gate run.** It
+  drops the rest of the chain back to the original cwd, `loadConfig()` then reads a
+  *different site's* config, and the gate silently reports another site's numbers.
+  Verify identity with `curl -s localhost:<PORT>/ | grep '<title>'` before trusting output.
+- Any legacy `scripts/harness/` or `harness/` directory in this repo is **superseded**. Do
+  not run it, do not extend it.
+
+Seven instrument defects found the expensive way are now locked behind executable
+assertions in `_shared/harness/test/selftest.mjs`. They previously survived only as inline
+comments. Run `node test/selftest.mjs` in the package if you touch it.
+
+### A-13 — the comparator splits BLOCKING from ADVISORY
+
+`innerCount`, `innerRows`, `innerCols` and `position` are **ADVISORY**: computed and
+reported as a trailing per-row note, never contributing to the deviation %, never failing a
+row.
+
+They compare our clean markup against a page-builder's nested column tree and are
+**unclosable by construction**. On the Atlas site they were 94/82/81 of every residual and
+drowned the real defects underneath. Do not chase them, and do not restructure markup to
+imitate the builder's nesting.
+
+BLOCKING fields remain: box geometry, type scale, weights, letter-spacing, line-height,
+spacing rhythm, and border/shadow/radius geometry. Colour stays excluded entirely (A-8).
+
+### A-14 — render-truth gates are BLOCKING and are NOT subject to `ITERATION_CAP`
+
+`ITERATION_CAP = 1` governs **structural residuals only**. A render-truth failure is a
+defect, not a divergence from the reference — fix it, however many attempts that takes.
+
+Two gates, which fail independently because one reasons about declared CSS and the other
+about painted pixels:
+
+- **`contrast.mjs`** — gradient-aware WCAG AA. Resolves backgrounds as an ordered layer
+  stack; treats `background-image` as a real background and parses its gradient stops;
+  scores the **worst sample along the ramp**; reports `UNMEASURABLE` for `url()` or
+  translucent overlays rather than assuming white.
+- **`rendertruth.mjs`** — pixel-level. Screenshots each text box and measures the contrast
+  between its dominant painted tones; enforces WCAG 2.5.8 tap targets at the smallest
+  breakpoint; and checks CTA salience as **chroma dominance** — no other action on the page
+  may be more saturated than the call CTA.
+
+  That last check was specified wrongly three times before it worked, and the history is
+  worth keeping because each version failed differently. Ranking the CTA by painted
+  contrast against all text is unsatisfiable (near-black copy on white is ~18:1 and no
+  brand colour beats it — one site washed out its headings trying, and the regression had
+  to be reverted). Ranking the best `tel:` element against all interactive elements is
+  vacuous (a plain footer phone number at ~21:1 tops it, so the real button never has to
+  win — Atlas's invisible CTA never fired this check once). Ranking among "buttons" fails
+  on bordered nav links at 21:1 beating a saturated fill at 7.4:1. Painted contrast is
+  simply not a proxy for visual prominence; chroma is. Legibility of the CTA is covered by
+  the text-legibility check, which is what actually caught Atlas.
+
+**Why these exist.** Atlas completed this entire chain and shipped with its primary call
+CTA invisible — label painted in *exactly* its own background colour, 1:1 — on all five
+routes, while its acceptance sweep reported "23/23 pairs pass AA". Every check in that
+chain trusted the same declared values, so one blind spot took the whole audit down.
+Forge's frozen shell carried the same class of bug (a 1.16:1 secondary CTA on all five
+routes), caught before its build wave rather than after.
+
+Both gates must read **0 FAIL / 0 findings** before any "done" report.
+
+### A-15 — one rule that prevents a whole defect class
+
+Every `tel:` link is a primary conversion target on a phone-driven site, so give them all
+the WCAG 2.5.8 minimum in one place rather than per component:
+
+```css
+a[href^="tel:"] { min-height: 44px; }
+```
+
+Chased class-by-class this recurred three times in Forge's shell alone and would have
+recurred again in section builds. `min-height` is inert on a purely inline box, so tel
+links inside prose keep their natural metrics and the type scale the diff measures is
+untouched.
+
+### A-16 — the reference is SAVED LOCALLY; structural measurement is available here
+
+Three of the five sites that ran before this one lost their reference mid-build: the live
+site began answering every request — headless, headed, normal desktop UA — with a bot
+challenge (`<title>One moment, please...</title>`). Two of them had kept no local copy, so
+structural comparison became permanently impossible and every structural row on those sites
+now reports `BLOCKED/no-reference` forever.
+
+**That will not happen here.** A complete local copy of all five reference pages is in
+`reference/raw/`. Note the honest caveat for THIS site: they were saved late, after the
+build, not at Prompt 1 — so they insure future re-measurement but were not what the
+original chain measured against. The reference was still reachable when they were taken:
+
+```
+home.html  about.html  services.html  contact.html  privacy.html
+```
+
+Rules that follow from this:
+
+- **Profile and capture the LOCAL COPY, not the live site.** Serve `reference/raw/` over
+  HTTP at the same paths `harness.config.mjs`'s `routeMap` uses, and point
+  `referenceOrigin` at that server. Capturing the live site invites a mid-run wall and
+  makes every number irreproducible.
+- **Never delete `reference/raw/`.** It is the only thing standing between this site and
+  the permanent measurement loss two of its siblings suffered. It is gitignored because it
+  is someone else's markup — do not commit it, and do not lose it either.
+- Stylesheets and images still load from the reference's own CDN, which is generally not
+  challenged, so layout resolves correctly from the saved HTML.
+- Structural rows here carry REAL numbers against `STRUCT_THRESHOLD`. This site does not
+  get the `BLOCKED/no-reference` exemption, and must not claim it.
+
+The cheap preventative, stated once for anyone repeating this process: **save every
+reference page at Prompt 1, while the site is still reachable.** It costs one `curl` per
+page and it is the difference between a measurable clone and an unmeasurable one.
