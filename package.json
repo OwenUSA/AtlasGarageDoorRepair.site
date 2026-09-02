@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "next dev -p 3101",
     "build": "next build",
-    "start": "next start -p 3101",
+    "start": "node scripts/start-standalone.mjs",
     "profile": "node scripts/harness/profile-reference.mjs",
     "capture": "node scripts/harness/capture.mjs",
-    "diff": "node scripts/harness/diff.mjs"
+    "diff": "node scripts/harness/diff.mjs",
+    "postbuild": "node scripts/postbuild-standalone.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
