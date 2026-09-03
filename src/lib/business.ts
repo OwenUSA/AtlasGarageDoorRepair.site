@@ -59,7 +59,7 @@ export const business = {
   serviceArea: 'Serving Edmond and the north Oklahoma City metro.',
 
   /** Local only, D-18. Used for canonical URLs and JSON-LD `url`. */
-  url: 'http://localhost:3101',
+  url: 'https://atlasgaragedoorrepair.site',
 } as const;
 
 /** Coords-only, keyless map embed (D-07). Never accepts an address. */

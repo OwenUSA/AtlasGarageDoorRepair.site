@@ -27,7 +27,7 @@ export function CtaBand() {
             {s.cta?.primary}
           </Button>
           {s.cta?.secondary ? (
-            <Button href="/contact" variant="secondary">
+            <Button href="/contact/" variant="secondary">
               {s.cta.secondary}
             </Button>
           ) : null}

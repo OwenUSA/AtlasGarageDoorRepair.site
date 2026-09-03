@@ -63,7 +63,7 @@ export function ServicesBody() {
             {s.cta?.primary}
           </a>
           <a
-            href="/contact"
+            href="/contact/"
             className="inline-flex min-h-11 items-center justify-center gap-2 border-2 border-primary px-5 py-3 font-semibold text-primary no-underline transition-colors duration-[var(--duration-quick)] hover:bg-primary hover:text-surface"
           >
             {s.cta?.secondary}

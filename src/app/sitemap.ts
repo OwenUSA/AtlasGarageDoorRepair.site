@@ -5,9 +5,12 @@ import { business, routes } from '@/lib/business';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return routes.map((r) => ({
-    url: `${business.url}${r.href === '/' ? '' : r.href}`,
+    url: `${business.url}${r.href === '/' ? '/' : r.href + '/'}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: r.href === '/' ? 1 : 0.8,
   }));
 }
+
+// output: "export" cannot infer this metadata route is static; say so explicitly.
+export const dynamic = "force-static";

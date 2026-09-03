@@ -8,3 +8,6 @@ reference/
 
 # Reference markup, saved for measurement only (A-15/A-16). Never committed.
 reference/raw/
+
+# Static export output.
+out/

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Tailwind v4 auto-scans the repo; docs/ carries class-name prose like
+   duration-[var(--duration-fast|quick|base|panel)] which compiles to an
+   invalid rule and a build warning. Not a source of real utilities. */
+@source not "../../docs";
+@source not "../../reference";
+
 /* ============================================================================
    Design tokens — Atlas Garage Door Repair
    ----------------------------------------------------------------------------

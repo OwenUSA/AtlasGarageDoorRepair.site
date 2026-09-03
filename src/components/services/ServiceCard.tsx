@@ -21,7 +21,7 @@ export function ServiceCard({ name, text }: { name: string; text: string }) {
       ].join(' ')}
     >
       <h4 className="text-lg font-semibold leading-heading text-primary">
-        <a href="/contact" className="text-primary no-underline after:absolute after:inset-0 after:content-['']">
+        <a href="/contact/" className="text-primary no-underline after:absolute after:inset-0 after:content-['']">
           {name}
         </a>
       </h4>
