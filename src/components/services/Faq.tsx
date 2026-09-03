@@ -75,7 +75,7 @@ export function Faq() {
           </div>
         </div>
         <img
-          src="/placeholders/services-faq-bg.svg"
+          src="/placeholders/services-faq-bg.jpg"
           alt=""
           aria-hidden="true"
           className="order-1 h-[674px] w-full object-cover md:order-2"

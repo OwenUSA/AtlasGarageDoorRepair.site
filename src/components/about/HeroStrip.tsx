@@ -7,7 +7,7 @@ export function HeroStrip() {
     <section
       data-section="s02"
       className="block h-[100px] w-full bg-neutral-400 bg-cover bg-center"
-      style={{ backgroundImage: "url('/placeholders/about-title-bg.svg')" }}
+      style={{ backgroundImage: "url('/placeholders/about-title-bg.jpg')" }}
       aria-hidden="true"
     />
   );

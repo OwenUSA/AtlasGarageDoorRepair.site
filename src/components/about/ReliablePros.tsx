@@ -12,7 +12,7 @@ export function ReliablePros() {
     <section
       data-section="s06-reliable-roofing-professionals"
       className="block w-full bg-neutral-900 bg-cover bg-center text-surface pt-band pb-band xl:pt-loose"
-      style={{ backgroundImage: "url('/placeholders/about-photo.svg')" }}
+      style={{ backgroundImage: "url('/placeholders/about-photo.jpg')" }}
     >
       <div className="mx-auto flex h-[697px] max-w-content flex-col justify-center px-4 md:px-gutter">
         <div className="max-w-[46ch] bg-primary-deep/80 p-loose">

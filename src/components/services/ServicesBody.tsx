@@ -21,7 +21,7 @@ export function ServicesBody() {
   return (
     <section data-section="s04-call-918-630-7788-405-760-9814" className="relative block w-full overflow-hidden bg-neutral-200 pt-band pb-0">
       <img
-        src="/placeholders/services-body-bg.svg"
+        src="/placeholders/services-body-bg.jpg"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"

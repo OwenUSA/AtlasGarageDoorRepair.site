@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholders/services-body-bg.svg',
+        url: '/placeholders/services-body-bg.jpg',
         width: 1440,
         height: 783,
-        alt: `Garage door services offered by ${business.name} in Edmond, OK`,
+        alt: `Garage door services offered by ${business.name} in Naples, FL`,
       },
     ],
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: page.meta.title,
     description: page.meta.description,
-    images: ['/placeholders/services-body-bg.svg'],
+    images: ['/placeholders/services-body-bg.jpg'],
   },
 };
 

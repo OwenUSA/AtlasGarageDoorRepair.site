@@ -1,10 +1,9 @@
 // What we handle — reference s08-our-services, ADAPTED. 1085px @1440. Our eight services,
 // regrouped by symptom (same regrouping as `/`, Prompt 3 structural gate item 5). The
-// reference ends this band with a partner-logo image (`lo33.jpg`, 970x137) — ours is the
-// `about-partner-logo` slot, a TODO(fact) placeholder chip per D-14 (we hold no partner
-// affiliation we may name), at the same box.
+// reference ends this band with a partner-logo image (`lo33.jpg`, 970x137); we carry no
+// such affiliation to name, so the `about-partner-logo` slot (formerly a TODO(fact)
+// placeholder chip per D-14) has been removed rather than filled.
 
-import { FactChip } from '@/components/primitives';
 import { copy } from '../../../content/copy';
 
 const s = copy.routes['/about'].sections.find((x) => x.id === 's08-our-services')!;
@@ -32,7 +31,6 @@ export function OurServices() {
             </div>
           ))}
         </div>
-        <FactChip label="TODO(fact): partner / affiliation logo" className="h-[137px] w-full max-w-[970px]" />
       </div>
     </section>
   );

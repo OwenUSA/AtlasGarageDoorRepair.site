@@ -59,7 +59,7 @@ export function BusinessMap({
           />
         ) : (
           <img
-            src="/placeholders/home-map-poster.svg"
+            src="/placeholders/home-map-poster.jpg"
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full object-cover"

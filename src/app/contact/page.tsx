@@ -19,10 +19,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholders/home-map-poster.svg',
+        url: '/placeholders/home-map-poster.jpg',
         width: 1200,
         height: 675,
-        alt: `${business.name} service area map — Edmond, OK`,
+        alt: `${business.name} service area map — Naples, FL`,
       },
     ],
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: page.meta.title,
     description: page.meta.description,
-    images: ['/placeholders/home-map-poster.svg'],
+    images: ['/placeholders/home-map-poster.jpg'],
   },
 };
 

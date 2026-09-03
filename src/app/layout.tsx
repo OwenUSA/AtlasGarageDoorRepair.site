@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholders/home-hero-media.svg',
+        url: '/placeholders/home-hero-media.jpg',
         width: 1920,
         height: 1080,
-        alt: `${business.name} — garage door repair in Edmond, OK`,
+        alt: `${business.name} — garage door repair in Naples, FL`,
       },
     ],
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: copy.routes['/'].meta.title,
     description: copy.routes['/'].meta.description,
-    images: ['/placeholders/home-hero-media.svg'],
+    images: ['/placeholders/home-hero-media.jpg'],
   },
 };
 

@@ -6,7 +6,7 @@ export function TitleStrip() {
   return (
     <section data-section="s02" className="block h-[100px] w-full overflow-hidden bg-neutral-400">
       <img
-        src="/placeholders/services-title-bg.svg"
+        src="/placeholders/services-title-bg.jpg"
         alt=""
         aria-hidden="true"
         className="h-[100px] w-full object-cover"

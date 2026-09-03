@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholders/about-photo.svg',
+        url: '/placeholders/about-photo.jpg',
         width: 1440,
         height: 697,
-        alt: `${business.name} team in Edmond, OK`,
+        alt: `${business.name} team in Naples, FL`,
       },
     ],
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: page.meta.title,
     description: page.meta.description,
-    images: ['/placeholders/about-photo.svg'],
+    images: ['/placeholders/about-photo.jpg'],
   },
 };
 
