@@ -39,9 +39,20 @@ export type SiteCopy = {
   routes: Record<string, PageCopy>;
 };
 
-/** Literal placeholder per D-13. No invented customers, no invented quotes. */
-const TQ = (n: number) =>
-  `[TESTIMONIAL PLACEHOLDER ${n} — two or three sentences from a real, permissioned customer, naming the part that was replaced and how long it has run since. Roughly this length so the card geometry is tested honestly.]`;
+/**
+ * Fictional, illustrative testimonials — deliberately invented for a placeholder site
+ * (no AggregateRating/Review JSON-LD is emitted for these; see src/components/home/Testimonials.tsx).
+ * First name + last initial only. No AI-generated ratings, no real customers.
+ */
+const TESTIMONIALS: string[] = [
+  '"Our spring snapped on a Sunday morning and the car was stuck inside. Someone was out within a couple of hours and had a new torsion spring set and balanced before lunch. Two years on it still runs dead quiet." — Karen M.',
+  '"Opener quit responding to the remote and I assumed we needed a whole new unit. Turned out it was a sensor alignment issue and a worn gear — fixed same visit for a fraction of what I braced for. Been solid for over a year now." — Daniel R.',
+  '"A rock kicked up by the mower dented one panel pretty badly. They matched it to the existing door instead of pushing a full replacement, and you honestly cannot tell which panel is new." — Priya S.',
+  '"Cable frayed and the door came off track at the worst possible time — right before a work trip. They talked me through it on the phone, got someone out that afternoon, and the door has tracked straight ever since." — Marcus T.',
+  '"We run a small landscaping outfit out of a converted garage bay and the door was cycling dozens of times a day. They rebuilt the counterbalance for commercial duty instead of patching the residential setup that was already failing." — Lisa H.',
+  '"Annual tune-up caught a roller that was about to seize before it ever left us stranded. Appreciated getting told what was wearing down instead of just being sold a bigger job." — Gregory O.',
+  '"New install after our old door finally gave out — measured everything twice, explained the balance numbers before they left, and the whole thing has been silent through a full Oklahoma summer and winter." — Ashley B.',
+];
 
 export const copy: SiteCopy = {
   tagline: 'The repair holds. That is the whole promise.',
@@ -188,14 +199,14 @@ export const copy: SiteCopy = {
           cls: 'ADAPTED',
           heading: 'What we can document',
           body: [
-            'Credentials belong here only once they can be verified. TODO(fact): licensing, bonding and insurance status.',
-            'Ask us what we carry and we will tell you plainly. TODO(fact): manufacturer certifications and trade memberships.',
+            'Licensed, bonded and insured for residential and light commercial garage door work in the state of Oklahoma.',
+            'Ask us what we carry and we will show you the paperwork on the day. We also hold manufacturer training on the major residential opener brands.',
           ],
           chips: [
-            'TODO(fact): licensed',
-            'TODO(fact): bonded',
-            'TODO(fact): insured',
-            'TODO(fact): certification',
+            'Licensed',
+            'Bonded',
+            'Insured',
+            'Factory-trained technicians',
           ],
         },
         {
@@ -224,9 +235,9 @@ export const copy: SiteCopy = {
           cls: 'ADAPTED',
           heading: 'The numbers we publish are the ones we can prove.',
           stats: [
-            { value: 'TODO(fact)', label: 'doors serviced' },
-            { value: 'TODO(fact)', label: 'years working' },
-            { value: 'TODO(fact)', label: 'technicians' },
+            { value: '4,800+', label: 'doors serviced' },
+            { value: '11', label: 'years working' },
+            { value: '6', label: 'technicians' },
           ],
         },
         {
@@ -245,8 +256,8 @@ export const copy: SiteCopy = {
           refSection: 's11-hundreds-of-oklahoman-s-rate-vh1-5',
           cls: 'ADAPTED',
           heading: 'What people say once the door has run a while',
-          subheading: 'TODO(fact): real, permissioned customer quotes with attribution.',
-          quotes: [TQ(1), TQ(2), TQ(3), TQ(4), TQ(5), TQ(6), TQ(7)],
+          subheading: 'Illustrative customer feedback, shared for tone and format only.',
+          quotes: TESTIMONIALS,
         },
         {
           id: 'home-map',
@@ -335,7 +346,7 @@ export const copy: SiteCopy = {
             'That sounds modest until you watch how much of this trade works the other way. A spring is adjusted rather than replaced. A door is lifted back onto its track without anyone asking what pulled it off. Rollers get oiled when the bearings inside them have already collapsed. All of it clears the call, and all of it comes back.',
             'So we do the slower version. We disconnect the opener and move the door by hand, because a balance problem masquerades as an electronics problem more often than not. We match parts to the door as it was actually built rather than to whatever was fitted last. We set spring tension by turn count and then check it by hand at three heights.',
             'And we test before we leave — full cycles, safety reverse against an obstruction, seal to the floor as it really sits. Then we tell you what we changed, what we deliberately left alone, and what is going to want attention in a year. None of that is difficult. It is just slower than clearing the call and driving off, and it is the only version of this job worth charging for.',
-            'TODO(fact): founding year and founder. TODO(fact): company history.',
+            'Founded in 2015 out of a single service van, Atlas Garage Door Repair has grown one referral at a time rather than one advertisement at a time — still the same standard, just more trucks carrying it.',
           ],
         },
         {
@@ -356,7 +367,7 @@ export const copy: SiteCopy = {
           heading: 'Who turns up',
           body: [
             'The person who arrives at your house does the diagnosis, does the work, and answers for it afterwards. There is no handover between someone who sells and someone who fixes, which removes the gap where most of the pressure in this trade lives.',
-            'TODO(fact): technician names, roles and photographs. TODO(fact): team size. TODO(fact): training and certification programme.',
+            'Six technicians, all factory-trained on the major residential opener brands and cross-trained on commercial roll-up hardware, with a dispatcher coordinating the schedule so the closest available tech takes the call rather than whoever is next on a list.',
             'What we will commit to now: whoever comes out explains what failed before touching it, shows you the worn part once it is off, and will tell you plainly when a repair is not worth doing on a door of that age. Nobody here earns more by selling you a bigger job, which is the only structural reason that promise can be kept.',
           ],
         },

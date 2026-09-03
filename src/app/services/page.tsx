@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
+import { business } from '@/lib/business';
 import { TitleStrip } from '@/components/services/TitleStrip';
 import { PageTitle } from '@/components/services/PageTitle';
 import { AnchorNav } from '@/components/services/AnchorNav';
@@ -14,6 +15,27 @@ export const metadata: Metadata = {
   title: page.meta.title,
   description: page.meta.description,
   alternates: { canonical: '/services' },
+  openGraph: {
+    title: page.meta.title,
+    description: page.meta.description,
+    url: '/services',
+    siteName: business.name,
+    type: 'website',
+    images: [
+      {
+        url: '/placeholders/services-body-bg.svg',
+        width: 1440,
+        height: 783,
+        alt: `Garage door services offered by ${business.name} in Edmond, OK`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: page.meta.title,
+    description: page.meta.description,
+    images: ['/placeholders/services-body-bg.svg'],
+  },
 };
 
 /**

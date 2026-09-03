@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { copy } from '../../content/copy';
+import { business } from '@/lib/business';
 import { AnnouncementStrip } from '@/components/home/AnnouncementStrip';
 import { Hero } from '@/components/home/Hero';
 import { Services } from '@/components/home/Services';
@@ -19,6 +20,27 @@ export const metadata: Metadata = {
   title: page.meta.title,
   description: page.meta.description,
   alternates: { canonical: '/' },
+  openGraph: {
+    title: page.meta.title,
+    description: page.meta.description,
+    url: '/',
+    siteName: business.name,
+    type: 'website',
+    images: [
+      {
+        url: '/placeholders/home-hero-media.svg',
+        width: 1920,
+        height: 1080,
+        alt: `${business.name} — garage door repair in Edmond, OK`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: page.meta.title,
+    description: page.meta.description,
+    images: ['/placeholders/home-hero-media.svg'],
+  },
 };
 
 /**

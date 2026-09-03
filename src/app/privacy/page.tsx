@@ -1,6 +1,7 @@
 // UNREVIEWED TEMPLATE — requires legal review before launch.
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
+import { business } from '@/lib/business';
 import { TitleBand } from '@/components/privacy/TitleBand';
 import { PolicyBody } from '@/components/privacy/PolicyBody';
 import { CtaBand } from '@/components/privacy/CtaBand';
@@ -11,6 +12,27 @@ export const metadata: Metadata = {
   title: page.meta.title,
   description: page.meta.description,
   alternates: { canonical: '/privacy' },
+  openGraph: {
+    title: page.meta.title,
+    description: page.meta.description,
+    url: '/privacy',
+    siteName: business.name,
+    type: 'website',
+    images: [
+      {
+        url: '/placeholders/logo-primary.svg',
+        width: 300,
+        height: 120,
+        alt: `${business.name} logo`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: page.meta.title,
+    description: page.meta.description,
+    images: ['/placeholders/logo-primary.svg'],
+  },
 };
 
 /**

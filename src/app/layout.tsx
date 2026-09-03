@@ -23,6 +23,27 @@ export const metadata: Metadata = {
   description: copy.routes['/'].meta.description,
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: copy.routes['/'].meta.title,
+    description: copy.routes['/'].meta.description,
+    url: '/',
+    siteName: business.name,
+    type: 'website',
+    images: [
+      {
+        url: '/placeholders/home-hero-media.svg',
+        width: 1920,
+        height: 1080,
+        alt: `${business.name} — garage door repair in Edmond, OK`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: copy.routes['/'].meta.title,
+    description: copy.routes['/'].meta.description,
+    images: ['/placeholders/home-hero-media.svg'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
