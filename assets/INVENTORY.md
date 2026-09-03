@@ -88,7 +88,9 @@ breakpoints — those get a second crop in Prompt 10, per OVERRIDE 2.
 | `services-faq-bg` | /services | s06 | bg | 312x674 | 614x674 | 510x674 | 0.76:1 | cover | `#384b5d` | **yes** | `services-faq-bg.svg + services-faq-bg-alt.svg` |
 | `services-title-bg` | /services | s02 | bg | 390x100 | 768x100 | 1440x100 | 14.40:1 | cover | `#6b6d5e` | **yes** | `services-title-bg.svg + services-title-bg-alt.svg` |
 | `logo-footer` | all | s16 | img | — | — | 378x252 | 3:2 | fill | `#ececee` | no | `logo-footer.svg` |
-| `logo-primary` | all | chrome-header | img | 300x120 | 300x120 | 300x120 | 5:2 | fill | `#ede8eb` | no | `logo-primary.svg` |
+| `logo-primary` | all | chrome-header | img | 300x120 | 300x120 | 300x120 | 5:2 | fill | `#ede8eb` | no | **SUPPLIED** `logo-primary.png` (640x169) |
+| `logo-mark` | all | favicon / apple-icon | img | — | — | 512x512 | 1:1 | contain | transparent | no | **SUPPLIED** `logo-mark.png` |
+| `logo-social` | all | og:image / JSON-LD `image` | img | — | — | 1456x736 | 1.98:1 | — | `#f6f6f1` | no | **SUPPLIED** `atlas-door-logo.jpg` |
 
 ### Slot notes
 
@@ -120,7 +122,11 @@ breakpoints — those get a second crop in Prompt 10, per OVERRIDE 2.
 - **`services-faq-bg`** — Their vehicle shot behind the FAQ band.
 - **`services-title-bg`** — Page-title strip background. Rendered 2× in the band.
 - **`logo-footer`** — Their logo again, footer lockup.
-- **`logo-primary`** — Their wordmark. Ours is a Montserrat wordmark until a file is handed over. Rendered 5× in the band.
+- **`logo-primary`** — Their wordmark. **Ours is now the supplied Atlas lockup** (`atlas-door-logo.jpg`,
+  handed over 2026-09-03). The JPG ships as-is for `og:image` and JSON-LD `image`; for the header it was
+  keyed off its off-white studio backdrop and trimmed to the artwork box (910x240, served at 640w as
+  `logo-primary.png`) so the mark sits on `--color-surface` with no visible plate. The `A` glyph, squared
+  and padded, is `logo-mark.png` → `src/app/icon.png` + `apple-icon.png`. The Montserrat text wordmark is gone.
 
 ---
 

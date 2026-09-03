@@ -19,7 +19,7 @@ Opened: Prompt 2.
 
 | # | TODO(fact) | where it renders | placeholder standing in | dimensions |
 |---|---|---|---|---|
-| F-01 | **logo asset** — real wordmark + icon lockup | header, all five routes | Montserrat wordmark | 300×120 @390/768, 290×116 @1440 |
+| ~~F-01~~ | ~~**logo asset** — real wordmark + icon lockup~~ | **RESOLVED 2026-09-03** — `atlas-door-logo.jpg` supplied; header, favicon and og:image now carry it | — | — |
 | F-02 | **logo asset, footer lockup** | footer | Montserrat wordmark | 378×252 @1440 |
 
 ## Credentials, certifications, trust badges — D-14

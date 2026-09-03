@@ -15,6 +15,7 @@
 // Known deliberate divergence: `position: sticky` vs the reference's `fixed`. Sticky keeps
 // the header in flow so nothing needs a compensating offset (docs/behavior/02).
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
 import { business, telHref } from '@/lib/business';
@@ -41,13 +42,17 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex h-header-sm max-w-content items-center justify-between gap-4 px-4 md:px-gutter lg:h-header">
           <Link href="/" className="no-underline" aria-label={`${business.name} — home`}>
-            {/* TODO(fact): logo asset. Montserrat wordmark until a file is handed over. */}
-            <span className="block text-lg font-bold leading-heading text-primary md:text-2xl">
-              Atlas
-            </span>
-            <span className="block text-2xs font-medium uppercase tracking-wide text-neutral-600">
-              Garage Door Repair
-            </span>
+            {/* Supplied logo lockup (2026-09-03), keyed off its JPG backdrop and trimmed to
+                the artwork box: 910x240 source, served at 640w. Height-driven so the header
+                band height stays the measured value at every breakpoint. */}
+            <Image
+              src="/placeholders/logo-primary.png"
+              alt=""
+              width={640}
+              height={169}
+              priority
+              className="block h-10 w-auto lg:h-14"
+            />
           </Link>
 
           <nav aria-label="Main" className="hidden lg:block">

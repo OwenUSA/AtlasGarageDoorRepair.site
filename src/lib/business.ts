@@ -89,7 +89,7 @@ export function localBusinessJsonLd() {
     name: business.name,
     telephone: business.phone.e164,
     url: business.url,
-    image: `${business.url}/placeholders/logo-primary.svg`,
+    image: `${business.url}/placeholders/atlas-door-logo.jpg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: business.address.street,

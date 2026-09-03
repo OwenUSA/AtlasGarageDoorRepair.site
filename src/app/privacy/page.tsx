@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholders/logo-primary.svg',
-        width: 300,
-        height: 120,
+        url: '/placeholders/atlas-door-logo.jpg',
+        width: 1456,
+        height: 736,
         alt: `${business.name} logo`,
       },
     ],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: page.meta.title,
     description: page.meta.description,
-    images: ['/placeholders/logo-primary.svg'],
+    images: ['/placeholders/atlas-door-logo.jpg'],
   },
 };
 
