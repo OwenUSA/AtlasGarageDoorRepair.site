@@ -27,24 +27,22 @@ BREAKPOINTS        = <filled by Prompt 1 from the reference CSS>
 
 BUSINESS           = Atlas Garage Door Repair
 TAGLINE            = The repair holds. That is the whole promise.
-PHONE              = (405) 555-0163
-ADDRESS            = 2317 Harrow Bend, Edmond, OK 73013
-MAP_COORDS         = 35.6528,-97.4781
+PHONE              = (239) 427-4221
+ADDRESS            = 6050 Collier Blvd, Ste 1, Naples, FL 34114
+MAP_COORDS         = 26.0439,-81.6999
 HOURS              = 7 days, 7:00 AM – 7:00 PM
-SERVICE_AREA       = Serving Edmond and the north Oklahoma City metro.
+SERVICE_AREA       = Serving Naples and the surrounding Collier County communities.
 
 MAX_AGENTS         = 4             hard concurrency cap (amended, was 2)
 ITERATION_CAP      = 1             ONE fix attempt per section, then floored and logged (amended, was 3)
 BP_SET             = 390, 768, 1440   exactly three
 ```
 
-**EVERY BUSINESS FACT ABOVE IS FICTIONAL AND DELIBERATE.** The address does not exist; the
-coordinates are real Edmond coordinates and the map is embedded by coordinates only, per
-D-07. The phone is in the 555-01XX reserved range and cannot ring anyone. Treat all of it
-as ground truth for the build and list every one of them in `docs/PRE-LAUNCH.md` as
-must-replace-before-public. This does not license inventing any OTHER fact — credentials,
-years in business, review counts, prices, response times, and team size are still
-`TODO(fact)` per D-14 and D-17.
+**These are Atlas Garage Door Repair's real business facts** (updated 2026-09-03, per
+`domains-table.md` at the repo root). The coordinates were geocoded from the street
+address via the US Census geocoder and the map is embedded by coordinates, per D-07.
+This does not license inventing any OTHER fact — credentials, years in business, review
+counts, prices, response times, and team size are still `TODO(fact)` per D-14 and D-17.
 
 **Pre-answered, do not stall on these:**
 

@@ -9,8 +9,10 @@ Spec only. Built in Prompt 5 as `<BusinessMap>`, a **lead-owned shared component
 > **Both are DELETED under D-02** — they are a locations feature.
 >
 > Ours is a different thing entirely: a single location pin, embedded **by coordinates
-> only**, because the address is fictional and must never reach a geocoder (D-07). So this
-> is a NOVEL component measured by token conformance, not a clone.
+> only**, per D-07/D-08. The coordinates were geocoded once, offline, from the real street
+> address via the US Census geocoder (see `CLAUDE.md`) — the embed uses that stored pair
+> directly rather than re-geocoding an address string on every load. So this is a NOVEL
+> component measured by token conformance, not a clone.
 
 ---
 
@@ -19,11 +21,13 @@ Spec only. Built in Prompt 5 as `<BusinessMap>`, a **lead-owned shared component
 A keyless iframe:
 
 ```
-https://www.google.com/maps?q=35.6528,-97.4781&z=<zoom>&output=embed
+https://www.google.com/maps?q=26.0439,-81.6999&z=<zoom>&output=embed
 ```
 
-**Coordinates only — never the address string.** `2317 Harrow Bend` does not exist; passing
-it to a geocoder returns nothing or, worse, something wrong.
+**Coordinates only — never the address string.** The address is real, but it was already
+geocoded once, offline, into `MAP_COORDS`; re-geocoding `6050 Collier Blvd, Ste 1, Naples,
+FL 34114` as a string on every page load is unnecessary and less reliable than using the
+stored pair.
 
 Three layers:
 
@@ -39,7 +43,7 @@ second line of defence for browsers where the observer has not fired.
 Below the map, a **"Get directions"** link, always present and never gated:
 
 ```
-https://www.google.com/maps/dir/?api=1&destination=35.6528,-97.4781
+https://www.google.com/maps/dir/?api=1&destination=26.0439,-81.6999
 ```
 
 Both the coordinates and the zoom come from **`lib/business.ts`**; zoom is a prop. A
@@ -49,7 +53,7 @@ hard-coded coordinate anywhere else is a bug (Prompt 5, item 5).
 
 | not this | why |
 |---|---|
-| the address string in `q=` | the address is fictional; D-07 forbids geocoding it |
+| the address string in `q=` | the address is real, but it is already geocoded once into `MAP_COORDS`; re-geocoding a string on every load is unnecessary and less reliable (D-07) |
 | the Maps JavaScript API | needs a key; D-18 bars third-party keys |
 | `@vis.gl/react-google-maps`, Leaflet, Mapbox | not on the allowlist, and none is needed for one pin |
 | an iframe with no aspect-ratio wrapper | the single largest CLS source on the page |
@@ -86,8 +90,9 @@ in. It must not animate the wrapper's size — the box was already final.
 - **No aspect-ratio wrapper.** The iframe has a default 150px height until its content
   loads, then jumps. This is the biggest CLS contributor on any page with an embed, and on
   `/contact` it moves the form under the user's cursor mid-typing.
-- **Passing the fake address.** Returns an empty or wrong map. D-07 exists precisely
-  because someone will try this.
+- **Passing the address string instead of `MAP_COORDS`.** Even though the address is real,
+  re-geocoding it on every load is unnecessary and less reliable than the stored
+  coordinates. D-07 exists precisely because someone will try this.
 - **`loading="lazy"` treated as sufficient.** Chrome's heuristics load lazily-flagged
   iframes quite eagerly on fast connections; the observer is what actually defers it.
 - **Rendering the iframe on the server.** It is in the initial HTML, so it loads
@@ -120,8 +125,8 @@ in. It must not animate the wrapper's size — the box was already final.
 ## Accessibility
 
 - **`title` is mandatory** and specific: `title="Map showing Atlas Garage Door Repair,
-  2317 Harrow Bend, Edmond, OK"`. Not "Map".
-- The **fake address is displayed as text beside the map** (D-07), so the location is
+  6050 Collier Blvd, Naples, FL"`. Not "Map".
+- The **address is displayed as text beside the map** (D-07), so the location is
   available without loading, seeing, or interacting with an embed.
 - **Map bypass**: an iframe is a focus trap for keyboard users, who can tab into Google's
   controls and need many presses to get out. A skip link immediately before the map —

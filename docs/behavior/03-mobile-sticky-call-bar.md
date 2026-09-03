@@ -16,7 +16,7 @@ Below 768. Spec only. Built in Prompt 5. **Not implemented yet.**
 ## Mechanism
 
 **`position: fixed; bottom: 0; left: 0; right: 0`** containing a single
-`<a href="tel:+14055550163">` with the number as visible text.
+`<a href="tel:+12394274221">` with the number as visible text.
 
 It is **always present below 768** — no scroll trigger, no reveal, no hide-on-scroll-down.
 It is not an animation; it is a persistent surface.
@@ -84,10 +84,10 @@ Re-entry: not applicable, nothing fires more than once.
 
 ## Accessibility
 
-- A real `<a href="tel:+14055550163">`, never a `<button>` with an `onClick`. Links to
+- A real `<a href="tel:+12394274221">`, never a `<button>` with an `onClick`. Links to
   `tel:` are announced correctly and work with the OS dialler; a scripted button does not.
 - Accessible name states the action and the number:
-  `aria-label="Call Atlas Garage Door Repair at (405) 555-0163"`. "Call now" alone gives a
+  `aria-label="Call Atlas Garage Door Repair at (239) 427-4221"`. "Call now" alone gives a
   screen-reader user no way to note the number down.
 - The number is **visible text**, so it is selectable and copyable.
 - Tap target ≥ 44×44 CSS px; the 56px bar height satisfies this with margin.

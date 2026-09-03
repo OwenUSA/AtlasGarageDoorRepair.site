@@ -77,7 +77,7 @@ navigation that follows.
 - **Hover styles applied on touch.** Without `@media (hover: hover)` the card stays in its
   hover state after a tap on iOS, so it looks selected until something else is tapped.
 - **The whole card as one `<a>`.** The accessible name becomes the service name plus the
-  entire body paragraph plus "Call (405) 555-0163" — unusable in a links list.
+  entire body paragraph plus "Call (239) 427-4221" — unusable in a links list.
 - **A `div` with `onClick`.** No keyboard access, no context menu, no middle-click, nothing
   announced. Every one of those matters more than the hover does.
 - **Transitioning `all`.** Sweeps up properties that should not animate and creates

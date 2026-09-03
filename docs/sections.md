@@ -148,7 +148,7 @@ Not built, not measured, and each one is a checklist item for the Prompt 11 loca
 | `areaServed` city array | JSON-LD |
 
 **Only survivor:** the single SERVICE_AREA sentence in the footer —
-"Serving Edmond and the north Oklahoma City metro."
+"Serving Naples and the surrounding Collier County communities."
 
 Also out of scope per D-01, never captured: `/financing/`, `/faqs/`, `/gallery/`,
 `/careers/`, `/our-certifications/`.

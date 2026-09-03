@@ -3,7 +3,7 @@ sequential chain. You are running it one prompt per turn: do Prompt N, produce i
 deliverable, stop. Never roll into the next prompt on your own — I send them.
 
 GOAL: a faithful clone of the design system and layout of REFERENCE, adapted to our own
-five routes, our own copy, our own fictional business facts, and our own randomized
+five routes, our own copy, our own real business facts, and our own randomized
 palette, shipped as a local-only Next.js site.
 
 CONSTANTS — final. Use verbatim wherever process.md says <...>:
@@ -22,23 +22,22 @@ BREAKPOINTS        = filled by Prompt 1 from the reference CSS
 
 BUSINESS           = Atlas Garage Door Repair
 TAGLINE            = The repair holds. That is the whole promise.
-PHONE              = (405) 555-0163
-ADDRESS            = 2317 Harrow Bend, Edmond, OK 73013
-MAP_COORDS         = 35.6528,-97.4781
+PHONE              = (239) 427-4221
+ADDRESS            = 6050 Collier Blvd, Ste 1, Naples, FL 34114
+MAP_COORDS         = 26.0439,-81.6999
 HOURS              = 7 days, 7:00 AM – 7:00 PM
-SERVICE_AREA       = Serving Edmond and the north Oklahoma City metro.
+SERVICE_AREA       = Serving Naples and the surrounding Collier County communities.
 
 MAX_AGENTS         = 2
 ITERATION_CAP      = 3
 BP_SET             = 390, 768, 1440
 
-EVERY BUSINESS FACT ABOVE IS FICTIONAL AND DELIBERATE. The address does not exist; the
-coordinates are real Edmond coordinates and the map is embedded by coordinates
-only, per D-07. The phone is in the 555-01XX reserved range and cannot ring anyone.
-Treat all of it as ground truth for the build and list every one of them in
-docs/PRE-LAUNCH.md as must-replace-before-public. This does not license inventing any
-OTHER fact — credentials, years in business, review counts, prices, response times, and
-team size are still TODO(fact) per D-14 and D-17.
+EVERY BUSINESS FACT ABOVE IS REAL (updated 2026-09-03, verified against
+../domains-table.md). The street address is real and the coordinates were geocoded from
+it via the US Census geocoder; the map is embedded by coordinates only, per D-07. The
+phone is a real, working number. Treat all of it as ground truth for the build. This does
+not license inventing any OTHER fact — credentials, years in business, review counts,
+prices, response times, and team size are still TODO(fact) per D-14 and D-17.
 
 THREE OVERRIDES to process.md. Where these conflict with the file, these win:
 

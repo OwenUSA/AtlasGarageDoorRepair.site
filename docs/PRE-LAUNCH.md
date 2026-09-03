@@ -1,28 +1,37 @@
 # docs/PRE-LAUNCH.md — blockers before this site faces the public
 
 **This site is not launch-ready and must not be deployed as-is.** Everything below is a
-hard blocker. The build is a faithful local clone-and-adapt exercise; several of its
-"facts" are deliberate fiction and several of its capabilities are stubs.
+hard blocker. The build is a faithful local clone-and-adapt exercise; some facts started
+as deliberate placeholders and several of the site's capabilities are stubs. As of
+2026-09-03 the phone, street address, map coordinates and service-area sentence have been
+replaced with Atlas Garage Door Repair's real, verified values (see `CLAUDE.md`) — those
+items are resolved and are no longer pre-launch blockers. The remaining items below (name
+verification, images, credentials, testimonials, legal review, the contact form, and the
+never-run gates) are still open.
 
 Status at end of chain: `pnpm build` clean, 5 routes static, 0 console errors, all
 acceptance gates run except the two dropped in A-4 (see §7).
 
 ---
 
-## 1. Every business fact is fictional — replace all of it
+## 1. Business facts — resolved vs. still open
 
-These were invented deliberately, per CONSTANTS in `CLAUDE.md`, so the build could be
-exercised without touching a real business. **Every one is wrong on purpose.**
+The phone, street address, map coordinates and service-area sentence were originally
+invented placeholders so the build could be exercised without touching a real business.
+As of 2026-09-03 those four are **real, verified values** (per `CLAUDE.md`'s CONSTANTS,
+cross-checked against `../domains-table.md`) and are resolved — no longer blockers.
+Business name and hours are still unverified against the real business and remain open,
+and the canonical URL is still a local dev placeholder.
 
-| # | fact | current fictional value | why it is fiction |
+| # | fact | current value | status |
 |---|---|---|---|
-| PL-01 | **Phone** | `(405) 555-0163` | 555-01XX is the reserved range — it **cannot ring anyone**. Rendered as `tel:+14055550163` in the header, drawer, call bar, hero, every CTA band, the footer, the contact card and JSON-LD. |
-| PL-02 | **Street address** | `2317 Harrow Bend, Edmond, OK 73013` | **The street does not exist.** It must never be passed to a geocoder (D-07), which is why both maps embed by coordinates only. |
-| PL-03 | **Business name** | `Atlas Garage Door Repair` | Invented. Appears in the logo wordmark, the `<title>` on all five routes, every meta description, JSON-LD `name`, the footer, and every `aria-label` on a call link. |
-| PL-04 | **Map coordinates** | `35.6528,-97.4781` | Real Edmond coordinates, but they point at a real place that is not this business. Both maps and both "Get directions" links use them. |
-| PL-05 | **Hours** | `7 days, 7:00 AM – 7:00 PM` | Plausible but unverified. Rendered in the top bar, footer, NAP card, contact page and `openingHoursSpecification`. |
-| PL-06 | **Service area** | `Serving Edmond and the north Oklahoma City metro.` | Unverified. The only surviving locations sentence (D-02). |
-| PL-07 | **Canonical URL** | `http://localhost:3101` | Local-only build (D-18). Every canonical tag, the sitemap, `robots.txt` and JSON-LD `url` point at localhost. |
+| PL-01 | **Phone** | `(239) 427-4221` | **RESOLVED.** Real number. Rendered as `tel:+12394274221` in the header, drawer, call bar, hero, every CTA band, the footer, the contact card and JSON-LD. |
+| PL-02 | **Street address** | `6050 Collier Blvd, Ste 1, Naples, FL 34114` | **RESOLVED.** Real street address. Both maps still embed by coordinates rather than the address string (D-07) — that is a reliability choice, not a fiction workaround. |
+| PL-03 | **Business name** | `Atlas Garage Door Repair` | **Open — unverified.** Appears in the logo wordmark, the `<title>` on all five routes, every meta description, JSON-LD `name`, the footer, and every `aria-label` on a call link. Confirm this is the business's actual registered/trade name before launch. |
+| PL-04 | **Map coordinates** | `26.0439,-81.6999` | **RESOLVED.** Geocoded from the real street address via the US Census geocoder. Both maps and both "Get directions" links use them. |
+| PL-05 | **Hours** | `7 days, 7:00 AM – 7:00 PM` | **Open — unverified.** Plausible but not yet confirmed against the real business. Rendered in the top bar, footer, NAP card, contact page and `openingHoursSpecification`. |
+| PL-06 | **Service area** | `Serving Naples and the surrounding Collier County communities.` | **RESOLVED.** Updated to match the real address's metro. The only surviving locations sentence (D-02). |
+| PL-07 | **Canonical URL** | `http://localhost:3101` | **Open.** Local-only build (D-18). Every canonical tag, the sitemap, `robots.txt` and JSON-LD `url` point at localhost — must be swapped for the production domain before launch. |
 
 All of PL-01 to PL-07 live in **one file** — `src/lib/business.ts`. Changing them there
 updates every render site.
@@ -81,7 +90,7 @@ Recorded verbatim, as required:
 
 | # | blocker |
 |---|---|
-| PL-21 | **JSON-LD re-verified against the real facts.** `LocalBusiness` is currently built entirely from the fictional constants. It deliberately contains no `email`, no `aggregateRating`, no `review`, no `priceRange` and no `areaServed` city array — keep it that way unless each addition is true. |
+| PL-21 | **JSON-LD re-verified against the real facts.** `LocalBusiness` now draws its phone, address and geo from real, verified constants (PL-01, PL-02, PL-04); business name and hours still need verification (PL-03, PL-05). It deliberately contains no `email`, no `aggregateRating`, no `review`, no `priceRange` and no `areaServed` city array — keep it that way unless each addition is true. |
 | PL-22 | **Hosting, domain and HTTPS.** D-18: local only. No environment config, no deploy target, no `.env`, no third-party keys, no auth. |
 | PL-23 | **Analytics and consent.** None ships (D-15). If any is added, the privacy policy (PL-17) becomes wrong the same day. |
 | PL-24 | **Prune the duplicated NAP literals from `content/copy.ts`** so `lib/business.ts` is the single source of truth in fact as well as in practice. Rendered values already come from `business.ts`; the copy file carries stale copies in its `items[]` labels. |
@@ -92,7 +101,7 @@ Recorded verbatim, as required:
 
 | category | blockers |
 |---|---|
-| fictional business facts | PL-01 – PL-07 |
+| business facts (PL-01, PL-02, PL-04, PL-06 resolved 2026-09-03; PL-03, PL-05, PL-07 still open) | PL-03, PL-05, PL-07 |
 | images and logo | PL-08 – PL-10 |
 | unresolved facts (24) | PL-11 – PL-15 |
 | testimonials | PL-16 |
@@ -100,10 +109,11 @@ Recorded verbatim, as required:
 | non-functional form | PL-18 |
 | never-measured gates | PL-19 – PL-20 |
 | infrastructure and hygiene | PL-21 – PL-24 |
-| **total** | **24 blockers** |
+| **total** | **21 open blockers** (4 resolved: PL-01, PL-02, PL-04, PL-06) |
 
-Nothing here is optional. The phone number cannot ring, the address does not exist, the
-form does not submit, and the privacy policy has not been read by a lawyer.
+Nothing here is optional. The phone and street address are now real, but the business
+name and hours are still unverified, the form does not submit, and the privacy policy has
+not been read by a lawyer.
 
 ## BLOCKER — the primary call CTA is invisible on all five routes
 

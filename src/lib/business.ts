@@ -4,11 +4,8 @@
 // coordinate or hours string anywhere else in the codebase is a bug, and Prompt 11
 // gate 4 greps for exactly that.
 //
-// EVERY VALUE BELOW IS FICTIONAL AND DELIBERATE:
-//   - the street address does not exist and must never be sent to a geocoder (D-07)
-//   - the coordinates are real Edmond coordinates; the map embeds by coords only
-//   - the phone is in the 555-01XX reserved range and cannot ring anyone (D-04)
-// All of it is listed in docs/PRE-LAUNCH.md as must-replace-before-public.
+// Real business facts, verified against domains-table.md. Coordinates were
+// geocoded from the street address via the US Census geocoder.
 
 export type Hours = {
   /** ISO weekday names, for JSON-LD openingHoursSpecification */
@@ -24,29 +21,29 @@ export const business = {
 
   phone: {
     /** as rendered to a human */
-    display: '(405) 555-0163',
+    display: '(239) 427-4221',
     /** as used in href="tel:" — E.164, no punctuation */
-    tel: '+14055550163',
+    tel: '+12394274221',
     /** digits only, for JSON-LD */
-    e164: '+1-405-555-0163',
+    e164: '+1-239-427-4221',
   },
 
   address: {
-    street: '2317 Harrow Bend',
-    locality: 'Edmond',
-    region: 'OK',
-    postalCode: '73013',
+    street: '6050 Collier Blvd, Ste 1',
+    locality: 'Naples',
+    region: 'FL',
+    postalCode: '34114',
     country: 'US',
     /** one line, as rendered */
-    display: '2317 Harrow Bend, Edmond, OK 73013',
+    display: '6050 Collier Blvd, Ste 1, Naples, FL 34114',
   },
 
-  /** Real Edmond coordinates. The map is embedded by these, never by the address. */
+  /** Geocoded from the street address (US Census geocoder). */
   geo: {
-    lat: 35.6528,
-    lng: -97.4781,
+    lat: 26.0439,
+    lng: -81.6999,
     /** "lat,lng" — the only form passed to Google */
-    pair: '35.6528,-97.4781',
+    pair: '26.0439,-81.6999',
   },
 
   hours: {
@@ -56,7 +53,7 @@ export const business = {
     display: '7 days, 7:00 AM – 7:00 PM',
   } satisfies Hours,
 
-  serviceArea: 'Serving Edmond and the north Oklahoma City metro.',
+  serviceArea: 'Serving Naples and the surrounding Collier County communities.',
 
   /** Local only, D-18. Used for canonical URLs and JSON-LD `url`. */
   url: 'https://atlasgaragedoorrepair.site',

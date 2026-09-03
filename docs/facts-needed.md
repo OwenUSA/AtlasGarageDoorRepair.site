@@ -6,8 +6,10 @@ dimensions so the layout is still tested honestly, and each one is a pre-launch 
 `docs/PRE-LAUNCH.md`.
 
 **Known and fixed — do NOT list these here:** business name, tagline, phone, address, map
-coordinates, hours, service area. They are in CONSTANTS. (They are fictional and must be
-replaced before launch, but that is a PRE-LAUNCH item, not an unknown.)
+coordinates, hours, service area. They are in CONSTANTS. (Phone, address, map coordinates
+and service area are now real, verified values as of 2026-09-03 — see `CLAUDE.md`.
+Business name and hours are still unverified against the real business; see
+`docs/PRE-LAUNCH.md` PL-03 / PL-05.)
 
 Opened: Prompt 2.
 

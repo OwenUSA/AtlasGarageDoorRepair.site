@@ -51,7 +51,7 @@ const TESTIMONIALS: string[] = [
   '"Cable frayed and the door came off track at the worst possible time — right before a work trip. They talked me through it on the phone, got someone out that afternoon, and the door has tracked straight ever since." — Marcus T.',
   '"We run a small landscaping outfit out of a converted garage bay and the door was cycling dozens of times a day. They rebuilt the counterbalance for commercial duty instead of patching the residential setup that was already failing." — Lisa H.',
   '"Annual tune-up caught a roller that was about to seize before it ever left us stranded. Appreciated getting told what was wearing down instead of just being sold a bigger job." — Gregory O.',
-  '"New install after our old door finally gave out — measured everything twice, explained the balance numbers before they left, and the whole thing has been silent through a full Oklahoma summer and winter." — Ashley B.',
+  '"New install after our old door finally gave out — measured everything twice, explained the balance numbers before they left, and the whole thing has been silent through a full year of Naples humidity and salt air." — Ashley B.',
 ];
 
 export const copy: SiteCopy = {
@@ -61,9 +61,9 @@ export const copy: SiteCopy = {
     // =====================================================================
     '/': {
       meta: {
-        title: 'Atlas Garage Door Repair | Edmond, OK Garage Door Repair',
+        title: 'Atlas Garage Door Repair | Naples, FL Garage Door Repair',
         description:
-          'Garage door repair in Edmond and north Oklahoma City. Springs, openers, cables, rollers and panels, set by measurement and cycle-tested before we leave.',
+          'Garage door repair in Naples and Collier County. Springs, openers, cables, rollers and panels, set by measurement and cycle-tested before we leave.',
       },
       sections: [
         {
@@ -83,7 +83,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         {
           id: 's02-vh1-is-proud-to-support-employ-v',
@@ -98,7 +98,7 @@ export const copy: SiteCopy = {
           heading: 'Fixed once, properly.',
           subheading:
             'We find what actually failed, replace it, and cycle-test the door before we leave.',
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           // MOVED: this is reference section 13, now built fifth. Structural change #1.
@@ -184,7 +184,7 @@ export const copy: SiteCopy = {
               ],
             },
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's04-top-rated-roofing-contractor-in-tu',
@@ -199,7 +199,7 @@ export const copy: SiteCopy = {
           cls: 'ADAPTED',
           heading: 'What we can document',
           body: [
-            'Licensed, bonded and insured for residential and light commercial garage door work in the state of Oklahoma.',
+            'Licensed, bonded and insured for residential and light commercial garage door work in the state of Florida.',
             'Ask us what we carry and we will show you the paperwork on the day. We also hold manufacturer training on the major residential opener brands.',
           ],
           chips: [
@@ -247,9 +247,9 @@ export const copy: SiteCopy = {
           cls: 'ADAPTED',
           heading: 'Your door, our workmanship.',
           body: [
-            'Edmond weather is hard on hardware. Cold mornings stiffen springs, summer heat swells timber, and grit works into every bearing on the run. We set tension by measurement rather than by feel, replace what is worn instead of adjusting around it, and cycle the door until it runs quiet.',
+            'Naples weather is hard on hardware. Salt air corrodes fasteners, humidity swells timber, and summer storms drive grit into every bearing on the run. We set tension by measurement rather than by feel, replace what is worn instead of adjusting around it, and cycle the door until it runs quiet.',
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's11-hundreds-of-oklahoman-s-rate-vh1-5',
@@ -264,7 +264,7 @@ export const copy: SiteCopy = {
           refSection: null,
           cls: 'NOVEL',
           heading: 'Where we work',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           cta: { secondary: 'Get directions' },
           note: 'Map embedded by coordinates only, zoom 13.',
         },
@@ -277,8 +277,8 @@ export const copy: SiteCopy = {
             'Open seven days a week, 7:00 AM to 7:00 PM. One block of hours, the same every day, and a person on the other end of the phone during all of them.',
           ],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
           ],
         },
@@ -286,17 +286,17 @@ export const copy: SiteCopy = {
           id: 'mobile-call-bar',
           refSection: null,
           cls: 'NOVEL',
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         {
           id: 's16',
           refSection: 's16',
           cls: 'ADAPTED',
           heading: 'Atlas Garage Door Repair',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -308,9 +308,9 @@ export const copy: SiteCopy = {
     // =====================================================================
     '/about': {
       meta: {
-        title: 'About Atlas Garage Door Repair | Edmond, OK',
+        title: 'About Atlas Garage Door Repair | Naples, FL',
         description:
-          'Who we are and how we work: measured diagnosis, parts matched to the door as built, and a cycle test before we leave. Serving Edmond and north Oklahoma City.',
+          'Who we are and how we work: measured diagnosis, parts matched to the door as built, and a cycle test before we leave. Serving Naples and Collier County.',
       },
       sections: [
         { id: 's00-top-header', refSection: 's00-top-header', cls: 'FIDELITY', body: ['Open daily 7am–7pm'] },
@@ -325,7 +325,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         { id: 's02', refSection: 's02', cls: 'FIDELITY' },
         {
@@ -333,7 +333,7 @@ export const copy: SiteCopy = {
           refSection: 's03-about-vh1-roofing',
           cls: 'ADAPTED',
           heading: 'About Atlas Garage Door Repair',
-          subheading: 'Edmond, Oklahoma',
+          subheading: 'Naples, Florida',
         },
         { id: 's04', refSection: 's04', cls: 'FIDELITY' },
         {
@@ -342,7 +342,7 @@ export const copy: SiteCopy = {
           cls: 'ADAPTED',
           heading: 'How we work',
           body: [
-            'We are a garage door repair company in Edmond, and the whole of what we sell is that the fix lasts. Not a faster van, not a bigger advert. A door that still runs right in two years.',
+            'We are a garage door repair company in Naples, and the whole of what we sell is that the fix lasts. Not a faster van, not a bigger advert. A door that still runs right in two years.',
             'That sounds modest until you watch how much of this trade works the other way. A spring is adjusted rather than replaced. A door is lifted back onto its track without anyone asking what pulled it off. Rollers get oiled when the bearings inside them have already collapsed. All of it clears the call, and all of it comes back.',
             'So we do the slower version. We disconnect the opener and move the door by hand, because a balance problem masquerades as an electronics problem more often than not. We match parts to the door as it was actually built rather than to whatever was fitted last. We set spring tension by turn count and then check it by hand at three heights.',
             'And we test before we leave — full cycles, safety reverse against an obstruction, seal to the floor as it really sits. Then we tell you what we changed, what we deliberately left alone, and what is going to want attention in a year. None of that is difficult. It is just slower than clearing the call and driving off, and it is the only version of this job worth charging for.',
@@ -427,17 +427,17 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's11',
           refSection: 's11',
           cls: 'ADAPTED',
           heading: 'Atlas Garage Door Repair',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -449,7 +449,7 @@ export const copy: SiteCopy = {
     // =====================================================================
     '/services': {
       meta: {
-        title: 'Garage Door Services | Atlas Garage Door Repair, Edmond OK',
+        title: 'Garage Door Services | Atlas Garage Door Repair, Naples FL',
         description:
           'Springs, openers, cables, rollers, tracks, panels, new doors and commercial roll-ups. Grouped by symptom so you can find yours fast. Free estimate.',
       },
@@ -466,7 +466,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         { id: 's02', refSection: 's02', cls: 'FIDELITY' },
         {
@@ -493,7 +493,7 @@ export const copy: SiteCopy = {
           id: 's04-call-918-630-7788-405-760-9814',
           refSection: 's04-call-918-630-7788-405-760-9814',
           cls: 'ADAPTED',
-          heading: 'CALL (405) 555-0163',
+          heading: 'CALL (239) 427-4221',
           subheading: 'Free estimate, seven days',
           groups: [
             {
@@ -535,14 +535,14 @@ export const copy: SiteCopy = {
               ],
             },
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's05-we-get-the-job-done',
           refSection: 's05-we-get-the-job-done',
           cls: 'ADAPTED',
           heading: 'THE REPAIR HOLDS',
-          body: ['MEASURED, FITTED AND CYCLE-TESTED ACROSS EDMOND AND NORTH OKLAHOMA CITY'],
+          body: ['MEASURED, FITTED AND CYCLE-TESTED ACROSS NAPLES AND COLLIER COUNTY'],
         },
         {
           id: 's06-faq-s',
@@ -576,17 +576,17 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's08',
           refSection: 's08',
           cls: 'ADAPTED',
           heading: 'Atlas Garage Door Repair',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -598,9 +598,9 @@ export const copy: SiteCopy = {
     // =====================================================================
     '/contact': {
       meta: {
-        title: 'Contact Atlas Garage Door Repair | (405) 555-0163',
+        title: 'Contact Atlas Garage Door Repair | (239) 427-4221',
         description:
-          'Call (405) 555-0163 or ask for a callback. Open seven days, 7:00 AM to 7:00 PM, serving Edmond and the north Oklahoma City metro. Free estimate.',
+          'Call (239) 427-4221 or ask for a callback. Open seven days, 7:00 AM to 7:00 PM, serving Naples and the surrounding Collier County communities. Free estimate.',
       },
       sections: [
         { id: 's00-top-header', refSection: 's00-top-header', cls: 'FIDELITY', body: ['Open daily 7am–7pm'] },
@@ -615,7 +615,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         {
           id: 's02-vh1-is-proud-to-support-employ-v',
@@ -653,15 +653,15 @@ export const copy: SiteCopy = {
             },
             { label: 'Anything else worth knowing', hint: 'Noises, when it started, what changed. Optional.' },
           ],
-          cta: { primary: 'Request a callback', secondary: 'Call (405) 555-0163', note: 'No account, no obligation, and a free estimate either way.' },
+          cta: { primary: 'Request a callback', secondary: 'Call (239) 427-4221', note: 'No account, no obligation, and a free estimate either way.' },
           body: [
             'We collect no email address anywhere on this site, and there is no mailing list to leave. A phone number is all we take, and it is used only to return your call.',
           ],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
-            { title: 'Area', text: 'Serving Edmond and the north Oklahoma City metro.' },
+            { title: 'Area', text: 'Serving Naples and the surrounding Collier County communities.' },
           ],
         },
         {
@@ -669,7 +669,7 @@ export const copy: SiteCopy = {
           refSection: null,
           cls: 'NOVEL',
           heading: 'Find us',
-          body: ['2317 Harrow Bend, Edmond, OK 73013'],
+          body: ['6050 Collier Blvd, Ste 1, Naples, FL 34114'],
           cta: { secondary: 'Get directions' },
           note: 'Map embedded by coordinates only, zoom 15.',
         },
@@ -678,10 +678,10 @@ export const copy: SiteCopy = {
           refSection: 's04',
           cls: 'ADAPTED',
           heading: 'Atlas Garage Door Repair',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -710,7 +710,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (405) 555-0163' },
+          cta: { primary: 'Call (239) 427-4221' },
         },
         {
           id: 's02-privacy-policy-and-terms-and-condi',
@@ -736,7 +736,7 @@ export const copy: SiteCopy = {
             },
             {
               title: 'How the form works',
-              text: 'The form validates in your browser and is not currently wired to a submission target, so what you type is not transmitted or stored anywhere. Until that changes, call (405) 555-0163 to be certain of reaching us.',
+              text: 'The form validates in your browser and is not currently wired to a submission target, so what you type is not transmitted or stored anywhere. Until that changes, call (239) 427-4221 to be certain of reaching us.',
             },
             {
               title: 'Analytics, cookies and tracking',
@@ -764,7 +764,7 @@ export const copy: SiteCopy = {
             },
             {
               title: 'Contact',
-              text: 'Atlas Garage Door Repair, 2317 Harrow Bend, Edmond, OK 73013. Phone (405) 555-0163, seven days a week, 7:00 AM to 7:00 PM.',
+              text: 'Atlas Garage Door Repair, 6050 Collier Blvd, Ste 1, Naples, FL 34114. Phone (239) 427-4221, seven days a week, 7:00 AM to 7:00 PM.',
             },
           ],
           note: 'UNREVIEWED TEMPLATE — requires legal review before launch. No GDPR or CCPA compliance is claimed.',
@@ -777,17 +777,17 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (405) 555-0163', secondary: 'Request a callback' },
+          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
         },
         {
           id: 's05',
           refSection: 's05',
           cls: 'ADAPTED',
           heading: 'Atlas Garage Door Repair',
-          body: ['Serving Edmond and the north Oklahoma City metro.'],
+          body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(405) 555-0163' },
-            { title: 'Address', text: '2317 Harrow Bend, Edmond, OK 73013' },
+            { title: 'Phone', text: '(239) 427-4221' },
+            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
