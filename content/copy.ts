@@ -767,7 +767,6 @@ export const copy: SiteCopy = {
               text: 'Atlas Garage Door Repair, 6050 Collier Blvd, Ste 1, Naples, FL 34114. Phone (239) 427-4221, seven days a week, 7:00 AM to 7:00 PM.',
             },
           ],
-          note: 'UNREVIEWED TEMPLATE — requires legal review before launch. No GDPR or CCPA compliance is claimed.',
         },
         {
           id: 's04',

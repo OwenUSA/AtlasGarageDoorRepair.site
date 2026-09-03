@@ -1,4 +1,3 @@
-// UNREVIEWED TEMPLATE — requires legal review before launch.
 import type { Metadata } from 'next';
 import { copy } from '../../../content/copy';
 import { business } from '@/lib/business';
@@ -44,7 +43,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      {/* UNREVIEWED TEMPLATE — requires legal review before launch */}
       <TitleBand />
       <PolicyBody />
       <CtaBand />
