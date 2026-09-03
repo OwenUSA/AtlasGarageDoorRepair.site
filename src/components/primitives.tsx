@@ -68,13 +68,21 @@ export function Button({ href, children, variant = 'cta', className, ...rest }: 
   );
 }
 
-/** TODO(fact) chip at a fixed box, per D-14. Never becomes a claim. */
-export function FactChip({ label, className }: { label: string; className?: string }) {
+/**
+ * TODO(fact) chip at a fixed box, per D-14. Never becomes a claim.
+ * `tone="inverted"` is for placement on a dark/accent band (e.g. the stat strip's
+ * accent gradient) — the default border-strong/neutral-600 pairing is tuned for a
+ * light band and drops under 2:1 on a saturated one.
+ */
+export function FactChip({
+  label, className, tone = 'default',
+}: { label: string; className?: string; tone?: 'default' | 'inverted' }) {
   return (
     <span
       className={clsx(
-        'inline-flex items-center justify-center border border-dashed border-border-strong',
-        'px-3 py-2 text-2xs font-medium text-neutral-600',
+        'inline-flex items-center justify-center border border-dashed',
+        'px-3 py-2 text-2xs font-medium',
+        tone === 'inverted' ? 'border-surface text-surface' : 'border-border-strong text-neutral-600',
         className,
       )}
     >

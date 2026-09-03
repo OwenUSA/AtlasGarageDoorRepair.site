@@ -20,7 +20,7 @@ export function StatStrip() {
         <div className="flex flex-wrap items-center justify-center gap-wide">
           {s.stats?.map((stat) => (
             <div key={stat.label} className="flex w-[225px] flex-col items-center gap-tight text-center">
-              <FactChip label={stat.value} className="w-full" />
+              <FactChip label={stat.value} tone="inverted" className="w-full" />
               <p className="text-sm font-medium leading-body text-surface">{stat.label}</p>
             </div>
           ))}

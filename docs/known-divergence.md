@@ -136,7 +136,7 @@ sitting in a FIDELITY row and refusing to close, the class is wrong — fix the 
 
 ---
 
-## 5. Palette — applied in Prompt 5 (amendment A-7)
+## 5. Palette — applied in Prompt 5 (amendment A-7), superseded 2026-09-03
 
 **Colour divergence from the reference is intentional and is permanently excluded from
 every diff, every threshold, and every future iteration.** The palette was randomized at
@@ -144,12 +144,32 @@ token-write time, so the site was built in its final colours from the first comp
 onward — there was no recolor pass and therefore no geometry/typography regression to
 prove innocent.
 
-### Seeds — the record
+### 2026-09-03 — seed replaced: `500656` → `239259`
+
+The original auto-selected seed (`500656`, analogous, primary hue 332°/accent hue 2°)
+passed the AA gate but landed on plum/crimson/magenta — reading as a fashion or beauty
+palette rather than a garage-door repair trade brand named "Atlas." Superseded by
+**seed `239259`** (split-complementary, primary hue 246°/accent hue 36°): a navy
+structural blue with a burnt-orange CTA, searched via the same `generate()`/`gate()`
+functions in `scripts/palette.mjs` constrained to a steel/navy primary-hue arc and an
+orange/amber accent-hue arc, still requiring `gate(cand).pass`. `ctaRatio` 6.21 (vs.
+6.34 for the old seed) — the gate is unaffected by which hue arc is searched, only by
+which of the 4,844 passing candidates in that arc is picked.
+
+Reproduce: `node scripts/palette.mjs --seed 239259 --emit`
+
+This palette swap coincided with fixing a real, unrelated contrast defect — see
+`docs/PRE-LAUNCH.md`'s "RESOLVED — the primary call CTA was invisible" section for the
+root cause (an unlayered `a`/`h1..h6` rule in `globals.css` beating every Tailwind
+utility color class, regardless of hue). The palette choice did not fix that bug; the
+`@layer base` fix did. Re-measured 0 FAIL / 1152 scored on `contrast.mjs` afterward.
+
+### Seeds — the record (original selection, superseded above)
 
 | | |
 |---|---|
 | master seed | `20260901` |
-| **winning seed** | **`500656`** |
+| **winning seed** | **`500656`** (superseded — see above) |
 | all five candidate seeds | `723907`, `941750`, **`500656`**, `23871`, `136729` |
 | rolls needed | 5 (0 rejected) |
 | reproduce | `node scripts/palette.mjs --seed 500656 --emit` |
@@ -530,8 +550,10 @@ any number in `docs/divergence.md`.
 
 **Colour divergence from the reference is intentional and is permanently excluded from
 every diff, every threshold, and every future iteration.** The palette was randomized at
-token-write time from seed `500656` (analogous, primary hue 332), so the site was built in
-its final colours from the first component onward. Colour-valued fields — resolved colour,
+token-write time, originally from seed `500656` (analogous, primary hue 332), and
+replaced 2026-09-03 with seed `239259` (split-complementary, primary hue 246, navy
+blue / burnt orange — see §5) for brand fit. Either way the site is built in its final
+colours from the first component onward. Colour-valued fields — resolved colour,
 background-colour, border-colour, gradient stops, shadow colour — are stripped from the
 structural comparator. Do not open a colour delta as a defect; there is nothing to converge.
 

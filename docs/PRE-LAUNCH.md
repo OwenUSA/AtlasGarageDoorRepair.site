@@ -115,15 +115,42 @@ Nothing here is optional. The phone and street address are now real, but the bus
 name and hours are still unverified, the form does not submit, and the privacy policy has
 not been read by a lawyer.
 
-## BLOCKER — the primary call CTA is invisible on all five routes
+## RESOLVED (2026-09-03) — the primary call CTA was invisible on all five routes
 
-Re-measured against the shared harness: 214 of 1155 contrast pairs FAIL and render-truth
-reports 129 findings. The call CTA label is painted in exactly its own background colour
-(1:1), so the conversion path for the entire site cannot be read. `THE REPAIR HOLDS` on
-/services, the hero H1 and the whole /services FAQ are in the same state.
+Root cause found: `src/app/globals.css`'s "Base" rules (`a { color: ... }`,
+`h1..h6 { color: ... }`, focus ring, skip link) were **unlayered** CSS. In Tailwind v4,
+any unlayered rule beats every rule inside a `@layer` — including every Tailwind utility
+class — regardless of source order or specificity. So a component's explicit
+`text-surface` / `text-primary` / `text-neutral-900` on an `<a>` or heading was being
+silently overridden back to the base accent/primary colour, which is exactly why the
+header/hero/CTA phone links and the hero H1 collapsed onto a same-toned background.
+Fixed by wrapping those rules in `@layer base { ... }` so component-level utilities win
+as originally intended. Three remaining components also had genuine per-component bugs,
+fixed alongside it: `FactChip` on the stat strip used the light-band text colour
+against the accent gradient band (now takes a `tone="inverted"` prop there),
+`SiteFooter`'s phone link had no explicit text colour and fell back to the (also
+unlayered) default, and `PolicyBody.tsx` used `text-neutral-400` (a decorative-only
+token) for body copy instead of `text-neutral-600`.
 
-The acceptance sweep that shipped this reported "23/23 pairs pass AA". See
-docs/known-divergence.md section 13 for why it could not have caught it.
+Also replaced the applied palette: seed `500656` (plum/crimson) → seed `239259`
+(navy blue / burnt orange, split-complementary) via the existing `scripts/palette.mjs`
+generator/gate, searched for a primary hue in the steel/navy arc and an accent hue in
+the orange/amber arc — a better fit for a garage-door trade brand named "Atlas." Same
+generator, same AA + CTA-chroma-dominance gate; only H moved.
 
-This must be fixed before the site faces the public. It is a build task, not a
-measurement one.
+Re-measured against the shared harness after both fixes:
+
+| gate | before | after |
+|---|---|---|
+| `contrast.mjs` | 214 FAIL / 1155 scored | **0 FAIL** / 1152 scored, 12 UNMEASURABLE (text over a placeholder photo, pre-existing) |
+| `rendertruth.mjs` text-legibility | 90 findings | **0 findings** |
+| `rendertruth.mjs` other (tap-target, cta-primacy) | — | 40 findings, unchanged before/after the palette swap — pre-existing, unrelated to colour (see below) |
+
+**Not fixed, out of scope for this pass — still open:**
+- 39 tap-target findings: a few links (`Privacy Policy` footer link, "Call about this"
+  on service cards) are under the 44×44 WCAG 2.5.8 minimum at 390px. Sizing, not colour.
+- 1 `cta-primacy` finding on `/contact` at 390: the callback form's submit button reads
+  as more saturated (chroma 0.70) than the call CTA (chroma 0.31) — the reading looks
+  like a capture artifact from an unstyled native form control rather than a real token
+  issue, since the submit button uses the same `bg-accent`/`text-surface` classes as
+  every other CTA. Needs its own investigation, unrelated to this fix.

@@ -36,7 +36,7 @@ export function PolicyBody() {
             ))}
           </ol>
 
-          <p className="mt-loose text-sm leading-body text-neutral-400">
+          <p className="mt-loose text-sm leading-body text-neutral-600">
             Questions about this policy: call{' '}
             <a href={telHref} className="font-semibold text-primary underline">
               {business.phone.display}

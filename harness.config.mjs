@@ -46,7 +46,7 @@ export default {
   trigramMax: 0.15,
   lengthTolerance: 0.1,
 
-  // Applied palette: seed 500656, analogous, plum/crimson.
+  // Applied palette: seed 239259, split-complementary, navy blue / burnt orange.
   masterSeed: 20260901,
   gradientSamples: 5,
 };

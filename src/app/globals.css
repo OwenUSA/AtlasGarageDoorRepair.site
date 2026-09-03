@@ -13,27 +13,30 @@
    appearance capture, docs/profile.md §7). Color is NOT: the ramp is
    hue-randomized at token-write time per amendment A-7.
 
-   Palette: scripts/palette.mjs --seed 500656
-   Reproduce exactly:  node scripts/palette.mjs --seed 500656 --emit
+   Palette: scripts/palette.mjs --seed 239259
+   Reproduce exactly:  node scripts/palette.mjs --seed 239259 --emit
 
    This block is the reference set for NOVEL-class token conformance.
    No component may introduce a value that does not resolve to a token here.
    ============================================================================ */
 
 @theme {
-  /* ---- palette — seed 500656, analogous (+30deg), primary hue 332, neutral tint 0.033 */
-  --color-primary: oklch(30.50% 0.0752 331.40);
-  --color-primary-deep: oklch(24.14% 0.0540 331.65);
-  --color-accent: oklch(51.19% 0.1883 2.06);
-  --color-accent-deep: oklch(33.59% 0.1326 2.39);
+  /* ---- palette — seed 239259, split-complementary (+150deg), primary hue 246, neutral tint 0.032
+     Navy structural blue (primary) with a burnt-orange CTA (accent) — chosen to read as a
+     garage-door/home-services trade brand rather than the plum/crimson seed 500656 shipped
+     with originally. Same generator, same AA/chroma-dominance gate; only H moved. */
+  --color-primary: oklch(30.37% 0.0754 246.24);
+  --color-primary-deep: oklch(24.36% 0.0542 245.36);
+  --color-accent: oklch(51.14% 0.1740 36.00);
+  --color-accent-deep: oklch(33.55% 0.1125 35.87);
   --color-surface: oklch(100.00% 0.0000 89.88);
-  --color-neutral-200: oklch(93.16% 0.0320 332.15);
-  --color-neutral-400: oklch(74.44% 0.0330 330.81);
-  --color-neutral-600: oklch(50.95% 0.0343 331.38);
-  --color-neutral-900: oklch(21.72% 0.0337 331.46);
-  --color-border: oklch(74.44% 0.0330 330.81);
-  --color-border-strong: oklch(50.95% 0.0343 331.38);
-  --color-focus: oklch(31.97% 0.1270 1.73);
+  --color-neutral-200: oklch(93.08% 0.0325 245.30);
+  --color-neutral-400: oklch(74.49% 0.0324 245.25);
+  --color-neutral-600: oklch(50.92% 0.0328 246.87);
+  --color-neutral-900: oklch(21.64% 0.0323 247.79);
+  --color-border: oklch(74.49% 0.0324 245.25);
+  --color-border-strong: oklch(50.92% 0.0328 246.87);
+  --color-focus: oklch(32.01% 0.1088 35.72);
   /* semantic — EXEMPT from hue rotation, conventional hues held */
   --color-error: oklch(50.13% 0.1783 28.70);
   --color-success: oklch(51.18% 0.1274 149.71);
@@ -120,77 +123,90 @@
 
 /* ============================================================================
    Base
+   ----------------------------------------------------------------------------
+   Wrapped in @layer base: Tailwind v4 puts every utility class (text-surface,
+   text-primary, text-neutral-900, ...) inside a CSS cascade layer. An unlayered
+   rule beats every layered rule regardless of source order or specificity, so
+   an unlayered `a { color: ... }` / `h1..h6 { color: ... }` here would silently
+   override every per-component color utility applied to a link or heading —
+   which is exactly what was happening: the header/hero/CTA phone links and the
+   hero H1 all render with these defaults instead of the text-surface / etc.
+   utility the component actually applied, collapsing text onto a same-toned
+   background. @layer base puts these at the bottom of Tailwind's precedence
+   stack, same as its own base styles, so component utilities win as intended.
    ============================================================================ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: auto;
-}
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
 
-body {
-  margin: 0;
-  background-color: var(--color-surface);
-  color: var(--color-neutral-600);
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  /* The reference computes font-weight 500 on all 17 of its bands, not 400. This is a
-     real typographic trait of the design, not a metric adjustment. */
-  font-weight: var(--font-weight-medium);
-  line-height: var(--leading-body);
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    margin: 0;
+    background-color: var(--color-surface);
+    color: var(--color-neutral-600);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    /* The reference computes font-weight 500 on all 17 of its bands, not 400. This is a
+       real typographic trait of the design, not a metric adjustment. */
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* The reference sets line-height: 1em on every heading. It is the single most
-   recognisable typographic trait of the design and it is reproduced exactly. */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--leading-heading);
-  letter-spacing: var(--tracking-none);
-}
+  /* The reference sets line-height: 1em on every heading. It is the single most
+     recognisable typographic trait of the design and it is reproduced exactly. */
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-none);
+  }
 
-p, ul, ol { margin: 0; }
-img, svg, video, iframe { display: block; max-width: 100%; }
+  p, ul, ol { margin: 0; }
+  img, svg, video, iframe { display: block; max-width: 100%; }
 
-a {
-  color: var(--color-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
+  a {
+    color: var(--color-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
 
-/* ---- focus: two-layer ring, gated in scripts/palette.mjs -------------------
-   A surface-coloured inner halo plus a dark outer ring. On a dark band the halo
-   separates; on a light band the ring does. One flat ring cannot hold 3:1
-   against both a white page and a saturated button. */
-:focus { outline: none; }
-:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px var(--color-surface),
-    0 0 0 4px var(--color-focus);
-  border-radius: var(--radius-sm);
-}
+  /* ---- focus: two-layer ring, gated in scripts/palette.mjs -----------------
+     A surface-coloured inner halo plus a dark outer ring. On a dark band the halo
+     separates; on a light band the ring does. One flat ring cannot hold 3:1
+     against both a white page and a saturated button. */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-surface),
+      0 0 0 4px var(--color-focus);
+    border-radius: var(--radius-sm);
+  }
 
-/* Skip link — first focusable element, required by docs/behavior/02 */
-.skip-link {
-  position: absolute;
-  left: var(--spacing-tight);
-  top: calc(-1 * var(--spacing-header));
-  z-index: 100;
-  padding: var(--spacing-snug) var(--spacing-gutter);
-  background-color: var(--color-primary);
-  color: var(--color-surface);
-  font-weight: var(--font-weight-semibold);
-  transition: top var(--duration-fast) ease-out;
+  /* Skip link — first focusable element, required by docs/behavior/02 */
+  .skip-link {
+    position: absolute;
+    left: var(--spacing-tight);
+    top: calc(-1 * var(--spacing-header));
+    z-index: 100;
+    padding: var(--spacing-snug) var(--spacing-gutter);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+    transition: top var(--duration-fast) ease-out;
+  }
+  .skip-link:focus-visible { top: var(--spacing-tight); }
 }
-.skip-link:focus-visible { top: var(--spacing-tight); }
 
 /* ---- reduced motion: every animation degrades (D-19) --------------------- */
 @media (prefers-reduced-motion: reduce) {

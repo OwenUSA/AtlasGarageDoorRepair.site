@@ -21,7 +21,11 @@ export function SiteFooter() {
               <div className="flex gap-2">
                 <dt className="font-semibold">Phone</dt>
                 <dd>
-                  <a href={telHref} aria-label={`Call ${business.name} at ${business.phone.display}`}>
+                  <a
+                    href={telHref}
+                    aria-label={`Call ${business.name} at ${business.phone.display}`}
+                    className="text-neutral-900 hover:text-primary"
+                  >
                     {business.phone.display}
                   </a>
                 </dd>
