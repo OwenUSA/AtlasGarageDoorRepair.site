@@ -21,29 +21,29 @@ export const business = {
 
   phone: {
     /** as rendered to a human */
-    display: '(239) 427-4221',
+    display: '(850) 852-6090',
     /** as used in href="tel:" — E.164, no punctuation */
-    tel: '+12394274221',
+    tel: '+18508526090',
     /** digits only, for JSON-LD */
-    e164: '+1-239-427-4221',
+    e164: '+1-850-852-6090',
   },
 
   address: {
-    street: '6050 Collier Blvd, Ste 1',
-    locality: 'Naples',
+    street: '911 Gulf Breeze Pkwy, Unit B',
+    locality: 'Gulf Breeze',
     region: 'FL',
-    postalCode: '34114',
+    postalCode: '32561',
     country: 'US',
     /** one line, as rendered */
-    display: '6050 Collier Blvd, Ste 1, Naples, FL 34114',
+    display: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561',
   },
 
-  /** Geocoded from the street address (US Census geocoder). */
+  /** Geocoded from the street address (Nominatim/OSM). */
   geo: {
-    lat: 26.0439,
-    lng: -81.6999,
+    lat: 30.3588,
+    lng: -87.1552,
     /** "lat,lng" — the only form passed to Google */
-    pair: '26.0439,-81.6999',
+    pair: '30.3588,-87.1552',
   },
 
   hours: {
@@ -53,7 +53,7 @@ export const business = {
     display: '7 days, 7:00 AM – 7:00 PM',
   } satisfies Hours,
 
-  serviceArea: 'Serving Naples and the surrounding Collier County communities.',
+  serviceArea: 'Serving Gulf Breeze and the surrounding Santa Rosa County communities.',
 
   /** Local only, D-18. Used for canonical URLs and JSON-LD `url`. */
   url: 'https://atlasgaragedoorrepair.site',

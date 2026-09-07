@@ -83,7 +83,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         {
           id: 's02-vh1-is-proud-to-support-employ-v',
@@ -98,7 +98,7 @@ export const copy: SiteCopy = {
           heading: 'Fixed once, properly.',
           subheading:
             'We find what actually failed, replace it, and cycle-test the door before we leave.',
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           // MOVED: this is reference section 13, now built fifth. Structural change #1.
@@ -184,7 +184,7 @@ export const copy: SiteCopy = {
               ],
             },
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's04-top-rated-roofing-contractor-in-tu',
@@ -249,7 +249,7 @@ export const copy: SiteCopy = {
           body: [
             'Naples weather is hard on hardware. Salt air corrodes fasteners, humidity swells timber, and summer storms drive grit into every bearing on the run. We set tension by measurement rather than by feel, replace what is worn instead of adjusting around it, and cycle the door until it runs quiet.',
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's11-hundreds-of-oklahoman-s-rate-vh1-5',
@@ -277,8 +277,8 @@ export const copy: SiteCopy = {
             'Open seven days a week, 7:00 AM to 7:00 PM. One block of hours, the same every day, and a person on the other end of the phone during all of them.',
           ],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
           ],
         },
@@ -286,7 +286,7 @@ export const copy: SiteCopy = {
           id: 'mobile-call-bar',
           refSection: null,
           cls: 'NOVEL',
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         {
           id: 's16',
@@ -295,8 +295,8 @@ export const copy: SiteCopy = {
           heading: 'Atlas Garage Door Repair',
           body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -325,7 +325,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         { id: 's02', refSection: 's02', cls: 'FIDELITY' },
         {
@@ -427,7 +427,7 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's11',
@@ -436,8 +436,8 @@ export const copy: SiteCopy = {
           heading: 'Atlas Garage Door Repair',
           body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -466,7 +466,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         { id: 's02', refSection: 's02', cls: 'FIDELITY' },
         {
@@ -493,7 +493,7 @@ export const copy: SiteCopy = {
           id: 's04-call-918-630-7788-405-760-9814',
           refSection: 's04-call-918-630-7788-405-760-9814',
           cls: 'ADAPTED',
-          heading: 'CALL (239) 427-4221',
+          heading: 'CALL (850) 852-6090',
           subheading: 'Free estimate, seven days',
           groups: [
             {
@@ -535,7 +535,7 @@ export const copy: SiteCopy = {
               ],
             },
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's05-we-get-the-job-done',
@@ -576,7 +576,7 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's08',
@@ -585,8 +585,8 @@ export const copy: SiteCopy = {
           heading: 'Atlas Garage Door Repair',
           body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -598,9 +598,9 @@ export const copy: SiteCopy = {
     // =====================================================================
     '/contact': {
       meta: {
-        title: 'Contact Atlas Garage Door Repair | (239) 427-4221',
+        title: 'Contact Atlas Garage Door Repair | (850) 852-6090',
         description:
-          'Call (239) 427-4221 or ask for a callback. Open seven days, 7:00 AM to 7:00 PM, serving Naples and the surrounding Collier County communities. Free estimate.',
+          'Call (850) 852-6090 or ask for a callback. Open seven days, 7:00 AM to 7:00 PM, serving Naples and the surrounding Collier County communities. Free estimate.',
       },
       sections: [
         { id: 's00-top-header', refSection: 's00-top-header', cls: 'FIDELITY', body: ['Open daily 7am–7pm'] },
@@ -615,7 +615,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         {
           id: 's02-vh1-is-proud-to-support-employ-v',
@@ -653,13 +653,13 @@ export const copy: SiteCopy = {
             },
             { label: 'Anything else worth knowing', hint: 'Noises, when it started, what changed. Optional.' },
           ],
-          cta: { primary: 'Request a callback', secondary: 'Call (239) 427-4221', note: 'No account, no obligation, and a free estimate either way.' },
+          cta: { primary: 'Request a callback', secondary: 'Call (850) 852-6090', note: 'No account, no obligation, and a free estimate either way.' },
           body: [
             'We collect no email address anywhere on this site, and there is no mailing list to leave. A phone number is all we take, and it is used only to return your call.',
           ],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Area', text: 'Serving Naples and the surrounding Collier County communities.' },
           ],
@@ -669,7 +669,7 @@ export const copy: SiteCopy = {
           refSection: null,
           cls: 'NOVEL',
           heading: 'Find us',
-          body: ['6050 Collier Blvd, Ste 1, Naples, FL 34114'],
+          body: ['911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561'],
           cta: { secondary: 'Get directions' },
           note: 'Map embedded by coordinates only, zoom 15.',
         },
@@ -680,8 +680,8 @@ export const copy: SiteCopy = {
           heading: 'Atlas Garage Door Repair',
           body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
@@ -710,7 +710,7 @@ export const copy: SiteCopy = {
             { title: 'Contact', text: '/contact' },
             { title: 'Privacy', text: '/privacy' },
           ],
-          cta: { primary: 'Call (239) 427-4221' },
+          cta: { primary: 'Call (850) 852-6090' },
         },
         {
           id: 's02-privacy-policy-and-terms-and-condi',
@@ -736,7 +736,7 @@ export const copy: SiteCopy = {
             },
             {
               title: 'How the form works',
-              text: 'The form validates in your browser and is not currently wired to a submission target, so what you type is not transmitted or stored anywhere. Until that changes, call (239) 427-4221 to be certain of reaching us.',
+              text: 'The form validates in your browser and is not currently wired to a submission target, so what you type is not transmitted or stored anywhere. Until that changes, call (850) 852-6090 to be certain of reaching us.',
             },
             {
               title: 'Analytics, cookies and tracking',
@@ -764,7 +764,7 @@ export const copy: SiteCopy = {
             },
             {
               title: 'Contact',
-              text: 'Atlas Garage Door Repair, 6050 Collier Blvd, Ste 1, Naples, FL 34114. Phone (239) 427-4221, seven days a week, 7:00 AM to 7:00 PM.',
+              text: 'Atlas Garage Door Repair, 911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561. Phone (850) 852-6090, seven days a week, 7:00 AM to 7:00 PM.',
             },
           ],
         },
@@ -776,7 +776,7 @@ export const copy: SiteCopy = {
           body: [
             'Free estimate, seven days a week, 7:00 AM to 7:00 PM. Tell us what the door is doing and we will tell you what it needs before anything is ordered.',
           ],
-          cta: { primary: 'Call (239) 427-4221', secondary: 'Request a callback' },
+          cta: { primary: 'Call (850) 852-6090', secondary: 'Request a callback' },
         },
         {
           id: 's05',
@@ -785,8 +785,8 @@ export const copy: SiteCopy = {
           heading: 'Atlas Garage Door Repair',
           body: ['Serving Naples and the surrounding Collier County communities.'],
           items: [
-            { title: 'Phone', text: '(239) 427-4221' },
-            { title: 'Address', text: '6050 Collier Blvd, Ste 1, Naples, FL 34114' },
+            { title: 'Phone', text: '(850) 852-6090' },
+            { title: 'Address', text: '911 Gulf Breeze Pkwy, Unit B, Gulf Breeze, FL 32561' },
             { title: 'Hours', text: '7 days, 7:00 AM – 7:00 PM' },
             { title: 'Pages', text: 'Home · About · Services · Contact · Privacy' },
           ],
