@@ -21,11 +21,11 @@ export const business = {
 
   phone: {
     /** as rendered to a human */
-    display: '(850) 852-6090',
+    display: '(239) 427-4221',
     /** as used in href="tel:" — E.164, no punctuation */
-    tel: '+18508526090',
+    tel: '+12394274221',
     /** digits only, for JSON-LD */
-    e164: '+1-850-852-6090',
+    e164: '+1-239-427-4221',
   },
 
   address: {
